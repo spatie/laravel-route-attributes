@@ -2,10 +2,12 @@
 
 namespace Spatie\RouteAttributes\Tests;
 
+use Arr;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\RouteCollection;
 use Orchestra\Testbench\TestCase as Orchestra;
+use PHPUnit\Framework\Assert;
 use Spatie\RouteAttributes\RouteAttributesServiceProvider;
 
 class TestCase extends Orchestra
@@ -31,17 +33,28 @@ class TestCase extends Orchestra
         return __DIR__;
     }
 
-    public function assertRegisteredRoutesCount(int $expectedNumber): void
+    public function assertRegisteredRoutesCount(int $expectedNumber): self
     {
         $actualNumber = $this->getRouteCollection()->count();
 
         $this->assertEquals($expectedNumber, $actualNumber);
+
+        return $this;
     }
 
-    public function assertRouteRegistered(string $httpMethod, string $uri, string $controllerClass, string $controllerMethod)
-    {
+    public function assertRouteRegistered(
+        string $httpMethod,
+        string $uri,
+        string $controllerClass,
+        string $controllerMethod,
+        string|array $middleware = [],
+    ): self {
+        if (! is_array($middleware)) {
+            $middleware = Arr::wrap($middleware);
+        }
+
         $routeRegistered = collect($this->getRouteCollection()->getRoutes())
-            ->contains(function (Route $route) use ($controllerMethod, $controllerClass, $uri, $httpMethod) {
+            ->contains(function (Route $route) use ($middleware, $controllerMethod, $controllerClass, $uri, $httpMethod) {
                 if (! in_array(strtoupper($httpMethod), $route->methods)) {
                     return false;
                 }
@@ -58,10 +71,16 @@ class TestCase extends Orchestra
                     return false;
                 }
 
+                if (array_diff($route->middleware(), $middleware)) {
+                    return false;
+                }
+
                 return true;
             });
 
         $this->assertTrue($routeRegistered, 'The expected route was not registered');
+
+        return $this;
     }
 
     protected function getRouteCollection(): RouteCollection

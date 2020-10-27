@@ -3,8 +3,10 @@
 namespace Spatie\RouteAttributes\Tests;
 
 use Spatie\RouteAttributes\RouteRegistrar;
-use Spatie\RouteAttributes\Tests\TestClasses\GetRouteTestController;
-use Spatie\RouteAttributes\Tests\TestClasses\PostRouteTestController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\GetRouteTestController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\MiddlewareRouteTestController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\PostRouteTestController;
+use Spatie\RouteAttributes\Tests\TestClasses\Middleware\TestMiddleware;
 
 class RouteAttributeTest extends TestCase
 {
@@ -24,9 +26,9 @@ class RouteAttributeTest extends TestCase
     {
         $this->routeRegistrar->registerClass(GetRouteTestController::class);
 
-        $this->assertRegisteredRoutesCount(1);
-
-        $this->assertRouteRegistered('get', 'my-get-method-route', GetRouteTestController::class, 'myGetMethod');
+        $this
+            ->assertRegisteredRoutesCount(1)
+            ->assertRouteRegistered('get', 'my-get-method-route', GetRouteTestController::class, 'myGetMethod');
     }
 
     /** @test */
@@ -34,8 +36,24 @@ class RouteAttributeTest extends TestCase
     {
         $this->routeRegistrar->registerClass(PostRouteTestController::class);
 
-        $this->assertRegisteredRoutesCount(1);
+        $this
+            ->assertRegisteredRoutesCount(1)
+            ->assertRouteRegistered('post', 'my-post-method-route', PostRouteTestController::class, 'myPostMethod');
+    }
 
-        $this->assertRouteRegistered('post', 'my-post-method-route', PostRouteTestController::class, 'myPostMethod');
+    /** @test */
+    public function it_can_add_middleware_to_a_method()
+    {
+        $this->routeRegistrar->registerClass(MiddlewareRouteTestController::class);
+
+        $this->assertRouteRegistered(
+            'get',
+            'my-method',
+            MiddlewareRouteTestController::class,
+            'myMethod',
+            TestMiddleware::class,
+        );
+
+
     }
 }

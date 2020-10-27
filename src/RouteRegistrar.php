@@ -103,7 +103,10 @@ class RouteRegistrar
                 if ($attributeClass instanceof Route) {
                     $httpMethod = $attributeClass->method;
 
-                    $this->router->$httpMethod($attributeClass->url, [$class->getName(), $method->getName()]);
+                    /** @var \Illuminate\Routing\Route $route */
+                    $route = $this->router->$httpMethod($attributeClass->url, [$class->getName(), $method->getName()]);
+
+                    $route->middleware($attributeClass->middleware);
                 }
             }
         }
