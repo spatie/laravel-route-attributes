@@ -9,6 +9,5 @@ class GetControllerTest
     #[Get('my-get-method')]
     public function myGetMethod()
     {
-
     }
 }
