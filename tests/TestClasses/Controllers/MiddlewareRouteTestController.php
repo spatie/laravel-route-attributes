@@ -10,6 +10,5 @@ class MiddlewareRouteTestController
     #[Route('get', 'my-method', middleware: TestMiddleware::class)]
     public function myMethod()
     {
-
     }
 }
