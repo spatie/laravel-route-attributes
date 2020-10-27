@@ -4,8 +4,26 @@
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spatie/laravel-route-attributes/run-tests?label=tests)](https://github.com/spatie/laravel-route-attributes/actions?query=workflow%3Arun-tests+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-route-attributes.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-route-attributes)
 
+**PACKAGE IN DEVELOPMENT, DO NOT USE YET**
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+This package provides annotations to automatically register routes. Here's a quick example
+
+```php
+class MyController
+{
+    #[Get('my-route')]
+    public function myMethod()
+    {
+
+    }
+}
+```
+
+This annotation will automatically register this route
+
+```php
+Route::get('my-route', [MyController::class, 'test']);
+```
 
 ## Support us
 
