@@ -27,7 +27,7 @@ jobs:
           key: composer-${{ hashFiles('composer.lock') }}
 
       - name: Run composer install
-        run: composer install -n --prefer-dist
+        run: composer install -n --prefer-dist --ignore-platform-reqs
 
       - name: Run psalm
         run: ./vendor/bin/psalm
