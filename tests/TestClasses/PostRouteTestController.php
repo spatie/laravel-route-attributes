@@ -9,6 +9,5 @@ class PostRouteTestController
     #[Route('post', 'my-post-method-route')]
     public function myPostMethod()
     {
-
     }
 }

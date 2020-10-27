@@ -9,6 +9,5 @@ class GetRouteTestController
     #[Route('get', 'my-get-method-route')]
     public function myGetMethod()
     {
-
     }
 }
