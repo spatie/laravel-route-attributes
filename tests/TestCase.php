@@ -41,8 +41,7 @@ class TestCase extends Orchestra
     public function assertRouteRegistered(string $httpMethod, string $uri, string $controllerClass, string $controllerMethod)
     {
         $routeRegistered = collect($this->getRouteCollection()->getRoutes())
-            ->contains(function(Route $route) use ($controllerMethod, $controllerClass, $uri, $httpMethod) {
-
+            ->contains(function (Route $route) use ($controllerMethod, $controllerClass, $uri, $httpMethod) {
                 if (! in_array(strtoupper($httpMethod), $route->methods)) {
                     return false;
                 }
@@ -60,7 +59,7 @@ class TestCase extends Orchestra
                 }
 
                 return true;
-        });
+            });
 
         $this->assertTrue($routeRegistered, 'The expected route was not registered');
     }
