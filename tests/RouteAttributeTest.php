@@ -6,6 +6,7 @@ use Spatie\RouteAttributes\RouteRegistrar;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\GetRouteTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\MiddlewareRouteTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\PostRouteTestController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteNameTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Middleware\TestMiddleware;
 
 class RouteAttributeTest extends TestCase
@@ -52,6 +53,20 @@ class RouteAttributeTest extends TestCase
             MiddlewareRouteTestController::class,
             'myMethod',
             TestMiddleware::class,
+        );
+    }
+
+    /** @test */
+    public function it_can_add_a_route_name_to_a_method_method()
+    {
+        $this->routeRegistrar->registerClass(RouteNameTestController::class);
+
+        $this->assertRouteRegistered(
+            'get',
+            'my-method',
+            RouteNameTestController::class,
+            'myMethod',
+            name: 'test-name',
         );
     }
 }

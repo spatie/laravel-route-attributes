@@ -48,13 +48,14 @@ class TestCase extends Orchestra
         string $controllerClass,
         string $controllerMethod,
         string|array $middleware = [],
+        ?string $name = null,
     ): self {
         if (! is_array($middleware)) {
             $middleware = Arr::wrap($middleware);
         }
 
         $routeRegistered = collect($this->getRouteCollection()->getRoutes())
-            ->contains(function (Route $route) use ($middleware, $controllerMethod, $controllerClass, $uri, $httpMethod) {
+            ->contains(function (Route $route) use ($name, $middleware, $controllerMethod, $controllerClass, $uri, $httpMethod) {
                 if (! in_array(strtoupper($httpMethod), $route->methods)) {
                     return false;
                 }
@@ -72,6 +73,10 @@ class TestCase extends Orchestra
                 }
 
                 if (array_diff($route->middleware(), $middleware)) {
+                    return false;
+                }
+
+                if ($route->getName() !== $name) {
                     return false;
                 }
 
