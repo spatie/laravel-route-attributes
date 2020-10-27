@@ -14,7 +14,7 @@ class Route implements RouteAttribute
         public string $method,
         public string $url,
         public ?string $name = null,
-        array|string $middleware = '',
+        array|string $middleware = [],
     ) {
         $this->middleware = Arr::wrap($middleware);
     }
