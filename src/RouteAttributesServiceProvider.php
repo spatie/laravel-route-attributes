@@ -3,7 +3,6 @@
 namespace Spatie\RouteAttributes;
 
 use Illuminate\Support\ServiceProvider;
-use Spatie\RouteAttributes\Commands\RouteAttributesCommand;
 
 class RouteAttributesServiceProvider extends ServiceProvider
 {
