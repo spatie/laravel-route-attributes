@@ -54,7 +54,7 @@ class RouteAttributeTest extends TestCase
     }
 
     /** @test */
-    public function it_can_add_a_route_name_to_a_method_method()
+    public function it_can_add_a_route_name_to_a_method()
     {
         $this->routeRegistrar->registerClass(RouteNameTestController::class);
 
