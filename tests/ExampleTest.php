@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Skeleton\Tests;
+namespace Spatie\RouteAttributes\Tests;
 
 class ExampleTest extends TestCase
 {

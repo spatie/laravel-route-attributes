@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\Skeleton\Commands;
+namespace Spatie\RouteAttributes\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class RouteAttributesCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-route-attributes';
 
     public $description = 'My command';
 
