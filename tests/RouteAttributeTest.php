@@ -29,7 +29,7 @@ class RouteAttributeTest extends TestCase
 
         $this
             ->assertRegisteredRoutesCount(1)
-            ->assertRouteRegistered('get', 'my-get-method-route', GetRouteTestController::class, 'myGetMethod');
+            ->assertRouteRegistered(GetRouteTestController::class, 'myGetMethod', 'get', 'my-get-method');
     }
 
     /** @test */
@@ -39,7 +39,7 @@ class RouteAttributeTest extends TestCase
 
         $this
             ->assertRegisteredRoutesCount(1)
-            ->assertRouteRegistered('post', 'my-post-method-route', PostRouteTestController::class, 'myPostMethod');
+            ->assertRouteRegistered(PostRouteTestController::class, 'myPostMethod', 'post', 'my-post-method');
     }
 
     /** @test */
@@ -48,11 +48,8 @@ class RouteAttributeTest extends TestCase
         $this->routeRegistrar->registerClass(MiddlewareRouteTestController::class);
 
         $this->assertRouteRegistered(
-            'get',
-            'my-method',
-            MiddlewareRouteTestController::class,
-            'myMethod',
-            TestMiddleware::class,
+            controller: MiddlewareRouteTestController::class,
+            middleware: TestMiddleware::class,
         );
     }
 
@@ -62,10 +59,7 @@ class RouteAttributeTest extends TestCase
         $this->routeRegistrar->registerClass(RouteNameTestController::class);
 
         $this->assertRouteRegistered(
-            'get',
-            'my-method',
-            RouteNameTestController::class,
-            'myMethod',
+            controller: RouteNameTestController::class,
             name: 'test-name',
         );
     }

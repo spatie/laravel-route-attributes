@@ -43,10 +43,10 @@ class TestCase extends Orchestra
     }
 
     public function assertRouteRegistered(
-        string $httpMethod,
-        string $uri,
-        string $controllerClass,
-        string $controllerMethod,
+        string $controller,
+        string $controllerMethod = 'myMethod',
+        string $httpMethod = 'get',
+        string $uri = 'my-method',
         string|array $middleware = [],
         ?string $name = null,
     ): self {
@@ -55,7 +55,7 @@ class TestCase extends Orchestra
         }
 
         $routeRegistered = collect($this->getRouteCollection()->getRoutes())
-            ->contains(function (Route $route) use ($name, $middleware, $controllerMethod, $controllerClass, $uri, $httpMethod) {
+            ->contains(function (Route $route) use ($name, $middleware, $controllerMethod, $controller, $uri, $httpMethod) {
                 if (! in_array(strtoupper($httpMethod), $route->methods)) {
                     return false;
                 }
@@ -64,7 +64,7 @@ class TestCase extends Orchestra
                     return false;
                 }
 
-                if (get_class($route->getController()) !== $controllerClass) {
+                if (get_class($route->getController()) !== $controller) {
                     return false;
                 }
 

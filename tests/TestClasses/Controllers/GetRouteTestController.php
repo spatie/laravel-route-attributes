@@ -6,7 +6,7 @@ use Spatie\RouteAttributes\Attributes\Route;
 
 class GetRouteTestController
 {
-    #[Route('get', 'my-get-method-route')]
+    #[Route('get', 'my-get-method')]
     public function myGetMethod()
     {
     }

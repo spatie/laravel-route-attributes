@@ -6,7 +6,7 @@ use Spatie\RouteAttributes\Attributes\Route;
 
 class PostRouteTestController
 {
-    #[Route('post', 'my-post-method-route')]
+    #[Route('post', 'my-post-method')]
     public function myPostMethod()
     {
     }
