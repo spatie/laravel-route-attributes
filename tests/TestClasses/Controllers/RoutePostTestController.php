@@ -4,7 +4,7 @@ namespace Spatie\RouteAttributes\Tests\TestClasses\Controllers;
 
 use Spatie\RouteAttributes\Attributes\Route;
 
-class PostRouteTestController
+class RoutePostTestController
 {
     #[Route('post', 'my-post-method')]
     public function myPostMethod()

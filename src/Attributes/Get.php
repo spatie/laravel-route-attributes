@@ -2,20 +2,18 @@
 
 namespace Spatie\RouteAttributes\Attributes;
 
-use Arr;
 use Attribute;
 
 #[Attribute]
-class Route implements RouteAttribute
+class Get extends Route
 {
     public array $middleware;
 
     public function __construct(
         public string $method,
-        public string $uri,
         public ?string $name = null,
         array|string $middleware = [],
     ) {
-        $this->middleware = Arr::wrap($middleware);
+        parent::__construct(...['get', ...func_get_args()]);
     }
 }

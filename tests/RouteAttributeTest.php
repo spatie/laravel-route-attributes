@@ -3,9 +3,9 @@
 namespace Spatie\RouteAttributes\Tests;
 
 use Spatie\RouteAttributes\RouteRegistrar;
-use Spatie\RouteAttributes\Tests\TestClasses\Controllers\GetRouteTestController;
-use Spatie\RouteAttributes\Tests\TestClasses\Controllers\MiddlewareRouteTestController;
-use Spatie\RouteAttributes\Tests\TestClasses\Controllers\PostRouteTestController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteGetTestController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteMiddlewareTestController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RoutePostTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteNameTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Middleware\TestMiddleware;
 
@@ -13,42 +13,33 @@ class RouteAttributeTest extends TestCase
 {
     protected RouteRegistrar $routeRegistrar;
 
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $router = app()->router;
-
-        $this->routeRegistrar = (new RouteRegistrar($router))->useBasePath($this->getTestPath());
-    }
-
     /** @test */
     public function it_can_register_a_get_route()
     {
-        $this->routeRegistrar->registerClass(GetRouteTestController::class);
+        $this->routeRegistrar->registerClass(RouteGetTestController::class);
 
         $this
             ->assertRegisteredRoutesCount(1)
-            ->assertRouteRegistered(GetRouteTestController::class, 'myGetMethod', 'get', 'my-get-method');
+            ->assertRouteRegistered(RouteGetTestController::class, 'myGetMethod', 'get', 'my-get-method');
     }
 
     /** @test */
     public function it_can_register_a_post_route()
     {
-        $this->routeRegistrar->registerClass(PostRouteTestController::class);
+        $this->routeRegistrar->registerClass(RoutePostTestController::class);
 
         $this
             ->assertRegisteredRoutesCount(1)
-            ->assertRouteRegistered(PostRouteTestController::class, 'myPostMethod', 'post', 'my-post-method');
+            ->assertRouteRegistered(RoutePostTestController::class, 'myPostMethod', 'post', 'my-post-method');
     }
 
     /** @test */
     public function it_can_add_middleware_to_a_method()
     {
-        $this->routeRegistrar->registerClass(MiddlewareRouteTestController::class);
+        $this->routeRegistrar->registerClass(RouteMiddlewareTestController::class);
 
         $this->assertRouteRegistered(
-            controller: MiddlewareRouteTestController::class,
+            controller: RouteMiddlewareTestController::class,
             middleware: TestMiddleware::class,
         );
     }

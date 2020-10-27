@@ -3,22 +3,23 @@
 namespace Spatie\RouteAttributes\Tests;
 
 use Arr;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\RouteCollection;
 use Orchestra\Testbench\TestCase as Orchestra;
-use PHPUnit\Framework\Assert;
 use Spatie\RouteAttributes\RouteAttributesServiceProvider;
+use Spatie\RouteAttributes\RouteRegistrar;
 
 class TestCase extends Orchestra
 {
+    protected RouteRegistrar $routeRegistrar;
+
     public function setUp(): void
     {
         parent::setUp();
 
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Spatie\\RouteAttributes\\Database\\Factories\\'.class_basename($modelName).'Factory'
-        );
+        $router = app()->router;
+
+        $this->routeRegistrar = (new RouteRegistrar($router))->useBasePath($this->getTestPath());
     }
 
     protected function getPackageProviders($app)

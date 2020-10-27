@@ -104,7 +104,7 @@ class RouteRegistrar
                     $httpMethod = $attributeClass->method;
 
                     /** @var \Illuminate\Routing\Route $route */
-                    $route = $this->router->$httpMethod($attributeClass->url, [$class->getName(), $method->getName()]);
+                    $route = $this->router->$httpMethod($attributeClass->uri, [$class->getName(), $method->getName()]);
 
                     $route
                         ->middleware($attributeClass->middleware)
