@@ -53,7 +53,5 @@ class RouteAttributeTest extends TestCase
             'myMethod',
             TestMiddleware::class,
         );
-
-
     }
 }
