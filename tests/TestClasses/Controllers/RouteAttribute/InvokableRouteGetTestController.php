@@ -9,6 +9,5 @@ class InvokableRouteGetTestController
     #[Route('get', 'my-invokable-route')]
     public function __invoke()
     {
-
     }
 }
