@@ -3,10 +3,11 @@
 namespace Spatie\RouteAttributes\Tests;
 
 use Spatie\RouteAttributes\RouteRegistrar;
-use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteGetTestController;
-use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteMiddlewareTestController;
-use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RoutePostTestController;
-use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteNameTestController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\InvokableRouteGetTestController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RouteGetTestController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RouteMiddlewareTestController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RoutePostTestController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RouteNameTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Middleware\TestMiddleware;
 
 class RouteAttributeTest extends TestCase
@@ -52,6 +53,19 @@ class RouteAttributeTest extends TestCase
         $this->assertRouteRegistered(
             controller: RouteNameTestController::class,
             name: 'test-name',
+        );
+    }
+
+    /** @test */
+    public function it_can_add_a_route_for_an_invokable()
+    {
+        $this->routeRegistrar->registerClass(InvokableRouteGetTestController::class);
+        $this
+            ->assertRegisteredRoutesCount(1)
+            ->assertRouteRegistered(
+            controller: InvokableRouteGetTestController::class,
+            controllerMethod: '__invoke',
+            uri: 'my-invokable-route'
         );
     }
 }

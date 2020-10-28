@@ -91,8 +91,12 @@ class RouteRegistrar
                 if ($attributeClass instanceof Route) {
                     $httpMethod = $attributeClass->method;
 
+                    $action = $attributeClass->method === '__invoke'
+                        ? $class->getName()
+                        : [$class->getName(), $method->getName()];
+
                     /** @var \Illuminate\Routing\Route $route */
-                    $route = $this->router->$httpMethod($attributeClass->uri, [$class->getName(), $method->getName()]);
+                    $route = $this->router->$httpMethod($attributeClass->uri, $action);
 
                     $route
                         ->name($attributeClass->name);

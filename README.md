@@ -9,6 +9,8 @@
 This package provides annotations to automatically register routes. Here's a quick example:
 
 ```php
+use Spatie\RouteAttributes\Attributes\Get;
+
 class MyController
 {
     #[Get('my-route')]
