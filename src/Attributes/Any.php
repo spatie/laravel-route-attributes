@@ -8,8 +8,8 @@ use Attribute;
 class Any extends Route
 {
     public function __construct(
-        public string $uri,
-        public ?string $name = null,
+        string $uri,
+        ?string $name = null,
         array|string $middleware = [],
     ) {
         parent::__construct(
