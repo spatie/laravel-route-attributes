@@ -24,7 +24,7 @@ class MyController
 This annotation will automatically register this route:
 
 ```php
-Route::get('my-route', [MyController::class, 'test']);
+Route::get('my-route', [MyController::class, 'myMethod']);
 ```
 
 ## Support us
