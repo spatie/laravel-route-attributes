@@ -7,8 +7,6 @@ use Attribute;
 #[Attribute(Attribute::TARGET_METHOD)]
 class Patch extends Route
 {
-    public array $middleware;
-
     public function __construct(
         public string $method,
         public ?string $name = null,

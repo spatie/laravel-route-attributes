@@ -7,8 +7,6 @@ use Attribute;
 #[Attribute(Attribute::TARGET_METHOD)]
 class Delete extends Route
 {
-    public array $middleware;
-
     public function __construct(
         public string $method,
         public ?string $name = null,
