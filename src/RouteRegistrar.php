@@ -95,12 +95,16 @@ class RouteRegistrar
                     $route = $this->router->$httpMethod($attributeClass->uri, [$class->getName(), $method->getName()]);
 
                     $route
-                        ->middleware($attributeClass->middleware)
                         ->name($attributeClass->name);
 
                     if ($prefix = $classRouteAttributes->prefix()) {
                         $route->prefix($prefix);
                     }
+
+                    $classMiddleware = $classRouteAttributes->middleware();
+                    $methodMiddleware = $attributeClass->middleware;
+
+                    $route->middleware([...$classMiddleware, ...$methodMiddleware]);
                 }
             }
         }
