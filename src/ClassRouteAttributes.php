@@ -16,7 +16,6 @@ class ClassRouteAttributes
 
     public function prefix(): ?string
     {
-
         $attributes = $this->class->getAttributes(Prefix::class);
 
         if (! count($attributes)) {
@@ -24,7 +23,7 @@ class ClassRouteAttributes
         }
 
         /** @var Prefix $prefixAttribute */
-        $prefixAttribute  = $attributes[0]->newInstance();
+        $prefixAttribute = $attributes[0]->newInstance();
 
         return $prefixAttribute->prefix;
     }
