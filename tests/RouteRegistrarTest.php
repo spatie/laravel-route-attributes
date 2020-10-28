@@ -32,7 +32,6 @@ class RouteRegistrarTest extends TestCase
 
         $this->assertRegisteredRoutesCount(3);
 
-
         $this->assertRouteRegistered(
             RegistrarTestFirstController::class,
             uri: 'first-method',
