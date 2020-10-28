@@ -3,18 +3,19 @@
 namespace Spatie\RouteAttributes\Tests\TestClasses\Controllers;
 
 use Spatie\RouteAttributes\Attributes\Get;
+use Spatie\RouteAttributes\Attributes\Post;
 use Spatie\RouteAttributes\Attributes\Prefix;
 
 #[Prefix('my-prefix')]
 class PrefixTestController
 {
-    #[Get('first-method')]
-    public function firstMethod()
+    #[Get('my-get-method')]
+    public function myGetMethod()
     {
     }
 
-    #[Get('second-method')]
-    public function secondMethod()
+    #[Post('my-post-method')]
+    public function myPostMethod()
     {
     }
 }

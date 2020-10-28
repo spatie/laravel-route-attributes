@@ -74,26 +74,14 @@ class RouteRegistrar
             return;
         }
 
-        $reflectionClass = new ReflectionClass($className);
+        $class = new ReflectionClass($className);
 
-        $this->processClassRouteAttributes($reflectionClass);
+        $classRouteAttributes = new ClassRouteAttributes($class);
 
-        $this->processMethodRouteAttributes($reflectionClass);
-    }
-
-    protected function processClassRouteAttributes(ReflectionClass $class)
-    {
-        // TODO: implement
-        $classRouteAttributes = $class->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
-    }
-
-    protected function processMethodRouteAttributes(ReflectionClass $class): void
-    {
         foreach ($class->getMethods() as $method) {
-            $attributes = $method->getAttributes();
+            $attributes = $method->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
 
             foreach ($attributes as $attribute) {
-
                 try {
                     $attributeClass = $attribute->newInstance();
                 } catch (Throwable) {
@@ -109,6 +97,10 @@ class RouteRegistrar
                     $route
                         ->middleware($attributeClass->middleware)
                         ->name($attributeClass->name);
+
+                    if ($prefix = $classRouteAttributes->prefix()) {
+                        $route->prefix($prefix);
+                    }
                 }
             }
         }
