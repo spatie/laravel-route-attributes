@@ -1,7 +1,7 @@
 # Auto register routes using PHP attributes
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-route-attributes.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-route-attributes)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spatie/laravel-route-attributes/run-tests?label=tests)](https://github.com/spatie/laravel-route-attributes/actions?query=workflow%3Arun-tests+branch%3Amaster)
+![Tests](https://github.com/spatie/laravel-route-attributes/workflows/Tests/badge.svg)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-route-attributes.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-route-attributes)
 
 This package provides annotations to automatically register routes. Here's a quick example:
@@ -27,7 +27,7 @@ Route::get('my-route', [MyController::class, 'myMethod']);
 
 ## Support us
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/package-laravel-route-attributes-laravel.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/package-laravel-route-attributes-laravel)
+[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-route-attributes.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-route-attributes)
 
 We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
 
