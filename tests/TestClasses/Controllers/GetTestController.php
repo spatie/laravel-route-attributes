@@ -4,7 +4,7 @@ namespace Spatie\RouteAttributes\Tests\TestClasses\Controllers;
 
 use Spatie\RouteAttributes\Attributes\Get;
 
-class GetControllerTest
+class GetTestController
 {
     #[Get('my-get-method')]
     public function myGetMethod()

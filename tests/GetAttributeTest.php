@@ -2,17 +2,17 @@
 
 namespace Spatie\RouteAttributes\Tests;
 
-use Spatie\RouteAttributes\Tests\TestClasses\Controllers\GetControllerTest;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\GetTestController;
 
 class GetAttributeTest extends TestCase
 {
     /** @test */
     public function it_can_register_a_get_route()
     {
-        $this->routeRegistrar->registerClass(GetControllerTest::class);
+        $this->routeRegistrar->registerClass(GetTestController::class);
 
         $this
             ->assertRegisteredRoutesCount(1)
-            ->assertRouteRegistered(GetControllerTest::class, 'myGetMethod', 'get', 'my-get-method');
+            ->assertRouteRegistered(GetTestController::class, 'myGetMethod', 'get', 'my-get-method');
     }
 }

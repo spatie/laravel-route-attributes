@@ -2,17 +2,17 @@
 
 namespace Spatie\RouteAttributes\Tests;
 
-use Spatie\RouteAttributes\Tests\TestClasses\Controllers\PatchControllerTest;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\PatchTestController;
 
 class PatchAttributeTest extends TestCase
 {
     /** @test */
     public function it_can_register_a_patch_route()
     {
-        $this->routeRegistrar->registerClass(PatchControllerTest::class);
+        $this->routeRegistrar->registerClass(PatchTestController::class);
 
         $this
             ->assertRegisteredRoutesCount(1)
-            ->assertRouteRegistered(PatchControllerTest::class, 'myPatchMethod', 'patch', 'my-patch-method');
+            ->assertRouteRegistered(PatchTestController::class, 'myPatchMethod', 'patch', 'my-patch-method');
     }
 }
