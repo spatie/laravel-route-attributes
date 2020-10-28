@@ -30,7 +30,6 @@ class RouteAttributesServiceProvider extends ServiceProvider
 
         $routeRegistrar = new RouteRegistrar(app()->router);
 
-        collect(config('directories'))->each(fn(string $directory) => $routeRegistrar->registerDirectory($directory));
+        collect(config('directories'))->each(fn (string $directory) => $routeRegistrar->registerDirectory($directory));
     }
-
 }
