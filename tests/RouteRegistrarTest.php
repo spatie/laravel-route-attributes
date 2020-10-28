@@ -3,6 +3,8 @@
 namespace Spatie\RouteAttributes\Tests;
 
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteRegistrar\RegistrarTestFirstController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteRegistrar\RegistrarTestSecondController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteRegistrar\SubDirectory\RegistrarTestControllerInSubDirectory;
 
 class RouteRegistrarTest extends TestCase
 {
@@ -18,6 +20,32 @@ class RouteRegistrarTest extends TestCase
         $this->assertRouteRegistered(
             RegistrarTestFirstController::class,
             uri: 'first-method',
+        );
+    }
+
+    /** @test */
+    public function the_registrar_can_register_a_whole_directory()
+    {
+        $this
+            ->routeRegistrar
+            ->registerDirectory($this->getTestPath('TestClasses/Controllers/RouteRegistrar'));
+
+        $this->assertRegisteredRoutesCount(3);
+
+
+        $this->assertRouteRegistered(
+            RegistrarTestFirstController::class,
+            uri: 'first-method',
+        );
+
+        $this->assertRouteRegistered(
+            RegistrarTestSecondController::class,
+            uri: 'second-method',
+        );
+
+        $this->assertRouteRegistered(
+            RegistrarTestControllerInSubDirectory::class,
+            uri: 'in-sub-directory',
         );
     }
 }

@@ -3,6 +3,7 @@
 namespace Spatie\RouteAttributes;
 
 use Illuminate\Routing\Router;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use ReflectionAttribute;
 use ReflectionClass;
@@ -41,11 +42,15 @@ class RouteRegistrar
         return $this;
     }
 
-    public function registerDirectory(array $directories): void
+    public function registerDirectory(string|array $directories): void
     {
+        if (is_string($directories)) {
+            $directories = Arr::wrap($directories);
+        }
+
         $files = (new Finder())->files()->in($directories);
 
-        collect($files)->each(fn(SplFileInfo $file) => $this->processAttributes($file));
+        collect($files)->each(fn(SplFileInfo $file) => $this->registerFile($file));
     }
 
     public function registerFile(string|SplFileInfo $path): void
