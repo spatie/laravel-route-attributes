@@ -6,7 +6,7 @@
 
 **PACKAGE IN DEVELOPMENT, DO NOT USE YET**
 
-This package provides annotations to automatically register routes. Here's a quick example
+This package provides annotations to automatically register routes. Here's a quick example:
 
 ```php
 class MyController
@@ -19,7 +19,7 @@ class MyController
 }
 ```
 
-This annotation will automatically register this route
+This annotation will automatically register this route:
 
 ```php
 Route::get('my-route', [MyController::class, 'test']);
