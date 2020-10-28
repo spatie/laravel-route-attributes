@@ -17,6 +17,7 @@ class AnyAttributeTest extends TestCase
             ->assertRouteRegistered(AnyTestController::class, 'myAnyMethod', 'head', 'my-any-method')
             ->assertRouteRegistered(AnyTestController::class, 'myAnyMethod', 'get', 'my-any-method')
             ->assertRouteRegistered(AnyTestController::class, 'myAnyMethod', 'post', 'my-any-method')
+            ->assertRouteRegistered(AnyTestController::class, 'myAnyMethod', 'put', 'my-any-method')
             ->assertRouteRegistered(AnyTestController::class, 'myAnyMethod', 'patch', 'my-any-method')
             ->assertRouteRegistered(AnyTestController::class, 'myAnyMethod', 'delete', 'my-any-method');
     }
