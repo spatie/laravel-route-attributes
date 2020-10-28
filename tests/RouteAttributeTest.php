@@ -14,7 +14,7 @@ class RouteAttributeTest extends TestCase
     protected RouteRegistrar $routeRegistrar;
 
     /** @test */
-    public function it_can_register_a_get_route()
+    public function the_route_annotation_can_register_a_get_route_()
     {
         $this->routeRegistrar->registerClass(RouteGetTestController::class);
 
@@ -24,7 +24,7 @@ class RouteAttributeTest extends TestCase
     }
 
     /** @test */
-    public function it_can_register_a_post_route()
+    public function the_route_annotation_can_register_a_post_route()
     {
         $this->routeRegistrar->registerClass(RoutePostTestController::class);
 
