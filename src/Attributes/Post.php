@@ -7,13 +7,16 @@ use Attribute;
 #[Attribute(Attribute::TARGET_METHOD)]
 class Post extends Route
 {
-    public array $middleware;
-
     public function __construct(
-        public string $method,
-        public ?string $name = null,
+        string $uri,
+        ?string $name = null,
         array|string $middleware = [],
     ) {
-        parent::__construct(...['post', ...func_get_args()]);
+        parent::__construct(
+            method: 'post',
+            uri: $uri,
+            name: $name,
+            middleware: $middleware,
+        );
     }
 }

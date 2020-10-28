@@ -28,7 +28,7 @@ class ClassRouteAttributes
 
     public function middleware(): array
     {
-        /** @var \Spatie\RouteAttributes\Attributes\Middleware $middleware */
+        /** @var \Spatie\RouteAttributes\Attributes\Middleware $attribute */
         if (! $attribute = $this->getAttribute(Middleware::class)) {
             return [];
         }
