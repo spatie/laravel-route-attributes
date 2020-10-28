@@ -10,13 +10,27 @@ class RouteAttributesServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/laravel-route-attributes.php' => config_path('laravel-route-attributes.php'),
+                __DIR__ . '/../config/route-attributes.php' => config_path('route-attributes.php'),
             ], 'config');
         }
+
+        $this->registerRoutes();
     }
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/laravel-route-attributes.php', 'laravel-route-attributes');
+        $this->mergeConfigFrom(__DIR__ . '/../config/route-attributes.php', 'route-attributes');
     }
+
+    protected function registerRoutes(): void
+    {
+        if (! config('route-attributes.enabled')) {
+            return;
+        }
+
+        $routeRegistrar = new RouteRegistrar(app()->router);
+
+        collect(config('directories'))->each(fn(string $directory) => $routeRegistrar->registerDirectory($directory));
+    }
+
 }
