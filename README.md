@@ -1,4 +1,4 @@
-# Auto register routes using PHP attributes
+# Use PHP 8 attributes to register routes in a Laravel app
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-route-attributes.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-route-attributes)
 ![Tests](https://github.com/spatie/laravel-route-attributes/workflows/Tests/badge.svg)
@@ -87,7 +87,7 @@ class MyController
 This attribute will automatically register this route:
 
 ```php
-Route::get('my-route', [MyController::class, 'test']);
+Route::get('my-route', [MyController::class, 'myMethod']);
 ```
 
 ### Using other HTTP verbs
@@ -99,6 +99,7 @@ We have left no HTTP verb behind. You can use these attributes on controller met
 #[Spatie\RouteAttributes\Attributes\Put('my-uri')]
 #[Spatie\RouteAttributes\Attributes\Patch('my-uri')]
 #[Spatie\RouteAttributes\Attributes\Delete('my-uri')]
+#[Spatie\RouteAttributes\Attributes\Options('my-uri')]
 ```
 
 ### Specify a route name
