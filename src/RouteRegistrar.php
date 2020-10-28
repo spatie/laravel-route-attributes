@@ -44,9 +44,7 @@ class RouteRegistrar
 
     public function registerDirectory(string|array $directories): void
     {
-        if (is_string($directories)) {
-            $directories = Arr::wrap($directories);
-        }
+        $directories = Arr::wrap($directories);
 
         $files = (new Finder())->files()->name('*.php')->in($directories);
 

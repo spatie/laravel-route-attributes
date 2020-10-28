@@ -21,10 +21,10 @@ class MyController
 }
 ```
 
-This annotation will automatically register this route:
+This attribute will automatically register this route:
 
 ```php
-Route::get('my-route', [MyController::class, 'test']);
+Route::get('my-route', [MyController::class, 'myMethod']);
 ```
 
 ## Support us
@@ -43,13 +43,6 @@ You can install the package via composer:
 composer require spatie/laravel-route-attributes
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --provider="Spatie\RouteAttributes\RouteAttributesServiceProvider" --tag="migrations"
-php artisan migrate
-```
-
 You can publish the config file with:
 ```bash
 php artisan vendor:publish --provider="Spatie\RouteAttributes\RouteAttributesServiceProvider" --tag="config"
@@ -59,14 +52,159 @@ This is the contents of the published config file:
 
 ```php
 return [
+    /*
+     *  Automatic registration of routes will only happen if this setting is `true`
+     */
+    'enabled' => true,
+
+    /*
+     * Controllers in these directories that have routing attributes
+     * will automatically be registered.
+     */
+    'directories' => [
+        app_path('Http/Controllers'),
+    ],
 ];
 ```
 
 ## Usage
 
-``` php
-$laravel-route-attributes = new Spatie\RouteAttributes();
-echo $laravel-route-attributes->echoPhrase('Hello, Spatie!');
+The package provides several annotations that should be put on controller classes and methods. These annotations will be used to automatically register routes
+
+### Adding a GET route
+
+```php
+use Spatie\RouteAttributes\Attributes\Get;
+
+class MyController
+{
+    #[Get('my-route')]
+    public function myMethod()
+    {
+
+    }
+}
+```
+
+This attribute will automatically register this route:
+
+```php
+Route::get('my-route', [MyController::class, 'test']);
+```
+
+### Using other HTTP verbs
+
+We have left no HTTP verb behind. You can use these attributes on controller methods.
+
+```php
+#[Spatie\RouteAttributes\Attributes\Post('my-uri')]
+#[Spatie\RouteAttributes\Attributes\Put('my-uri')]
+#[Spatie\RouteAttributes\Attributes\Patch('my-uri')]
+#[Spatie\RouteAttributes\Attributes\Delete('my-uri')]
+```
+
+### Specify a route name
+
+All HTTP verb attributes accept a parameter named `name` that accepts a route name.
+
+```php
+use Spatie\RouteAttributes\Attributes\Get;
+
+class MyController
+{
+    #[Get('my-route' name: "my-route-name")]
+    public function myMethod()
+    {
+
+    }
+}
+```
+
+This attribute will automatically register this route:
+
+```php
+Route::get('my-route', [MyController::class, 'myMethod'])->name('my-route-name');
+```
+
+### Adding middleware
+
+All HTTP verb attributes accept a parameter named `middleware` that accepts a middleware class or an array of middleware classes.
+
+```php
+use Spatie\RouteAttributes\Attributes\Get;
+
+class MyController
+{
+    #[Get('my-route' middleware: MyMiddleware::class)]
+    public function myMethod()
+    {
+
+    }
+}
+```
+
+This annotation will automatically register this route:
+
+```php
+Route::get('my-route', [MyController::class, 'myMethod'])->middleware(MyMiddleware::class);
+```
+
+To apply middleware on all methods of a class you can use the `Middleware` attribute. You can mix this with applying attribute on a method.
+
+```php
+use Spatie\RouteAttributes\Attributes\Get;
+use Spatie\RouteAttributes\Attributes\Middleware;
+
+#[Middleware(MyMiddleware::class)]
+class MyController
+{
+    #[Get('my-route')]
+    public function firstMethod()
+    {
+    }
+
+    #[Get('my-other-route', middleware: MyOtherMiddleware::class)]
+    public function secondMethod()
+    {
+    }
+}
+```
+
+These annotations will automatically register these routes:
+
+```php
+Route::get('my-route', [MyController::class, 'firstMethod'])->middleware(MyMiddleware::class);
+Route::get('my-other-route', [MyController::class, 'secondMethod'])->middleware([MyMiddleware::class, MyOtherMiddleware]);
+```
+
+### Specifying a prefix
+
+You can use the `Prefix` annotation on a class to prefix the routes of all methods of that class.
+
+```php
+use Spatie\RouteAttributes\Attributes\Get;
+use Spatie\RouteAttributes\Attributes\Prefix;
+
+#[Prefix('my-prefix')]
+class MyController
+{
+    #[Get('my-get-route')]
+    public function myGetMethod()
+    {
+    }
+
+    #[Post('my-post-route')]
+    public function myPostMethod()
+    {
+    }
+}
+```
+
+These annotations will automatically register these routes:
+
+```php
+Route::get('my-prefix/my-get-route', [MyController::class, 'myGetMethod']);
+Route::post('my-prefix/my-post-route', [MyController::class, 'myPostMethod']);
 ```
 
 ## Testing
