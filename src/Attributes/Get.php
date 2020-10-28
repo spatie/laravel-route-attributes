@@ -4,7 +4,7 @@ namespace Spatie\RouteAttributes\Attributes;
 
 use Attribute;
 
-#[Attribute]
+#[Attribute(Attribute::TARGET_METHOD)]
 class Get extends Route
 {
     public array $middleware;

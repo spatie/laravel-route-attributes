@@ -5,7 +5,7 @@ namespace Spatie\RouteAttributes\Attributes;
 use Arr;
 use Attribute;
 
-#[Attribute]
+#[Attribute(Attribute::TARGET_METHOD)]
 class Route implements RouteAttribute
 {
     public array $middleware;
