@@ -99,6 +99,7 @@ We have left no HTTP verb behind. You can use these attributes on controller met
 #[Spatie\RouteAttributes\Attributes\Put('my-uri')]
 #[Spatie\RouteAttributes\Attributes\Patch('my-uri')]
 #[Spatie\RouteAttributes\Attributes\Delete('my-uri')]
+#[Spatie\RouteAttributes\Attributes\Options('my-uri')]
 ```
 
 ### Specify a route name
