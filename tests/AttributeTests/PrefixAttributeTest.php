@@ -1,7 +1,8 @@
 <?php
 
-namespace Spatie\RouteAttributes\Tests;
+namespace Spatie\RouteAttributes\Tests\AttributeTests;
 
+use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\PrefixTestController;
 
 class PrefixAttributeTest extends TestCase
