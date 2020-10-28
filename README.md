@@ -1,4 +1,4 @@
-# Auto register routes using PHP attributes
+# Use PHP 8 attributes to register routes in a Laravel app
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-route-attributes.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-route-attributes)
 ![Tests](https://github.com/spatie/laravel-route-attributes/workflows/Tests/badge.svg)
