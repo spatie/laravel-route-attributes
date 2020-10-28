@@ -87,7 +87,7 @@ class MyController
 This attribute will automatically register this route:
 
 ```php
-Route::get('my-route', [MyController::class, 'test']);
+Route::get('my-route', [MyController::class, 'myMethod']);
 ```
 
 ### Using other HTTP verbs
