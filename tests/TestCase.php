@@ -5,6 +5,7 @@ namespace Spatie\RouteAttributes\Tests;
 use Arr;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\RouteCollection;
+use Illuminate\Support\Str;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\RouteAttributes\RouteAttributesServiceProvider;
 use Spatie\RouteAttributes\RouteRegistrar;
@@ -19,7 +20,9 @@ class TestCase extends Orchestra
 
         $router = app()->router;
 
-        $this->routeRegistrar = (new RouteRegistrar($router))->useBasePath($this->getTestPath());
+        $this->routeRegistrar = (new RouteRegistrar($router))
+            ->useBasePath($this->getTestPath())
+            ->useRootNamespace('Spatie\RouteAttributes\Tests\\');
     }
 
     protected function getPackageProviders($app)
@@ -29,9 +32,9 @@ class TestCase extends Orchestra
         ];
     }
 
-    public function getTestPath(): string
+    public function getTestPath(string $directory = null): string
     {
-        return __DIR__;
+        return __DIR__ . ($directory ? '/' . $directory : '');
     }
 
     public function assertRegisteredRoutesCount(int $expectedNumber): self

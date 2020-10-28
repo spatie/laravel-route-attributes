@@ -18,6 +18,8 @@ class RouteRegistrar
 
     protected string $basePath;
 
+    private string $rootNamespace;
+
     public function __construct(Router $router)
     {
         $this->router = $router;
@@ -28,6 +30,13 @@ class RouteRegistrar
     public function useBasePath(string $basePath): self
     {
         $this->basePath = $basePath;
+
+        return $this;
+    }
+
+    public function useRootNamespace(string $rootNamespace): self
+    {
+        $this->rootNamespace = $rootNamespace;
 
         return $this;
     }
@@ -65,7 +74,7 @@ class RouteRegistrar
             ucfirst(Str::replaceLast('.php', '', $class))
         );
 
-        return $class;
+        return $this->rootNamespace.$class;
     }
 
     protected function processAttributes(string $className): void
@@ -89,6 +98,7 @@ class RouteRegistrar
                 }
 
                 if ($attributeClass instanceof Route) {
+
                     $httpMethod = $attributeClass->method;
 
                     $action = $attributeClass->method === '__invoke'
