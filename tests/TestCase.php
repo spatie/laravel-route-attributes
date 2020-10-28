@@ -5,7 +5,6 @@ namespace Spatie\RouteAttributes\Tests;
 use Arr;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\RouteCollection;
-use Illuminate\Support\Str;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\RouteAttributes\RouteAttributesServiceProvider;
 use Spatie\RouteAttributes\RouteRegistrar;
