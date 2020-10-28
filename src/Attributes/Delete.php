@@ -8,10 +8,15 @@ use Attribute;
 class Delete extends Route
 {
     public function __construct(
-        public string $method,
+        public string $uri,
         public ?string $name = null,
         array|string $middleware = [],
     ) {
-        parent::__construct(...['delete', ...func_get_args()]);
+        parent::__construct(
+            method: 'delete',
+            uri: $uri,
+            name: $name,
+            middleware: $middleware,
+        );
     }
 }

@@ -8,10 +8,15 @@ use Attribute;
 class Put extends Route
 {
     public function __construct(
-        public string $method,
+        public string $uri,
         public ?string $name = null,
         array|string $middleware = [],
     ) {
-        parent::__construct(...['put', ...func_get_args()]);
+        parent::__construct(
+            method: 'put',
+            uri: $uri,
+            name: $name,
+            middleware: $middleware,
+        );
     }
 }
