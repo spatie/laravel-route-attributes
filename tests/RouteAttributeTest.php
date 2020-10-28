@@ -60,6 +60,7 @@ class RouteAttributeTest extends TestCase
     public function it_can_add_a_route_for_an_invokable()
     {
         $this->routeRegistrar->registerClass(InvokableRouteGetTestController::class);
+
         $this
             ->assertRegisteredRoutesCount(1)
             ->assertRouteRegistered(
