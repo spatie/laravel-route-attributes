@@ -2,7 +2,7 @@
 
 namespace Spatie\RouteAttributes\Attributes;
 
-use Arr;
+use Illuminate\Support\Arr;
 use Attribute;
 
 #[Attribute(Attribute::TARGET_METHOD)]
