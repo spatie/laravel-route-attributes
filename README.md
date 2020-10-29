@@ -209,6 +209,39 @@ Route::get('my-prefix/my-get-route', [MyController::class, 'myGetMethod']);
 Route::post('my-prefix/my-post-route', [MyController::class, 'myPostMethod']);
 ```
 
+### Specifying a prefix name
+
+You can use the `Name` annotation on a class to prefix the name of all methods of that class (like name for route group).
+
+```php
+use Spatie\RouteAttributes\Attributes\Get;
+use Spatie\RouteAttributes\Attributes\Post;
+use Spatie\RouteAttributes\Attributes\Name;
+
+#[Name('my-name.')]
+class MyController
+{
+    #[Get('my-get-route', name: 'my-get-route')]
+    public function myGetMethod()
+    {
+    }
+
+    #[Post('my-post-route')]
+    public function myPostMethod()
+    {
+    }
+}
+```
+
+These annotations will automatically register these routes:
+
+```php
+Route::name('my-name.')->group(function () {
+    Route::get('my-get-route', [MyController::class, 'myGetMethod'])->name('my-get-route');
+    Route::post('my-post-route', [MyController::class, 'myPostMethod']);
+});
+```
+
 ## Testing
 
 ``` bash

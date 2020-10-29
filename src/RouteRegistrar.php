@@ -89,6 +89,7 @@ class RouteRegistrar
         $class = new ReflectionClass($className);
 
         $classRouteAttributes = new ClassRouteAttributes($class);
+        $namePrefix = $classRouteAttributes->name() ?? '';
 
         foreach ($class->getMethods() as $method) {
             $attributes = $method->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
@@ -112,7 +113,7 @@ class RouteRegistrar
                     $route = $this->router->$httpMethod($attributeClass->uri, $action);
 
                     $route
-                        ->name($attributeClass->name);
+                        ->name($namePrefix.$attributeClass->name);
 
                     if ($prefix = $classRouteAttributes->prefix()) {
                         $route->prefix($prefix);
