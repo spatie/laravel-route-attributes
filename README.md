@@ -25,6 +25,10 @@ This attribute will automatically register this route:
 Route::get('my-route', [MyController::class, 'myMethod']);
 ```
 
+## Are you a visual learner?
+
+[In this video](https://spatie.be/videos/front-line-php/adding-meta-data-using-attributes) you'll get an introduction to PHP 8 attributes and how this laravel-routes-attributes works under the hood.
+
 ## Support us
 
 [<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-route-attributes.jpg?t=2" width="419px" />](https://spatie.be/github-ad-click/laravel-route-attributes)
