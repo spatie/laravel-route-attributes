@@ -2,7 +2,6 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/laravel-route-attributes.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-route-attributes)
 ![Tests](https://github.com/spatie/laravel-route-attributes/workflows/Tests/badge.svg)
-[![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-route-attributes.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-route-attributes)
 
 This package provides annotations to automatically register routes. Here's a quick example:
 
