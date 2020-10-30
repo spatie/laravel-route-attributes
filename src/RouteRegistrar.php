@@ -62,7 +62,7 @@ class RouteRegistrar
         $this->processAttributes($fullyQualifiedClassName);
     }
 
-    public function registerClass(string $class)
+    public function registerClass(string $class): void
     {
         $this->processAttributes($class);
     }

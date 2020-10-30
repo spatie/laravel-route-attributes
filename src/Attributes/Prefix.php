@@ -8,6 +8,6 @@ use Attribute;
 class Prefix implements RouteAttribute
 {
     public function __construct(
-        public $prefix
+        public string $prefix
     ) {}
 }
