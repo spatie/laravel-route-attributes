@@ -16,6 +16,9 @@ class ClassRouteAttributes
         $this->class = $class;
     }
 
+    /**
+     * @psalm-suppress NoInterfaceProperties
+     */
     public function prefix(): ?string
     {
         /** @var \Spatie\RouteAttributes\Attributes\Prefix $attribute */
@@ -26,6 +29,9 @@ class ClassRouteAttributes
         return $attribute->prefix;
     }
 
+    /**
+     * @psalm-suppress NoInterfaceProperties
+     */
     public function middleware(): array
     {
         /** @var \Spatie\RouteAttributes\Attributes\Middleware $attribute */

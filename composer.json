@@ -21,7 +21,9 @@
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
-        "phpunit/phpunit": "^9.3"
+        "phpunit/phpunit": "^9.3",
+        "psalm/plugin-laravel": "^1.4",
+        "vimeo/psalm": "^4.1"
     },
     "autoload": {
         "psr-4": {
