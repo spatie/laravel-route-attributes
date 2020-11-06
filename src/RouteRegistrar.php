@@ -77,7 +77,7 @@ class RouteRegistrar
             ucfirst(Str::replaceLast('.php', '', $class))
         );
 
-        return $this->rootNamespace.$class;
+        return $this->rootNamespace . $class;
     }
 
     protected function processAttributes(string $className): void
@@ -100,29 +100,30 @@ class RouteRegistrar
                     continue;
                 }
 
-                if ($attributeClass instanceof Route) {
-
-                    $httpMethod = $attributeClass->method;
-
-                    $action = $attributeClass->method === '__invoke'
-                        ? $class->getName()
-                        : [$class->getName(), $method->getName()];
-
-                    /** @var \Illuminate\Routing\Route $route */
-                    $route = $this->router->$httpMethod($attributeClass->uri, $action);
-
-                    $route
-                        ->name($attributeClass->name);
-
-                    if ($prefix = $classRouteAttributes->prefix()) {
-                        $route->prefix($prefix);
-                    }
-
-                    $classMiddleware = $classRouteAttributes->middleware();
-                    $methodMiddleware = $attributeClass->middleware;
-
-                    $route->middleware([...$classMiddleware, ...$methodMiddleware]);
+                if (!$attributeClass instanceof Route) {
+                    continue;
                 }
+
+                $httpMethod = $attributeClass->method;
+
+                $action = $attributeClass->method === '__invoke'
+                    ? $class->getName()
+                    : [$class->getName(), $method->getName()];
+
+                /** @var \Illuminate\Routing\Route $route */
+                $route = $this->router->$httpMethod($attributeClass->uri, $action);
+
+                $route
+                    ->name($attributeClass->name);
+
+                if ($prefix = $classRouteAttributes->prefix()) {
+                    $route->prefix($prefix);
+                }
+
+                $classMiddleware = $classRouteAttributes->middleware();
+                $methodMiddleware = $attributeClass->middleware;
+
+                $route->middleware([...$classMiddleware, ...$methodMiddleware]);
             }
         }
     }
