@@ -29,7 +29,7 @@ class RouteAttributesServiceProvider extends ServiceProvider
         }
 
         $routeRegistrar = (new RouteRegistrar(app()->router))
-            ->useRootNamespace('App\\');
+            ->useRootNamespace(app()->getNamespace());
 
         collect(config('route-attributes.directories'))->each(fn (string $directory) => $routeRegistrar->registerDirectory($directory));
     }
