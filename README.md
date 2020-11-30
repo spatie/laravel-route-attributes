@@ -210,6 +210,36 @@ Route::get('my-prefix/my-get-route', [MyController::class, 'myGetMethod']);
 Route::post('my-prefix/my-post-route', [MyController::class, 'myPostMethod']);
 ```
 
+### Specifying a domain
+
+You can use the `Domain` annotation on a class to prefix the routes of all methods of that class.
+
+```php
+use Spatie\RouteAttributes\Attributes\Get;
+use Spatie\RouteAttributes\Attributes\Domain;
+
+#[Domain('my-subdomain.localhost')]
+class MyController
+{
+    #[Get('my-get-route')]
+    public function myGetMethod()
+    {
+    }
+
+    #[Post('my-post-route')]
+    public function myPostMethod()
+    {
+    }
+}
+```
+
+These annotations will automatically register these routes:
+
+```php
+Route::get('my-get-route', [MyController::class, 'myGetMethod'])->domain('my-subdomain.localhost');
+Route::post('my-post-route', [MyController::class, 'myPostMethod'])->domain('my-subdomain.localhost');
+```
+
 ## Testing
 
 ``` bash
