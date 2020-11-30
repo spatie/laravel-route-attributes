@@ -3,6 +3,7 @@
 namespace Spatie\RouteAttributes;
 
 use ReflectionClass;
+use Spatie\RouteAttributes\Attributes\Domain;
 use Spatie\RouteAttributes\Attributes\Middleware;
 use Spatie\RouteAttributes\Attributes\Prefix;
 use Spatie\RouteAttributes\Attributes\RouteAttribute;
@@ -27,6 +28,19 @@ class ClassRouteAttributes
         }
 
         return $attribute->prefix;
+    }
+
+    /**
+     * @psalm-suppress NoInterfaceProperties
+     */
+    public function domain(): ?string
+    {
+        /** @var \Spatie\RouteAttributes\Attributes\Domain $attribute */
+        if (! $attribute = $this->getAttribute(Domain::class)) {
+            return null;
+        }
+
+        return $attribute->domain;
     }
 
     /**
