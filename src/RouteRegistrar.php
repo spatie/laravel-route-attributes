@@ -116,6 +116,10 @@ class RouteRegistrar
                 $route
                     ->name($attributeClass->name);
 
+                if ($domain = $classRouteAttributes->domain()) {
+                    $route->domain($domain);
+                }
+
                 if ($prefix = $classRouteAttributes->prefix()) {
                     $route->prefix($prefix);
                 }
