@@ -186,6 +186,7 @@ You can use the `Prefix` annotation on a class to prefix the routes of all metho
 
 ```php
 use Spatie\RouteAttributes\Attributes\Get;
+use Spatie\RouteAttributes\Attributes\Post;
 use Spatie\RouteAttributes\Attributes\Prefix;
 
 #[Prefix('my-prefix')]
@@ -216,6 +217,7 @@ You can use the `Domain` annotation on a class to prefix the routes of all metho
 
 ```php
 use Spatie\RouteAttributes\Attributes\Get;
+use Spatie\RouteAttributes\Attributes\Post;
 use Spatie\RouteAttributes\Attributes\Domain;
 
 #[Domain('my-subdomain.localhost')]
