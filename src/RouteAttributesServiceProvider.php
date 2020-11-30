@@ -2,6 +2,7 @@
 
 namespace Spatie\RouteAttributes;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 
 class RouteAttributesServiceProvider extends ServiceProvider
@@ -28,8 +29,11 @@ class RouteAttributesServiceProvider extends ServiceProvider
             return;
         }
 
-        $routeRegistrar = new RouteRegistrar(app()->router);
+        $routeRegistrar = (new RouteRegistrar(app()->router))
+            ->useRootNamespace(app()->getNamespace());
 
-        collect(config('route-attributes.directories'))->each(fn (string $directory) => $routeRegistrar->registerDirectory($directory));
+        $testClassDirectory = __DIR__ . '/../tests/TestClasses';
+
+        collect(app()->runningUnitTests() ? $testClassDirectory : config('route-attributes.directories'))->each(fn (string $directory) => $routeRegistrar->registerDirectory($directory));
     }
 }
