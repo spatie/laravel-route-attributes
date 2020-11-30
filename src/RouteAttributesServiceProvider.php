@@ -2,7 +2,6 @@
 
 namespace Spatie\RouteAttributes;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 
 class RouteAttributesServiceProvider extends ServiceProvider
