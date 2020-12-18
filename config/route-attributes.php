@@ -13,4 +13,11 @@ return [
     'directories' => [
         app_path('Http/Controllers'),
     ],
+
+    /**
+     * This middlewares will be applied to all routes.
+     */
+    'middlewares' => [
+        \Illuminate\Routing\Middleware\SubstituteBindings::class
+    ]
 ];
