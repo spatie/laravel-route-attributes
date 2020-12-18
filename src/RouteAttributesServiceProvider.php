@@ -29,7 +29,8 @@ class RouteAttributesServiceProvider extends ServiceProvider
         }
 
         $routeRegistrar = (new RouteRegistrar(app()->router))
-            ->useRootNamespace(app()->getNamespace());
+            ->useRootNamespace(app()->getNamespace())
+            ->useMiddlewares(config('route-attributes.middlewares') ?? []);
 
         $testClassDirectory = __DIR__ . '/../tests/TestClasses';
 
