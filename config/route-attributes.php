@@ -17,7 +17,7 @@ return [
     /**
      * This middleware will be applied to all routes.
      */
-    'middlewares' => [
+    'middleware' => [
         \Illuminate\Routing\Middleware\SubstituteBindings::class
     ]
 ];

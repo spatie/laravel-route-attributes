@@ -3,11 +3,11 @@
 namespace Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute;
 
 use Spatie\RouteAttributes\Attributes\Route;
-use Spatie\RouteAttributes\Tests\TestClasses\Middleware\TestMiddleware;
+use Spatie\RouteAttributes\Tests\TestClasses\middleware\Testmiddleware;
 
-class RouteMiddlewareTestController
+class RoutemiddlewareTestController
 {
-    #[Route('get', 'my-method', middleware: TestMiddleware::class)]
+    #[Route('get', 'my-method', middleware: Testmiddleware::class)]
     public function myMethod()
     {
     }

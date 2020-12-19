@@ -19,9 +19,9 @@ class RouteRegistrar
 
     protected string $basePath;
 
-    private string $rootNamespace;
+    protected string $rootNamespace;
 
-    private array $middlewares = [];
+    protected array $middleware = [];
 
     public function __construct(Router $router)
     {
@@ -44,12 +44,18 @@ class RouteRegistrar
         return $this;
     }
 
-    public function useMiddlewares(array $middlewares): self
+    public function useMiddleware(string|array $middleware): self
     {
-        $this->middlewares =  $middlewares;
+        $this->middleware =  Arr::wrap($middleware);
 
         return $this;
     }
+
+    public function middleware(): array
+    {
+        return $this->middleware ?? [];
+    }
+
 
     public function registerDirectory(string|array $directories): void
     {
@@ -76,10 +82,6 @@ class RouteRegistrar
         $this->processAttributes($class);
     }
 
-    public function getMiddlewares(): array
-    {
-        return $this->middlewares ?? [];
-    }
 
     protected function fullQualifiedClassNameFromFile(SplFileInfo $file): string
     {
@@ -140,7 +142,7 @@ class RouteRegistrar
 
                 $classMiddleware = $classRouteAttributes->middleware();
                 $methodMiddleware = $attributeClass->middleware;
-                $route->middleware([...$classMiddleware, ...$methodMiddleware, ...$this->middlewares]);
+                $route->middleware([...$classMiddleware, ...$methodMiddleware, ...$this->middleware]);
             }
         }
     }

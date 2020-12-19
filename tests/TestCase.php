@@ -8,8 +8,8 @@ use Illuminate\Routing\RouteCollection;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\RouteAttributes\RouteAttributesServiceProvider;
 use Spatie\RouteAttributes\RouteRegistrar;
-use Spatie\RouteAttributes\Tests\TestClasses\Middleware\AnotherTestMiddleware;
-use Spatie\RouteAttributes\Tests\TestClasses\Middleware\OtherTestMiddleware;
+use Spatie\RouteAttributes\Tests\TestClasses\middleware\AnotherTestmiddleware;
+use Spatie\RouteAttributes\Tests\TestClasses\middleware\OtherTestmiddleware;
 
 class TestCase extends Orchestra
 {
@@ -23,7 +23,7 @@ class TestCase extends Orchestra
 
         $this->routeRegistrar = (new RouteRegistrar($router))
             ->useBasePath($this->getTestPath())
-            ->useMiddlewares([AnotherTestMiddleware::class])
+            ->useMiddleware([AnotherTestmiddleware::class])
             ->useRootNamespace('Spatie\RouteAttributes\Tests\\');
     }
 
@@ -79,7 +79,7 @@ class TestCase extends Orchestra
                     return false;
                 }
 
-                if (array_diff($route->middleware(), array_merge($middleware, $this->routeRegistrar->getMiddlewares()))) {
+                if (array_diff($route->middleware(), array_merge($middleware, $this->routeRegistrar->middleware()))) {
                     return false;
                 }
 
