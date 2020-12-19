@@ -21,6 +21,8 @@ class RouteRegistrar
 
     private string $rootNamespace;
 
+    private array $middlewares = [];
+
     public function __construct(Router $router)
     {
         $this->router = $router;
@@ -38,6 +40,13 @@ class RouteRegistrar
     public function useRootNamespace(string $rootNamespace): self
     {
         $this->rootNamespace = $rootNamespace;
+
+        return $this;
+    }
+
+    public function useMiddlewares(array $middlewares): self
+    {
+        $this->middlewares =  $middlewares;
 
         return $this;
     }
@@ -65,6 +74,11 @@ class RouteRegistrar
     public function registerClass(string $class): void
     {
         $this->processAttributes($class);
+    }
+
+    public function getMiddlewares(): array
+    {
+        return $this->middlewares ?? [];
     }
 
     protected function fullQualifiedClassNameFromFile(SplFileInfo $file): string
@@ -126,8 +140,7 @@ class RouteRegistrar
 
                 $classMiddleware = $classRouteAttributes->middleware();
                 $methodMiddleware = $attributeClass->middleware;
-
-                $route->middleware([...$classMiddleware, ...$methodMiddleware]);
+                $route->middleware([...$classMiddleware, ...$methodMiddleware, ...$this->middlewares]);
             }
         }
     }
