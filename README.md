@@ -115,7 +115,7 @@ use Spatie\RouteAttributes\Attributes\Get;
 
 class MyController
 {
-    #[Get('my-route' name: "my-route-name")]
+    #[Get('my-route', name: "my-route-name")]
     public function myMethod()
     {
 
@@ -138,7 +138,7 @@ use Spatie\RouteAttributes\Attributes\Get;
 
 class MyController
 {
-    #[Get('my-route' middleware: MyMiddleware::class)]
+    #[Get('my-route', middleware: MyMiddleware::class)]
     public function myMethod()
     {
 
