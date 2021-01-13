@@ -32,8 +32,6 @@ class RouteAttributesServiceProvider extends ServiceProvider
             ->useRootNamespace(app()->getNamespace())
             ->useMiddleware(config('route-attributes.middleware') ?? []);
 
-        $testClassDirectory = __DIR__ . '/../tests/TestClasses';
-
-        collect(app()->runningUnitTests() ? $testClassDirectory : config('route-attributes.directories'))->each(fn (string $directory) => $routeRegistrar->registerDirectory($directory));
+        collect(config('route-attributes.directories'))->each(fn (string $directory) => $routeRegistrar->registerDirectory($directory));
     }
 }
