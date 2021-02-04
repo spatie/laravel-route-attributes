@@ -7,7 +7,7 @@ use Spatie\RouteAttributes\Tests\TestClasses\Controllers\middlewareTestControlle
 use Spatie\RouteAttributes\Tests\TestClasses\middleware\OtherTestmiddleware;
 use Spatie\RouteAttributes\Tests\TestClasses\middleware\Testmiddleware;
 
-class middlewareAttributeTest extends TestCase
+class MiddlewareAttributeTest extends TestCase
 {
     /** @test */
     public function it_can_apply_middleware_on_each_method_of_a_controller()
