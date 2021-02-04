@@ -5,7 +5,7 @@ namespace Spatie\RouteAttributes\Tests;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteRegistrar\RegistrarTestFirstController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteRegistrar\RegistrarTestSecondController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteRegistrar\SubDirectory\RegistrarTestControllerInSubDirectory;
-use Spatie\RouteAttributes\Tests\TestClasses\middleware\AnotherTestMiddleware;
+use Spatie\RouteAttributes\Tests\TestClasses\Middleware\AnotherTestMiddleware;
 
 class RouteRegistrarTest extends TestCase
 {
@@ -35,8 +35,8 @@ class RouteRegistrarTest extends TestCase
 
         $this->assertRouteRegistered(
             RegistrarTestFirstController::class,
-            uri: 'first-method',middleware: [AnotherTestMiddleware::class]
-
+            uri: 'first-method',
+            middleware: [AnotherTestMiddleware::class]
         );
     }
 

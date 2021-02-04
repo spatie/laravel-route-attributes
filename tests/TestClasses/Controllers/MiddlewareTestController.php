@@ -4,19 +4,19 @@ namespace Spatie\RouteAttributes\Tests\TestClasses\Controllers;
 
 use Spatie\RouteAttributes\Attributes\middleware;
 use Spatie\RouteAttributes\Attributes\Route;
-use Spatie\RouteAttributes\Tests\TestClasses\middleware\OtherTestMiddleware;
-use Spatie\RouteAttributes\Tests\TestClasses\middleware\TestMiddleware;
+use Spatie\RouteAttributes\Tests\TestClasses\Middleware\OtherTestMiddleware;
+use Spatie\RouteAttributes\Tests\TestClasses\Middleware\TestMiddleware;
 
-#[middleware(TestMiddleware::class)]
+#[Middleware(TestMiddleware::class)]
 class MiddlewareTestController
 {
     #[Route('get', 'single-middleware')]
-    public function singlemiddleware()
+    public function singleMiddleware()
     {
     }
 
     #[Route('get', 'multiple-middleware', middleware: OtherTestMiddleware::class)]
-    public function multiplemiddleware()
+    public function multipleMiddleware()
     {
     }
 }

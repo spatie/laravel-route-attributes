@@ -2,14 +2,13 @@
 
 namespace Spatie\RouteAttributes\Tests;
 
-use Arr;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\RouteCollection;
+use Illuminate\Support\Arr;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\RouteAttributes\RouteAttributesServiceProvider;
 use Spatie\RouteAttributes\RouteRegistrar;
-use Spatie\RouteAttributes\Tests\TestClasses\middleware\AnotherTestMiddleware;
-use Spatie\RouteAttributes\Tests\TestClasses\middleware\OtherTestMiddleware;
+use Spatie\RouteAttributes\Tests\TestClasses\Middleware\AnotherTestMiddleware;
 
 class TestCase extends Orchestra
 {
