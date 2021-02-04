@@ -35,10 +35,10 @@ class RouteAttributesServiceProvider extends ServiceProvider
         collect($this->getRouteDirectories())->each(fn(string $directory) => $routeRegistrar->registerDirectory($directory));
     }
 
-    private function getRouteDirectories()
+    private function getRouteDirectories(): array
     {
         $testClassDirectory = __DIR__ . '/../tests/TestClasses';
 
-        return app()->runningUnitTests() && file_exists($testClassDirectory) ? $testClassDirectory : config('route-attributes.directories');
+        return app()->runningUnitTests() && file_exists($testClassDirectory) ? (array)$testClassDirectory : config('route-attributes.directories');
     }
 }
