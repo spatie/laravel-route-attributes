@@ -33,7 +33,8 @@ class RouteAttributesServiceProvider extends ServiceProvider
             ->useMiddleware(config('route-attributes.middleware') ?? []);
 
         $testClassDirectory = __DIR__ . '/../tests/TestClasses';
+        $routeDirectories = app()->runningUnitTests() && file_exists($testClassDirectory) ? $testClassDirectory : config('route-attributes.directories');
 
-        collect(app()->runningUnitTests() ? $testClassDirectory : config('route-attributes.directories'))->each(fn (string $directory) => $routeRegistrar->registerDirectory($directory));
+        collect($routeDirectories)->each(fn (string $directory) => $routeRegistrar->registerDirectory($directory));
     }
 }
