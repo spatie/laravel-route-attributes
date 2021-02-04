@@ -3,30 +3,30 @@
 namespace Spatie\RouteAttributes\Tests\AttributeTests;
 
 use Spatie\RouteAttributes\Tests\TestCase;
-use Spatie\RouteAttributes\Tests\TestClasses\Controllers\middlewareTestController;
-use Spatie\RouteAttributes\Tests\TestClasses\middleware\OtherTestmiddleware;
-use Spatie\RouteAttributes\Tests\TestClasses\middleware\Testmiddleware;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\MiddlewareTestController;
+use Spatie\RouteAttributes\Tests\TestClasses\middleware\OtherTestMiddleware;
+use Spatie\RouteAttributes\Tests\TestClasses\middleware\TestMiddleware;
 
 class MiddlewareAttributeTest extends TestCase
 {
     /** @test */
     public function it_can_apply_middleware_on_each_method_of_a_controller()
     {
-        $this->routeRegistrar->registerClass(middlewareTestController::class);
+        $this->routeRegistrar->registerClass(MiddlewareTestController::class);
 
         $this
             ->assertRegisteredRoutesCount(2)
             ->assertRouteRegistered(
-                middlewareTestController::class,
+                MiddlewareTestController::class,
                 controllerMethod: 'singlemiddleware',
                 uri: 'single-middleware',
-                middleware: [Testmiddleware::class],
+                middleware: [TestMiddleware::class],
             )
             ->assertRouteRegistered(
-                middlewareTestController::class,
+                MiddlewareTestController::class,
                 controllerMethod: 'multiplemiddleware',
                 uri: 'multiple-middleware',
-                middleware: [Testmiddleware::class, OtherTestmiddleware::class],
+                middleware: [TestMiddleware::class, OtherTestMiddleware::class],
             );
     }
 }

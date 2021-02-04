@@ -9,7 +9,7 @@ use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RouteGet
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RoutemiddlewareTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RoutePostTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RouteNameTestController;
-use Spatie\RouteAttributes\Tests\TestClasses\middleware\Testmiddleware;
+use Spatie\RouteAttributes\Tests\TestClasses\middleware\TestMiddleware;
 
 class RouteAttributeTest extends TestCase
 {
@@ -42,7 +42,7 @@ class RouteAttributeTest extends TestCase
 
         $this->assertRouteRegistered(
             controller: RoutemiddlewareTestController::class,
-            middleware: Testmiddleware::class,
+            middleware: TestMiddleware::class,
         );
     }
 

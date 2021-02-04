@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Spatie\RouteAttributes\Tests\TestClasses\middleware;
+namespace Spatie\RouteAttributes\Tests\TestClasses\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
 
-class AnotherTestmiddleware
+class AnotherTestMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
