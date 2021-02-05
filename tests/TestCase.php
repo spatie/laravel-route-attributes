@@ -2,14 +2,13 @@
 
 namespace Spatie\RouteAttributes\Tests;
 
-use Arr;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\RouteCollection;
+use Illuminate\Support\Arr;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\RouteAttributes\RouteAttributesServiceProvider;
 use Spatie\RouteAttributes\RouteRegistrar;
-use Spatie\RouteAttributes\Tests\TestClasses\middleware\AnotherTestmiddleware;
-use Spatie\RouteAttributes\Tests\TestClasses\middleware\OtherTestmiddleware;
+use Spatie\RouteAttributes\Tests\TestClasses\Middleware\AnotherTestMiddleware;
 
 class TestCase extends Orchestra
 {
@@ -23,7 +22,7 @@ class TestCase extends Orchestra
 
         $this->routeRegistrar = (new RouteRegistrar($router))
             ->useBasePath($this->getTestPath())
-            ->useMiddleware([AnotherTestmiddleware::class])
+            ->useMiddleware([AnotherTestMiddleware::class])
             ->useRootNamespace('Spatie\RouteAttributes\Tests\\');
     }
 

@@ -6,10 +6,10 @@ use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\RouteRegistrar;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\InvokableRouteGetTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RouteGetTestController;
-use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RoutemiddlewareTestController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RouteMiddlewareTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RoutePostTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RouteNameTestController;
-use Spatie\RouteAttributes\Tests\TestClasses\middleware\Testmiddleware;
+use Spatie\RouteAttributes\Tests\TestClasses\Middleware\TestMiddleware;
 
 class RouteAttributeTest extends TestCase
 {
@@ -38,11 +38,11 @@ class RouteAttributeTest extends TestCase
     /** @test */
     public function it_can_add_middleware_to_a_method()
     {
-        $this->routeRegistrar->registerClass(RoutemiddlewareTestController::class);
+        $this->routeRegistrar->registerClass(RouteMiddlewareTestController::class);
 
         $this->assertRouteRegistered(
-            controller: RoutemiddlewareTestController::class,
-            middleware: Testmiddleware::class,
+            controller: RouteMiddlewareTestController::class,
+            middleware: TestMiddleware::class,
         );
     }
 

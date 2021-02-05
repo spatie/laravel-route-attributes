@@ -24,7 +24,7 @@ class RouteAttributesServiceProvider extends ServiceProvider
 
     protected function registerRoutes(): void
     {
-        if (! config('route-attributes.enabled')) {
+        if (!config('route-attributes.enabled')) {
             return;
         }
 
@@ -32,8 +32,13 @@ class RouteAttributesServiceProvider extends ServiceProvider
             ->useRootNamespace(app()->getNamespace())
             ->useMiddleware(config('route-attributes.middleware') ?? []);
 
+        collect($this->getRouteDirectories())->each(fn(string $directory) => $routeRegistrar->registerDirectory($directory));
+    }
+
+    private function getRouteDirectories(): array
+    {
         $testClassDirectory = __DIR__ . '/../tests/TestClasses';
 
-        collect(app()->runningUnitTests() ? $testClassDirectory : config('route-attributes.directories'))->each(fn (string $directory) => $routeRegistrar->registerDirectory($directory));
+        return app()->runningUnitTests() && file_exists($testClassDirectory) ? (array)$testClassDirectory : config('route-attributes.directories');
     }
 }
