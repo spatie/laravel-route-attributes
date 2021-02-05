@@ -52,7 +52,7 @@ class TestCase extends Orchestra
         string $controllerMethod = 'myMethod',
         string $httpMethod = 'get',
         string $uri = 'my-method',
-        string|array $middleware = [],
+        string | array $middleware = [],
         ?string $name = null,
         ?string $domain = null,
     ): self {

@@ -2,13 +2,13 @@
 
 namespace Spatie\RouteAttributes\Tests\AttributeTests;
 
-use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\RouteRegistrar;
+use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\InvokableRouteGetTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RouteGetTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RouteMiddlewareTestController;
-use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RoutePostTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RouteNameTestController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RoutePostTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Middleware\TestMiddleware;
 
 class RouteAttributeTest extends TestCase
@@ -65,9 +65,9 @@ class RouteAttributeTest extends TestCase
         $this
             ->assertRegisteredRoutesCount(1)
             ->assertRouteRegistered(
-            controller: InvokableRouteGetTestController::class,
-            controllerMethod: '__invoke',
-            uri: 'my-invokable-route'
-        );
+                controller: InvokableRouteGetTestController::class,
+                controllerMethod: '__invoke',
+                uri: 'my-invokable-route'
+            );
     }
 }

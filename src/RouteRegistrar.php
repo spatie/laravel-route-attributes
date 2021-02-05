@@ -44,9 +44,9 @@ class RouteRegistrar
         return $this;
     }
 
-    public function useMiddleware(string|array $middleware): self
+    public function useMiddleware(string | array $middleware): self
     {
-        $this->middleware =  Arr::wrap($middleware);
+        $this->middleware = Arr::wrap($middleware);
 
         return $this;
     }
@@ -56,17 +56,16 @@ class RouteRegistrar
         return $this->middleware ?? [];
     }
 
-
-    public function registerDirectory(string|array $directories): void
+    public function registerDirectory(string | array $directories): void
     {
         $directories = Arr::wrap($directories);
 
         $files = (new Finder())->files()->name('*.php')->in($directories);
 
-        collect($files)->each(fn(SplFileInfo $file) => $this->registerFile($file));
+        collect($files)->each(fn (SplFileInfo $file) => $this->registerFile($file));
     }
 
-    public function registerFile(string|SplFileInfo $path): void
+    public function registerFile(string | SplFileInfo $path): void
     {
         if (is_string($path)) {
             $path = new SplFileInfo($path);
@@ -81,7 +80,6 @@ class RouteRegistrar
     {
         $this->processAttributes($class);
     }
-
 
     protected function fullQualifiedClassNameFromFile(SplFileInfo $file): string
     {
@@ -98,7 +96,7 @@ class RouteRegistrar
 
     protected function processAttributes(string $className): void
     {
-        if (!class_exists($className)) {
+        if (! class_exists($className)) {
             return;
         }
 
@@ -116,7 +114,7 @@ class RouteRegistrar
                     continue;
                 }
 
-                if (!$attributeClass instanceof Route) {
+                if (! $attributeClass instanceof Route) {
                     continue;
                 }
 

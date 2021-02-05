@@ -2,8 +2,8 @@
 
 namespace Spatie\RouteAttributes\Attributes;
 
-use Illuminate\Support\Arr;
 use Attribute;
+use Illuminate\Support\Arr;
 
 #[Attribute(Attribute::TARGET_METHOD)]
 class Route implements RouteAttribute
@@ -14,7 +14,7 @@ class Route implements RouteAttribute
         public string $method,
         public string $uri,
         public ?string $name = null,
-        array|string $middleware = [],
+        array | string $middleware = [],
     ) {
         $this->middleware = Arr::wrap($middleware);
     }
