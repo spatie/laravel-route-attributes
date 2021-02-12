@@ -13,7 +13,12 @@ class PrefixAttributeTest extends TestCase
         $this->routeRegistrar->registerClass(PrefixTestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(2)
+            ->assertRegisteredRoutesCount(3)
+            ->assertRouteRegistered(
+                PrefixTestController::class,
+                controllerMethod: 'myRootGetMethod',
+                uri: 'my-prefix',
+            )
             ->assertRouteRegistered(
                 PrefixTestController::class,
                 controllerMethod: 'myGetMethod',

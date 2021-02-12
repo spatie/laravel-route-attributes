@@ -9,6 +9,11 @@ use Spatie\RouteAttributes\Attributes\Prefix;
 #[Prefix('my-prefix')]
 class PrefixTestController
 {
+    #[Get('/')]
+    public function myRootGetMethod()
+    {
+    }
+
     #[Get('my-get-method')]
     public function myGetMethod()
     {
