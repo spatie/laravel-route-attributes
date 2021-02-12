@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.2.2 - 2021-02-12
+
+- change approach to handle routes with prefix (#23)
+
 ## 1.2.1 - 2021-02-07
 
 - add new check to make sure TestClasses directory exists when running tests (#20)
