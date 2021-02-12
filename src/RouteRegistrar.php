@@ -105,11 +105,12 @@ class RouteRegistrar
         $classRouteAttributes = new ClassRouteAttributes($class);
 
         ($prefix = $classRouteAttributes->prefix())
-            ? $this->router->prefix($prefix)->group(fn() => $this->registerRoutes($class, $classRouteAttributes))
+            ? $this->router->prefix($prefix)->group(fn () => $this->registerRoutes($class, $classRouteAttributes))
             : $this->registerRoutes($class, $classRouteAttributes);
     }
 
-    protected function registerRoutes(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): void {
+    protected function registerRoutes(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): void
+    {
         foreach ($class->getMethods() as $method) {
             $attributes = $method->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
 
