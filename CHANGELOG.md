@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.2.3 - 2021-02-15
+
+- global middleware from config file will be registered first (#24)
+
 ## 1.2.2 - 2021-02-12
 
 - change approach to handle routes with prefix (#23)
