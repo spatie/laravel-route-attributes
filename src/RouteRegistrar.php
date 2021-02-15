@@ -143,7 +143,7 @@ class RouteRegistrar
 
                 $classMiddleware = $classRouteAttributes->middleware();
                 $methodMiddleware = $attributeClass->middleware;
-                $route->middleware([...$classMiddleware, ...$methodMiddleware, ...$this->middleware]);
+                $route->middleware([...$this->middleware, ...$classMiddleware, ...$methodMiddleware]);
             }
         }
     }
