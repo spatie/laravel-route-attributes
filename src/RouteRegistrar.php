@@ -125,14 +125,13 @@ class RouteRegistrar
                     continue;
                 }
 
-                $httpMethod = $attributeClass->method;
+                $httpMethods = $attributeClass->methods;
 
-                $action = $attributeClass->method === '__invoke'
+                $action = in_array('__invoke', $attributeClass->methods)
                     ? $class->getName()
                     : [$class->getName(), $method->getName()];
 
-                /** @var \Illuminate\Routing\Route $route */
-                $route = $this->router->$httpMethod($attributeClass->uri, $action);
+                $route = $this->router->addRoute($httpMethods, $attributeClass->uri, $action);
 
                 $route
                     ->name($attributeClass->name);

@@ -7,6 +7,7 @@ use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\InvokableRouteGetTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RouteGetTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RouteMiddlewareTestController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RouteMultiVerbTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RouteNameTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RoutePostTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Middleware\TestMiddleware;
@@ -33,6 +34,21 @@ class RouteAttributeTest extends TestCase
         $this
             ->assertRegisteredRoutesCount(1)
             ->assertRouteRegistered(RoutePostTestController::class, 'myPostMethod', 'post', 'my-post-method');
+    }
+
+    /** @test */
+    public function the_route_annotation_can_register_a_multi_verb_route()
+    {
+        $this->routeRegistrar->registerClass(RouteMultiVerbTestController::class);
+
+        $this
+            ->assertRegisteredRoutesCount(1)
+            ->assertRouteRegistered(
+                RouteMultiVerbTestController::class,
+                'myMultiVerbMethod',
+                ['get','post', 'delete'],
+                'my-multi-verb-method'
+            );
     }
 
     /** @test */

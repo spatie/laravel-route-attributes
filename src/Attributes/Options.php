@@ -13,7 +13,7 @@ class Options extends Route
         array | string $middleware = [],
     ) {
         parent::__construct(
-            method: 'options',
+            methods: ['options'],
             uri: $uri,
             name: $name,
             middleware: $middleware,

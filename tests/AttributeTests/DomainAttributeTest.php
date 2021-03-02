@@ -23,7 +23,7 @@ class DomainAttributeTest extends TestCase
             ->assertRouteRegistered(
                 DomainTestController::class,
                 controllerMethod: 'myPostMethod',
-                httpMethod: 'post',
+                httpMethods: 'post',
                 uri: 'my-post-method',
                 domain: 'my-subdomain.localhost'
             );
