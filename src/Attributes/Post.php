@@ -13,7 +13,7 @@ class Post extends Route
         array | string $middleware = [],
     ) {
         parent::__construct(
-            method: 'post',
+            methods: ['post'],
             uri: $uri,
             name: $name,
             middleware: $middleware,

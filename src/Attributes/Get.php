@@ -13,7 +13,7 @@ class Get extends Route
         array | string $middleware = [],
     ) {
         parent::__construct(
-            method: 'get',
+            methods: ['get'],
             uri: $uri,
             name: $name,
             middleware: $middleware,

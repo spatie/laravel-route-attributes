@@ -3,6 +3,7 @@
 namespace Spatie\RouteAttributes\Attributes;
 
 use Attribute;
+use Illuminate\Routing\Router;
 
 #[Attribute(Attribute::TARGET_METHOD)]
 class Any extends Route
@@ -13,7 +14,7 @@ class Any extends Route
         array | string $middleware = [],
     ) {
         parent::__construct(
-            method: 'any',
+            methods: Router::$verbs,
             uri: $uri,
             name: $name,
             middleware: $middleware,

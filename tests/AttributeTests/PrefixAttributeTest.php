@@ -27,7 +27,7 @@ class PrefixAttributeTest extends TestCase
             ->assertRouteRegistered(
                 PrefixTestController::class,
                 controllerMethod: 'myPostMethod',
-                httpMethod: 'post',
+                httpMethods: 'post',
                 uri: 'my-prefix/my-post-method',
             );
     }

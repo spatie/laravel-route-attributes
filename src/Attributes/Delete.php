@@ -13,7 +13,7 @@ class Delete extends Route
         array | string $middleware = [],
     ) {
         parent::__construct(
-            method: 'delete',
+            methods: ['delete'],
             uri: $uri,
             name: $name,
             middleware: $middleware,
