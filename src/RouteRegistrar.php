@@ -127,7 +127,7 @@ class RouteRegistrar
 
                 $httpMethods = $attributeClass->methods;
 
-                $action = in_array('__invoke', $attributeClass->methods)
+                $action = $method->getName() === '__invoke'
                     ? $class->getName()
                     : [$class->getName(), $method->getName()];
 
