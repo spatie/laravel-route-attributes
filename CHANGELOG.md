@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.3.0 - 2021-03-03
+
+- add support for multi-verb routes
+
 ## 1.2.3 - 2021-02-15
 
 - global middleware from config file will be registered first (#24)
