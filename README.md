@@ -106,6 +106,20 @@ We have left no HTTP verb behind. You can use these attributes on controller met
 #[Spatie\RouteAttributes\Attributes\Options('my-uri')]
 ```
 
+### Using multiple verbs
+
+To register a route for all verbs, you can use the `Any` attribute:
+
+```php
+#[Spatie\RouteAttributes\Attributes\Any('my-uri')]
+```
+
+To register a route for a few verbs at once, you can use the `Route` attribute directly:
+
+```php
+#[Spatie\RouteAttributes\Attributes\Route(['put', 'patch'], 'my-uri')]
+```
+
 ### Specify a route name
 
 All HTTP verb attributes accept a parameter named `name` that accepts a route name.
