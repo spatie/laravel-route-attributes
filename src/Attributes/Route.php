@@ -21,9 +21,9 @@ class Route implements RouteAttribute
     ) {
         $this->methods = array_map(
             static fn (string $verb) => in_array(
-            $upperVerb = strtoupper($verb),
-            Router::$verbs
-        )
+                $upperVerb = strtoupper($verb),
+                Router::$verbs
+            )
             ? $upperVerb
             : $verb,
             Arr::wrap($methods)
