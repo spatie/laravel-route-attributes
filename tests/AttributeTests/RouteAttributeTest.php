@@ -82,7 +82,7 @@ class RouteAttributeTest extends TestCase
             ->assertRegisteredRoutesCount(1)
             ->assertRouteRegistered(
                 controller: InvokableRouteGetTestController::class,
-                controllerMethod: '__invoke',
+                controllerMethod: InvokableRouteGetTestController::class,
                 uri: 'my-invokable-route'
             );
     }
