@@ -19,10 +19,11 @@ class Route implements RouteAttribute
         public ?string $name = null,
         array | string $middleware = [],
     ) {
-        $this->methods = array_map(static fn(string $verb) => in_array(
-                $upperVerb = strtoupper($verb),
-                Router::$verbs
-            )
+        $this->methods = array_map(
+            static fn (string $verb) => in_array(
+            $upperVerb = strtoupper($verb),
+            Router::$verbs
+        )
             ? $upperVerb
             : $verb,
             Arr::wrap($methods)
