@@ -7,6 +7,7 @@ use Spatie\RouteAttributes\Attributes\Domain;
 use Spatie\RouteAttributes\Attributes\Middleware;
 use Spatie\RouteAttributes\Attributes\Prefix;
 use Spatie\RouteAttributes\Attributes\RouteAttribute;
+use Spatie\RouteAttributes\Attributes\Wheres;
 
 class ClassRouteAttributes
 {
@@ -54,6 +55,19 @@ class ClassRouteAttributes
         }
 
         return $attribute->middleware;
+    }
+
+    /**
+     * @psalm-suppress NoInterfaceProperties
+     */
+    public function wheres(): array
+    {
+        /** @var \Spatie\RouteAttributes\Attributes\Wheres $attribute */
+        if (! $attribute = $this->getAttribute(Wheres::class)) {
+            return [];
+        }
+
+        return $attribute->wheres;
     }
 
     protected function getAttribute(string $attributeClass): ?RouteAttribute
