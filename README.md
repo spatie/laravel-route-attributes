@@ -256,6 +256,50 @@ Route::get('my-get-route', [MyController::class, 'myGetMethod'])->domain('my-sub
 Route::post('my-post-route', [MyController::class, 'myPostMethod'])->domain('my-subdomain.localhost');
 ```
 
+
+### Specifying wheres
+
+You can use the `Where` annotation on a class or method to constrain the format of your route parameters.
+
+
+```php
+use Spatie\RouteAttributes\Attributes\Get;
+use Spatie\RouteAttributes\Attributes\Post;
+use Spatie\RouteAttributes\Attributes\Where;
+use Spatie\RouteAttributes\Attributes\WhereAlphaNumeric;
+
+#[Where('my-where', '[0-9]+')]
+class MyController
+{
+    #[Get('my-get-route/{my-where}')]
+    public function myGetMethod()
+    {
+    }
+
+    #[Post('my-post-route/{my-where}/{my-alpha-numeric}')]
+    #[WhereAlphaNumeric('my-alpha-numeric')]
+    public function myPostMethod()
+    {
+    }
+}
+```
+
+These annotations will automatically register these routes:
+
+```php
+Route::get('my-get-route/{my-where}', [MyController::class, 'myGetMethod'])->where(['my-where' => '[0-9]+']);
+Route::post('my-post-route/{my-where}/{my-alpha-numeric}', [MyController::class, 'myPostMethod'])->where(['my-where' => '[0-9]+', 'my-alpha-numeric' => '[a-zA-Z0-9]+']);
+```
+
+For convenience, some commonly used regular expression patterns have helper attributes that allow you to quickly add pattern constraints to your routes.
+
+```php 
+#[WhereAlpha('alpha')]
+#[WhereAlphaNumeric('alpha-numeric')]
+#[WhereNumber('number')]
+#[WhereUuid('uuid')]
+```
+
 ## Testing
 
 ``` bash

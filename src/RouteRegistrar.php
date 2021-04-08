@@ -9,6 +9,8 @@ use ReflectionAttribute;
 use ReflectionClass;
 use Spatie\RouteAttributes\Attributes\Route;
 use Spatie\RouteAttributes\Attributes\RouteAttribute;
+use Spatie\RouteAttributes\Attributes\Where;
+use Spatie\RouteAttributes\Attributes\WhereAttribute;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;
 use Throwable;
@@ -113,6 +115,7 @@ class RouteRegistrar
     {
         foreach ($class->getMethods() as $method) {
             $attributes = $method->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
+            $wheresAttributes = $method->getAttributes(WhereAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
 
             foreach ($attributes as $attribute) {
                 try {
@@ -138,6 +141,18 @@ class RouteRegistrar
 
                 if ($domain = $classRouteAttributes->domain()) {
                     $route->domain($domain);
+                }
+
+                $wheres = $classRouteAttributes->wheres();
+                foreach ($wheresAttributes as $wheresAttribute) {
+                    /** @var Where $wheresAttributeClass */
+                    $wheresAttributeClass = $wheresAttribute->newInstance();
+
+                    // This also overrides class wheres if the same param is used
+                    $wheres[$wheresAttributeClass->param] = $wheresAttributeClass->constraint;
+                }
+                if (!empty($wheres)) {
+                    $route->setWheres($wheres);
                 }
 
                 $classMiddleware = $classRouteAttributes->middleware();
