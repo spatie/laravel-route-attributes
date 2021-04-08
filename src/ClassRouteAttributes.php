@@ -69,6 +69,7 @@ class ClassRouteAttributes
             $attributeClass = $attribute->newInstance();
             $wheres[$attributeClass->param] = $attributeClass->constraint;
         }
+
         return $wheres;
     }
 

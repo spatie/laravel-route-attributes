@@ -151,7 +151,7 @@ class RouteRegistrar
                     // This also overrides class wheres if the same param is used
                     $wheres[$wheresAttributeClass->param] = $wheresAttributeClass->constraint;
                 }
-                if (!empty($wheres)) {
+                if (! empty($wheres)) {
                     $route->setWheres($wheres);
                 }
 

@@ -3,10 +3,7 @@
 namespace Spatie\RouteAttributes\Tests\AttributeTests;
 
 use Spatie\RouteAttributes\Tests\TestCase;
-use Spatie\RouteAttributes\Tests\TestClasses\Controllers\MiddlewareTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\WhereTestController;
-use Spatie\RouteAttributes\Tests\TestClasses\Middleware\OtherTestMiddleware;
-use Spatie\RouteAttributes\Tests\TestClasses\Middleware\TestMiddleware;
 
 class WhereAttributeTest extends TestCase
 {
@@ -63,7 +60,7 @@ class WhereAttributeTest extends TestCase
                     'alpha' => '[a-zA-Z]+',
                     'alpha-numeric' => '[a-zA-Z0-9]+',
                     'number' => '[0-9]+',
-                    'uuid' => '[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}'
+                    'uuid' => '[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}',
                 ]
             );
     }
