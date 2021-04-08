@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.4.0 - 2021-04-08
+
+- adds optional Wheres attribute on class and method level (#31)
+
 ## 1.3.0 - 2021-03-03
 
 - add support for multi-verb routes
