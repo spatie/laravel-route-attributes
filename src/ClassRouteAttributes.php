@@ -7,7 +7,7 @@ use Spatie\RouteAttributes\Attributes\Domain;
 use Spatie\RouteAttributes\Attributes\Middleware;
 use Spatie\RouteAttributes\Attributes\Prefix;
 use Spatie\RouteAttributes\Attributes\RouteAttribute;
-use Spatie\RouteAttributes\Attributes\Wheres;
+use Spatie\RouteAttributes\Attributes\Where;
 
 class ClassRouteAttributes
 {
@@ -62,12 +62,14 @@ class ClassRouteAttributes
      */
     public function wheres(): array
     {
-        /** @var \Spatie\RouteAttributes\Attributes\Wheres $attribute */
-        if (! $attribute = $this->getAttribute(Wheres::class)) {
-            return [];
+        $wheres = [];
+        /** @var ReflectionClass[] $attributes */
+        $attributes = $this->class->getAttributes(Where::class);
+        foreach ($attributes as $attribute) {
+            $attributeClass = $attribute->newInstance();
+            $wheres[$attributeClass->param] = $attributeClass->constraint;
         }
-
-        return $attribute->wheres;
+        return $wheres;
     }
 
     protected function getAttribute(string $attributeClass): ?RouteAttribute

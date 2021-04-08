@@ -9,7 +9,8 @@ use ReflectionAttribute;
 use ReflectionClass;
 use Spatie\RouteAttributes\Attributes\Route;
 use Spatie\RouteAttributes\Attributes\RouteAttribute;
-use Spatie\RouteAttributes\Attributes\Wheres;
+use Spatie\RouteAttributes\Attributes\Where;
+use Spatie\RouteAttributes\Attributes\WhereAttribute;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;
 use Throwable;
@@ -114,7 +115,7 @@ class RouteRegistrar
     {
         foreach ($class->getMethods() as $method) {
             $attributes = $method->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
-            $wheresAttributes = $method->getAttributes(Wheres::class);
+            $wheresAttributes = $method->getAttributes(WhereAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
 
             foreach ($attributes as $attribute) {
                 try {
@@ -144,15 +145,13 @@ class RouteRegistrar
 
                 $wheres = $classRouteAttributes->wheres();
                 foreach ($wheresAttributes as $wheresAttribute) {
-                    try {
-                        /** @var Wheres $wheresAttributeClass */
-                        $wheresAttributeClass = $wheresAttribute->newInstance();
-                        $wheres = array_merge($wheres, $wheresAttributeClass->wheres);
-                    } catch (Throwable) {
-                        continue;
-                    }
+                    /** @var Where $wheresAttributeClass */
+                    $wheresAttributeClass = $wheresAttribute->newInstance();
+
+                    // This also overrides class wheres if the same param is used
+                    $wheres[$wheresAttributeClass->param] = $wheresAttributeClass->constraint;
                 }
-                if(!empty($wheres)){
+                if (!empty($wheres)) {
                     $route->setWheres($wheres);
                 }
 
