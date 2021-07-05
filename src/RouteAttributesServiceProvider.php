@@ -2,6 +2,7 @@
 
 namespace Spatie\RouteAttributes;
 
+use Illuminate\Contracts\Foundation\CachesRoutes;
 use Illuminate\Support\ServiceProvider;
 
 class RouteAttributesServiceProvider extends ServiceProvider
@@ -24,7 +25,7 @@ class RouteAttributesServiceProvider extends ServiceProvider
 
     protected function registerRoutes(): void
     {
-        if (! config('route-attributes.enabled')) {
+        if (! config('route-attributes.enabled') || $this->routesAreCached()) {
             return;
         }
 
@@ -33,6 +34,12 @@ class RouteAttributesServiceProvider extends ServiceProvider
             ->useMiddleware(config('route-attributes.middleware') ?? []);
 
         collect($this->getRouteDirectories())->each(fn (string $directory) => $routeRegistrar->registerDirectory($directory));
+    }
+
+    private function routesAreCached()
+    {
+        return $this->app instanceof CachesRoutes
+            && $this->app->routesAreCached();
     }
 
     private function getRouteDirectories(): array
