@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.4.2 - 2021-07-05
+
+- do not register routes when they are cached (#38)
+
 ## 1.4.1 - 2021-06-09
 
 - remove facade
