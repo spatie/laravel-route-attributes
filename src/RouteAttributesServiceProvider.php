@@ -24,7 +24,7 @@ class RouteAttributesServiceProvider extends ServiceProvider
 
     protected function registerRoutes(): void
     {
-        if (! config('route-attributes.enabled')) {
+        if (! $this->shouldRegisterRoutes()) {
             return;
         }
 
@@ -33,6 +33,19 @@ class RouteAttributesServiceProvider extends ServiceProvider
             ->useMiddleware(config('route-attributes.middleware') ?? []);
 
         collect($this->getRouteDirectories())->each(fn (string $directory) => $routeRegistrar->registerDirectory($directory));
+    }
+
+    private function shouldRegisterRoutes(): bool
+    {
+        if (! config('route-attributes.enabled')) {
+            return false;
+        }
+        
+        if ($this->app->routesAreCached()) {
+            return false;
+        }
+        
+        return true;
     }
 
     private function getRouteDirectories(): array
