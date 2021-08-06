@@ -111,7 +111,7 @@ class RouteRegistrar
         }
 
         ($prefix = $classRouteAttributes->prefix())
-            ? $this->router->prefix($prefix)->group( fn() => $this->registerRoutes($class, $classRouteAttributes))
+            ? $this->router->prefix($prefix)->group(fn () => $this->registerRoutes($class, $classRouteAttributes))
             : $this->registerRoutes($class, $classRouteAttributes);
     }
 
