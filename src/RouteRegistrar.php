@@ -106,9 +106,26 @@ class RouteRegistrar
 
         $classRouteAttributes = new ClassRouteAttributes($class);
 
+        if ($resource = $classRouteAttributes->resource()) {
+            $this->registerResource($class, $classRouteAttributes);
+        }
+
         ($prefix = $classRouteAttributes->prefix())
-            ? $this->router->prefix($prefix)->group(fn () => $this->registerRoutes($class, $classRouteAttributes))
+            ? $this->router->prefix($prefix)->group(fn() => $this->registerRoutes($class, $classRouteAttributes))
             : $this->registerRoutes($class, $classRouteAttributes);
+    }
+
+    protected function registerResource(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): void
+    {
+        $resourceRoute = $this->router->resource($classRouteAttributes->resource(), $class->getName());
+
+        if ($only = $classRouteAttributes->only()) {
+            $resourceRoute->only($only);
+        }
+
+        if ($except = $classRouteAttributes->except()) {
+            $resourceRoute->only($except);
+        }
     }
 
     protected function registerRoutes(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): void
