@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\RouteAttributes\Tests\TestClasses\Controllers;
+namespace Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource;
 
 use Illuminate\Http\Request;
 use Spatie\RouteAttributes\Attributes\Resource;
 
-#[Resource('posts')]
-class ResourceTestFullController
+#[Resource('posts', except: ['update', 'destroy'])]
+class ResourceTestExceptController
 {
     public function index()
     {
@@ -25,14 +25,6 @@ class ResourceTestFullController
     }
 
     public function edit($id)
-    {
-    }
-
-    public function update(Request $request, $id)
-    {
-    }
-
-    public function destroy($id)
     {
     }
 }

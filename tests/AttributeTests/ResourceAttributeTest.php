@@ -3,12 +3,34 @@
 namespace Spatie\RouteAttributes\Tests\AttributeTests;
 
 use Spatie\RouteAttributes\Tests\TestCase;
-use Spatie\RouteAttributes\Tests\TestClasses\Controllers\ResourceTestExceptController;
-use Spatie\RouteAttributes\Tests\TestClasses\Controllers\ResourceTestFullController;
-use Spatie\RouteAttributes\Tests\TestClasses\Controllers\ResourceTestOnlyController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestExceptController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestFullController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestOnlyController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestPrefixController;
 
 class ResourceAttributeTest extends TestCase
 {
+    /** @test */
+    public function it_can_register_resource_with_prefix()
+    {
+        $this->routeRegistrar->registerClass(ResourceTestPrefixController::class);
+
+        $this
+            ->assertRegisteredRoutesCount(2)
+            ->assertRouteRegistered(
+                ResourceTestPrefixController::class,
+                controllerMethod: 'index',
+                uri: 'api/v1/my-prefix/etc/posts',
+                name: 'posts.index'
+            )
+            ->assertRouteRegistered(
+                ResourceTestPrefixController::class,
+                controllerMethod: 'show',
+                uri: 'api/v1/my-prefix/etc/posts/{post}',
+                name: 'posts.show'
+            );
+    }
+
     /** @test */
     public function it_can_register_resource_with_all_methods()
     {
