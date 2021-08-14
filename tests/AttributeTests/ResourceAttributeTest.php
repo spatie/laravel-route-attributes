@@ -5,8 +5,11 @@ namespace Spatie\RouteAttributes\Tests\AttributeTests;
 use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestExceptController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestFullController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestMiddlewareController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestOnlyController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestPrefixController;
+use Spatie\RouteAttributes\Tests\TestClasses\Middleware\OtherTestMiddleware;
+use Spatie\RouteAttributes\Tests\TestClasses\Middleware\TestMiddleware;
 
 class ResourceAttributeTest extends TestCase
 {
@@ -28,6 +31,29 @@ class ResourceAttributeTest extends TestCase
                 controllerMethod: 'show',
                 uri: 'api/v1/my-prefix/etc/posts/{post}',
                 name: 'posts.show'
+            );
+    }
+
+    /** @test */
+    public function it_can_register_resource_with_middleware()
+    {
+        $this->routeRegistrar->registerClass(ResourceTestMiddlewareController::class);
+
+        $this
+            ->assertRegisteredRoutesCount(2)
+            ->assertRouteRegistered(
+                ResourceTestMiddlewareController::class,
+                controllerMethod: 'index',
+                uri: 'posts',
+                middleware: [TestMiddleware::class, OtherTestMiddleware::class],
+                name: 'posts.index',
+            )
+            ->assertRouteRegistered(
+                ResourceTestMiddlewareController::class,
+                controllerMethod: 'show',
+                uri: 'posts/{post}',
+                middleware: [TestMiddleware::class, OtherTestMiddleware::class],
+                name: 'posts.show',
             );
     }
 
@@ -86,7 +112,7 @@ class ResourceAttributeTest extends TestCase
     }
 
     /** @test */
-    public function it_can_register_resource_with_only_a_few_methods()
+    public function it_can_register_resource_with_only_few_methods()
     {
         $this->routeRegistrar->registerClass(ResourceTestOnlyController::class);
 
@@ -114,7 +140,7 @@ class ResourceAttributeTest extends TestCase
     }
 
     /** @test */
-    public function it_can_register_resource_without_a_few_methods()
+    public function it_can_register_resource_without_few_methods()
     {
         $this->routeRegistrar->registerClass(ResourceTestExceptController::class);
 
