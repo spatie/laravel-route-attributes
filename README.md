@@ -108,9 +108,7 @@ We have left no HTTP verb behind. You can use these attributes on controller met
 
 ### Resource controllers
 
-> It is recommended to read the ["Resource Controllers"](https://laravel.com/docs/8.x/controllers#resource-controllers) section in Laravel docs before using this feature
-
-To register [resource controller](https://laravel.com/docs/controllers#resource-controllers), use `Resource` attribute as shown in the example below.
+To register a [resource controller](https://laravel.com/docs/controllers#resource-controllers), use the `Resource` attribute as shown in the example below.
 
 You can use `only` or `except` parameters to manage your resource routes availability.
 
