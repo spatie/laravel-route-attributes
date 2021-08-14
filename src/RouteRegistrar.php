@@ -106,7 +106,7 @@ class RouteRegistrar
 
         $classRouteAttributes = new ClassRouteAttributes($class);
 
-        if ($resource = $classRouteAttributes->resource()) {
+        if ($classRouteAttributes->resource()) {
             $this->registerResource($class, $classRouteAttributes);
         }
 
