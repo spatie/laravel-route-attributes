@@ -117,14 +117,11 @@ Using `Resource` attribute with `Domain`, `Prefix` and `Middleware` attributes w
 ```php
 use Spatie\RouteAttributes\Attributes\Resource;
 
-#[Resource('posts')]
+#[Prefix('api/v1')]
+#[Resource('posts', except: ['create', 'edit', 'destroy'])]
 class PostController
 {   
     public function index()
-    {
-    }
-
-    public function create()
     {
     }
 
@@ -136,15 +133,7 @@ class PostController
     {
     }
 
-    public function edit($id)
-    {
-    }
-
     public function update(Request $request, $id)
-    {
-    }
-
-    public function destroy($id)
     {
     }
 }
