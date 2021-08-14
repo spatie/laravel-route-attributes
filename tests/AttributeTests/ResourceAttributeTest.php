@@ -3,6 +3,7 @@
 namespace Spatie\RouteAttributes\Tests\AttributeTests;
 
 use Spatie\RouteAttributes\Tests\TestCase;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestDomainController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestExceptController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestFullController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestMiddlewareController;
@@ -54,6 +55,29 @@ class ResourceAttributeTest extends TestCase
                 uri: 'posts/{post}',
                 middleware: [TestMiddleware::class, OtherTestMiddleware::class],
                 name: 'posts.show',
+            );
+    }
+
+    /** @test */
+    public function it_can_register_resource_with_domain()
+    {
+        $this->routeRegistrar->registerClass(ResourceTestDomainController::class);
+
+        $this
+            ->assertRegisteredRoutesCount(2)
+            ->assertRouteRegistered(
+                ResourceTestDomainController::class,
+                controllerMethod: 'index',
+                uri: 'posts',
+                name: 'posts.index',
+                domain: 'my-subdomain.localhost'
+            )
+            ->assertRouteRegistered(
+                ResourceTestDomainController::class,
+                controllerMethod: 'show',
+                uri: 'posts/{post}',
+                name: 'posts.show',
+                domain: 'my-subdomain.localhost'
             );
     }
 

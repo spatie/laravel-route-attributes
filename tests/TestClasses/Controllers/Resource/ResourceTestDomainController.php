@@ -2,12 +2,12 @@
 
 namespace Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource;
 
-use Spatie\RouteAttributes\Attributes\Prefix;
+use Spatie\RouteAttributes\Attributes\Domain;
 use Spatie\RouteAttributes\Attributes\Resource;
 
-#[Prefix('/api/v1/my-prefix/etc')]
+#[Domain('my-subdomain.localhost')]
 #[Resource('posts', only: ['index', 'show'])]
-class ResourceTestPrefixController
+class ResourceTestDomainController
 {
     public function index()
     {

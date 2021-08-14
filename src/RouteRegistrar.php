@@ -117,29 +117,24 @@ class RouteRegistrar
 
     protected function registerResource(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): void
     {
-        $name = $classRouteAttributes->resource();
+        $this->router->group([
+            'domain' => $classRouteAttributes->domain(),
+            'prefix' => $classRouteAttributes->prefix(),
+        ], function () use ($class, $classRouteAttributes) {
+            $route = $this->router->resource($classRouteAttributes->resource(), $class->getName());
 
-        if ($prefix = $classRouteAttributes->prefix()) {
-            $name = trim($prefix, '/') . "/$name";
-        }
+            if ($only = $classRouteAttributes->only()) {
+                $route->only($only);
+            }
 
-        $route = $this->router->resource($name, $class->getName());
+            if ($except = $classRouteAttributes->except()) {
+                $route->except($except);
+            }
 
-        if ($only = $classRouteAttributes->only()) {
-            $route->only($only);
-        }
-
-        if ($except = $classRouteAttributes->except()) {
-            $route->except($except);
-        }
-
-        if ($domain = $classRouteAttributes->domain()) {
-            $route->domain($domain);
-        }
-
-        if ($middleware = $classRouteAttributes->middleware()) {
-            $route->middleware([...$this->middleware, ...$middleware]);
-        }
+            if ($middleware = $classRouteAttributes->middleware()) {
+                $route->middleware([...$this->middleware, ...$middleware]);
+            }
+        });
     }
 
     protected function registerRoutes(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): void
