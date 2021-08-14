@@ -136,6 +136,10 @@ class RouteRegistrar
         if ($domain = $classRouteAttributes->domain()) {
             $route->domain($domain);
         }
+
+        if ($middleware = $classRouteAttributes->middleware()) {
+            $route->middleware([...$this->middleware, ...$middleware]);
+        }
     }
 
     protected function registerRoutes(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): void
