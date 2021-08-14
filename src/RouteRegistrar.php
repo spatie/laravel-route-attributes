@@ -130,7 +130,7 @@ class RouteRegistrar
         }
 
         if ($except = $classRouteAttributes->except()) {
-            $route->only($except);
+            $route->except($except);
         }
 
         if ($domain = $classRouteAttributes->domain()) {

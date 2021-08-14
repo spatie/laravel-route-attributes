@@ -5,14 +5,10 @@ namespace Spatie\RouteAttributes\Tests\TestClasses\Controllers;
 use Illuminate\Http\Request;
 use Spatie\RouteAttributes\Attributes\Resource;
 
-#[Resource('posts')]
-class ResourceTestFullController
+#[Resource('posts', only: ['index', 'store', 'show'])]
+class ResourceTestOnlyController
 {
     public function index()
-    {
-    }
-
-    public function create()
     {
     }
 
@@ -21,18 +17,6 @@ class ResourceTestFullController
     }
 
     public function show($id)
-    {
-    }
-
-    public function edit($id)
-    {
-    }
-
-    public function update(Request $request, $id)
-    {
-    }
-
-    public function destroy($id)
     {
     }
 }
