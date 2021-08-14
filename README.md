@@ -106,6 +106,50 @@ We have left no HTTP verb behind. You can use these attributes on controller met
 #[Spatie\RouteAttributes\Attributes\Options('my-uri')]
 ```
 
+### Resource controllers
+
+To register resource controller, use `Resource` attribute as shown in the example below.
+
+You can use `only` or `except` parameters to manage your resource routes availability.
+
+Using `Resource` attribute with `Domain`, `Prefix` and `Middleware` attributes works as well.
+
+```php
+use Spatie\RouteAttributes\Attributes\Resource;
+
+#[Resource('posts')]
+class PostController
+{   
+    public function index()
+    {
+    }
+
+    public function create()
+    {
+    }
+
+    public function store(Request $request)
+    {
+    }
+
+    public function show($id)
+    {
+    }
+
+    public function edit($id)
+    {
+    }
+
+    public function update(Request $request, $id)
+    {
+    }
+
+    public function destroy($id)
+    {
+    }
+}
+```
+
 ### Using multiple verbs
 
 To register a route for all verbs, you can use the `Any` attribute:
