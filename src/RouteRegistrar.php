@@ -117,14 +117,24 @@ class RouteRegistrar
 
     protected function registerResource(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): void
     {
-        $resourceRoute = $this->router->resource($classRouteAttributes->resource(), $class->getName());
+        $name = $classRouteAttributes->resource();
+
+        if ($prefix = $classRouteAttributes->prefix()) {
+            $name = trim($prefix, '/') . "/$name";
+        }
+
+        $route = $this->router->resource($name, $class->getName());
 
         if ($only = $classRouteAttributes->only()) {
-            $resourceRoute->only($only);
+            $route->only($only);
         }
 
         if ($except = $classRouteAttributes->except()) {
-            $resourceRoute->only($except);
+            $route->only($except);
+        }
+
+        if ($domain = $classRouteAttributes->domain()) {
+            $route->domain($domain);
         }
     }
 
