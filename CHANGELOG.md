@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.5.0 - 2021-08-15
+
+- add support for resource controllers
+
 ## 1.4.2 - 2021-07-05
 
 - do not register routes when they are cached (#38)
