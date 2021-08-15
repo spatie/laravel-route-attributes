@@ -58,7 +58,6 @@ class ClassRouteAttributes
         return $attribute->resource;
     }
 
-
     /**
      * @psalm-suppress NoInterfaceProperties
      */
