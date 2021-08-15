@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.6.0 - 2021-08-15
+
+- add apiResource parameter to Resource attribute (#49)
+
 ## 1.5.0 - 2021-08-15
 
 - add support for resource controllers
