@@ -6,6 +6,7 @@ use ReflectionClass;
 use Spatie\RouteAttributes\Attributes\Domain;
 use Spatie\RouteAttributes\Attributes\Middleware;
 use Spatie\RouteAttributes\Attributes\Prefix;
+use Spatie\RouteAttributes\Attributes\Resource;
 use Spatie\RouteAttributes\Attributes\RouteAttribute;
 use Spatie\RouteAttributes\Attributes\Where;
 
@@ -42,6 +43,46 @@ class ClassRouteAttributes
         }
 
         return $attribute->domain;
+    }
+
+    /**
+     * @psalm-suppress NoInterfaceProperties
+     */
+    public function resource(): ?string
+    {
+        /** @var \Spatie\RouteAttributes\Attributes\Resource $attribute */
+        if (! $attribute = $this->getAttribute(Resource::class)) {
+            return null;
+        }
+
+        return $attribute->resource;
+    }
+
+    /**
+     * @psalm-suppress NoInterfaceProperties
+     */
+    public function except(): string|array|null
+    {
+        /** @var \Spatie\RouteAttributes\Attributes\Resource $attribute */
+        if (! $attribute = $this->getAttribute(Resource::class)) {
+            return null;
+        }
+
+        return $attribute->except;
+    }
+
+
+    /**
+     * @psalm-suppress NoInterfaceProperties
+     */
+    public function only(): string|array|null
+    {
+        /** @var \Spatie\RouteAttributes\Attributes\Resource $attribute */
+        if (! $attribute = $this->getAttribute(Resource::class)) {
+            return null;
+        }
+
+        return $attribute->only;
     }
 
     /**

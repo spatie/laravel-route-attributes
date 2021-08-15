@@ -106,6 +106,39 @@ We have left no HTTP verb behind. You can use these attributes on controller met
 #[Spatie\RouteAttributes\Attributes\Options('my-uri')]
 ```
 
+### Resource controllers
+
+To register a [resource controller](https://laravel.com/docs/controllers#resource-controllers), use the `Resource` attribute as shown in the example below.
+
+You can use `only` or `except` parameters to manage your resource routes availability.
+
+Using `Resource` attribute with `Domain`, `Prefix` and `Middleware` attributes works as well.
+
+```php
+use Spatie\RouteAttributes\Attributes\Resource;
+
+#[Prefix('api/v1')]
+#[Resource('posts', except: ['create', 'edit', 'destroy'])]
+class PostController
+{   
+    public function index()
+    {
+    }
+
+    public function store(Request $request)
+    {
+    }
+
+    public function show($id)
+    {
+    }
+
+    public function update(Request $request, $id)
+    {
+    }
+}
+```
+
 ### Using multiple verbs
 
 To register a route for all verbs, you can use the `Any` attribute:
