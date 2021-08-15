@@ -3,6 +3,7 @@
 namespace Spatie\RouteAttributes\Tests\AttributeTests;
 
 use Spatie\RouteAttributes\Tests\TestCase;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestApiController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestDomainController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestExceptController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestFullController;
@@ -200,6 +201,49 @@ class ResourceAttributeTest extends TestCase
                 controllerMethod: 'edit',
                 uri: 'posts/{post}/edit',
                 name: 'posts.edit'
+            );
+    }
+
+
+    /** @test */
+    public function it_can_register_api_resource()
+    {
+        $this->routeRegistrar->registerClass(ResourceTestApiController::class);
+
+        $this
+            ->assertRegisteredRoutesCount(5)
+            ->assertRouteRegistered(
+                ResourceTestApiController::class,
+                controllerMethod: 'index',
+                uri: 'posts',
+                name: 'posts.index'
+            )
+            ->assertRouteRegistered(
+                ResourceTestApiController::class,
+                controllerMethod: 'store',
+                httpMethods: 'post',
+                uri: 'posts',
+                name: 'posts.store'
+            )
+            ->assertRouteRegistered(
+                ResourceTestApiController::class,
+                controllerMethod: 'show',
+                uri: 'posts/{post}',
+                name: 'posts.show'
+            )
+            ->assertRouteRegistered(
+                ResourceTestApiController::class,
+                controllerMethod: 'update',
+                httpMethods: 'put',
+                uri: 'posts/{post}',
+                name: 'posts.update'
+            )
+            ->assertRouteRegistered(
+                ResourceTestApiController::class,
+                controllerMethod: 'destroy',
+                httpMethods: 'delete',
+                uri: 'posts/{post}',
+                name: 'posts.destroy'
             );
     }
 }

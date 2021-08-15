@@ -58,6 +58,20 @@ class ClassRouteAttributes
         return $attribute->resource;
     }
 
+
+    /**
+     * @psalm-suppress NoInterfaceProperties
+     */
+    public function apiResource(): ?string
+    {
+        /** @var \Spatie\RouteAttributes\Attributes\Resource $attribute */
+        if (! $attribute = $this->getAttribute(Resource::class)) {
+            return null;
+        }
+
+        return $attribute->apiResource;
+    }
+
     /**
      * @psalm-suppress NoInterfaceProperties
      */
