@@ -121,7 +121,9 @@ class RouteRegistrar
             'domain' => $classRouteAttributes->domain(),
             'prefix' => $classRouteAttributes->prefix(),
         ], function () use ($class, $classRouteAttributes) {
-            $route = $this->router->resource($classRouteAttributes->resource(), $class->getName());
+            $route = $classRouteAttributes->apiResource()
+                ? $this->router->apiResource($classRouteAttributes->resource(), $class->getName())
+                : $this->router->resource($classRouteAttributes->resource(), $class->getName());
 
             if ($only = $classRouteAttributes->only()) {
                 $route->only($only);
