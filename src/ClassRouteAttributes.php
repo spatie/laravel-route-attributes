@@ -61,7 +61,7 @@ class ClassRouteAttributes
     /**
      * @psalm-suppress NoInterfaceProperties
      */
-    public function except(): string|array|null
+    public function except(): string | array | null
     {
         /** @var \Spatie\RouteAttributes\Attributes\Resource $attribute */
         if (! $attribute = $this->getAttribute(Resource::class)) {
@@ -71,11 +71,10 @@ class ClassRouteAttributes
         return $attribute->except;
     }
 
-
     /**
      * @psalm-suppress NoInterfaceProperties
      */
-    public function only(): string|array|null
+    public function only(): string | array | null
     {
         /** @var \Spatie\RouteAttributes\Attributes\Resource $attribute */
         if (! $attribute = $this->getAttribute(Resource::class)) {
