@@ -167,7 +167,9 @@ class RouteRegistrar
                 $route
                     ->name($attributeClass->name);
 
-                if ($domain = $classRouteAttributes->domain()) {
+                if ($domain = $classRouteAttributes->domainFromConfig()) {
+                    $route->domain($domain);
+                } else if ($domain = $classRouteAttributes->domain()) {
                     $route->domain($domain);
                 }
 

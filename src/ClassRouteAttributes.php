@@ -4,6 +4,7 @@ namespace Spatie\RouteAttributes;
 
 use ReflectionClass;
 use Spatie\RouteAttributes\Attributes\Domain;
+use Spatie\RouteAttributes\Attributes\DomainFromConfig;
 use Spatie\RouteAttributes\Attributes\Middleware;
 use Spatie\RouteAttributes\Attributes\Prefix;
 use Spatie\RouteAttributes\Attributes\Resource;
@@ -43,6 +44,19 @@ class ClassRouteAttributes
         }
 
         return $attribute->domain;
+    }
+
+    /**
+     * @psalm-suppress NoInterfaceProperties
+     */
+    public function domainFromConfig(): ?string
+    {
+        /** @var \Spatie\RouteAttributes\Attributes\DomainFromConfig $attribute */
+        if (! $attribute = $this->getAttribute(DomainFromConfig::class)) {
+            return null;
+        }
+
+        return config($attribute->domain);
     }
 
     /**

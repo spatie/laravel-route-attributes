@@ -289,6 +289,40 @@ Route::get('my-get-route', [MyController::class, 'myGetMethod'])->domain('my-sub
 Route::post('my-post-route', [MyController::class, 'myPostMethod'])->domain('my-subdomain.localhost');
 ```
 
+### Specifying a domain from a config key
+
+There maybe a need to define a domain from a configuration file, for example where
+your subdomain will be different on your development environment to your production environment.
+
+```
+config/domains.php
+
+return [
+    'main' => env('SITE_URL', 'example.com'),
+    'subdomain' => env('SUBDOMAIN_URL', 'subdomain.exmaple.com')
+];
+```
+
+```php
+use Spatie\RouteAttributes\Attributes\Get;
+use Spatie\RouteAttributes\Attributes\Post;
+use Spatie\RouteAttributes\Attributes\DomainFromConfig;
+
+#[DomainFromConfig('domains.main')]
+class MyController
+{
+    #[Get('my-get-route')]
+    public function myGetMethod()
+    {
+    }
+}
+```
+When this is parsed, it will get the value of `domains.main` from the config file and 
+register the route as follows;
+
+```php
+Route::get('my-get-route', [MyController::class, 'myGetMethod'])->domain('example.com');
+```
 
 ### Specifying wheres
 
