@@ -2,7 +2,6 @@
 
 namespace Spatie\RouteAttributes\Tests\AttributeTests;
 
-use Illuminate\Support\Facades\Config;
 use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\DomainFromConfigTestController;
 
@@ -11,7 +10,7 @@ class DomainFromConfigAttributeTest extends TestCase
     /** @test */
     public function it_can_apply_a_domain_on_the_url_of_every_method()
     {
-        Config::set('domains.test', 'config.localhost');
+        config()->set('domains.test', 'config.localhost');
         $this->routeRegistrar->registerClass(DomainFromConfigTestController::class);
 
         $this
