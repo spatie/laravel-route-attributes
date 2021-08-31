@@ -162,13 +162,14 @@ class RouteRegistrar
                     ? $class->getName()
                     : [$class->getName(), $method->getName()];
 
-                $route = $this->router->addRoute($httpMethods, $attributeClass->uri, $action);
-
                 if ($domain = $classRouteAttributes->domainFromConfig() ?? $classRouteAttributes->domain()) {
-                    $route->domain($domain);
+                    $route = $this->router->domain($domain)
+                        ->name($attributeClass->name)
+                        ->match($httpMethods, $attributeClass->uri, $action);
+                } else {
+                    $route = $this->router->addRoute($httpMethods, $attributeClass->uri, $action)
+                        ->name($attributeClass->name);
                 }
-
-                $route->name($attributeClass->name);
 
                 $wheres = $classRouteAttributes->wheres();
                 foreach ($wheresAttributes as $wheresAttribute) {
