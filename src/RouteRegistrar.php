@@ -46,7 +46,7 @@ class RouteRegistrar
         return $this;
     }
 
-    public function useMiddleware(string | array $middleware): self
+    public function useMiddleware(string|array $middleware): self
     {
         $this->middleware = Arr::wrap($middleware);
 
@@ -58,16 +58,16 @@ class RouteRegistrar
         return $this->middleware ?? [];
     }
 
-    public function registerDirectory(string | array $directories): void
+    public function registerDirectory(string|array $directories): void
     {
         $directories = Arr::wrap($directories);
 
         $files = (new Finder())->files()->name('*.php')->in($directories);
 
-        collect($files)->each(fn (SplFileInfo $file) => $this->registerFile($file));
+        collect($files)->each(fn(SplFileInfo $file) => $this->registerFile($file));
     }
 
-    public function registerFile(string | SplFileInfo $path): void
+    public function registerFile(string|SplFileInfo $path): void
     {
         if (is_string($path)) {
             $path = new SplFileInfo($path);
@@ -98,7 +98,7 @@ class RouteRegistrar
 
     protected function processAttributes(string $className): void
     {
-        if (! class_exists($className)) {
+        if (!class_exists($className)) {
             return;
         }
 
@@ -111,7 +111,7 @@ class RouteRegistrar
         }
 
         ($prefix = $classRouteAttributes->prefix())
-            ? $this->router->prefix($prefix)->group(fn () => $this->registerRoutes($class, $classRouteAttributes))
+            ? $this->router->prefix($prefix)->group(fn() => $this->registerRoutes($class, $classRouteAttributes))
             : $this->registerRoutes($class, $classRouteAttributes);
     }
 
@@ -152,7 +152,7 @@ class RouteRegistrar
                     continue;
                 }
 
-                if (! $attributeClass instanceof Route) {
+                if (!$attributeClass instanceof Route) {
                     continue;
                 }
 
@@ -162,14 +162,13 @@ class RouteRegistrar
                     ? $class->getName()
                     : [$class->getName(), $method->getName()];
 
-                $router = $this->router;
+                $route = $this->router->addRoute($httpMethods, $attributeClass->uri, $action);
 
                 if ($domain = $classRouteAttributes->domainFromConfig() ?? $classRouteAttributes->domain()) {
-                    $router = $router->domain($domain);
+                    $route->domain($domain);
                 }
 
-                $route = $router->name($attributeClass->name)
-                    ->match($httpMethods, $attributeClass->uri, $action);
+                $route->name($attributeClass->name);
 
                 $wheres = $classRouteAttributes->wheres();
                 foreach ($wheresAttributes as $wheresAttribute) {
@@ -179,7 +178,7 @@ class RouteRegistrar
                     // This also overrides class wheres if the same param is used
                     $wheres[$wheresAttributeClass->param] = $wheresAttributeClass->constraint;
                 }
-                if (! empty($wheres)) {
+                if (!empty($wheres)) {
                     $route->setWheres($wheres);
                 }
 
