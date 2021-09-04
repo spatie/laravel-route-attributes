@@ -294,8 +294,8 @@ Route::post('my-post-route', [MyController::class, 'myPostMethod'])->domain('my-
 There maybe a need to define a domain from a configuration file, for example where
 your subdomain will be different on your development environment to your production environment.
 
-```
-config/domains.php
+```php
+// File: config/domains.php
 
 return [
     'main' => env('SITE_URL', 'example.com'),
@@ -365,6 +365,28 @@ For convenience, some commonly used regular expression patterns have helper attr
 #[WhereAlphaNumeric('alpha-numeric')]
 #[WhereNumber('number')]
 #[WhereUuid('uuid')]
+```
+
+### Alternative namespacing
+
+By default, the registration of routes uses the application's namespacing, but there may
+be instances where you have other PSR-4 namespaces defined in your application (this is 
+particularly possible if you have a monolith). 
+
+To let the router know about additional namespacing just add it in the
+[route-attributes.php](config/route-attributes.php) config file under the 
+`directory_namespaces` key. 
+
+For example, let's say you have a PSR-4 definition for some internal code in your package
+for MyOrg\MyPackage. All you need to provide is the directory as the key and the namespaced
+string as the value as illustrated below. 
+
+```php
+// File: route-attributes.php
+
+'directory_namespaces' => [
+   base_path('packages/myOrg/myPackage/src/Http/Controllers') => 'MyOrg\\MyPackage\\Http\\Controllers'
+],
 ```
 
 ## Testing

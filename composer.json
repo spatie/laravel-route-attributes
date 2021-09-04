@@ -33,7 +33,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\RouteAttributes\\Tests\\": "tests"
+            "Spatie\\RouteAttributes\\Tests\\": "tests",
+            "MyOrg\\MyPackage\\": "tests/NamespacedClasses"
         }
     },
     "scripts": {

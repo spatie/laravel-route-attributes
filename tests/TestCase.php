@@ -18,6 +18,10 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
+        config()->set('route-attributes.directory_namespaces', [
+            base_path('../../../../tests/NamespacedClasses') => 'MyOrg\\MyPackage',
+        ]);
+
         $router = app()->router;
 
         $this->routeRegistrar = (new RouteRegistrar($router))

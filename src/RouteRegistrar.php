@@ -46,7 +46,7 @@ class RouteRegistrar
         return $this;
     }
 
-    public function useMiddleware(string | array $middleware): self
+    public function useMiddleware(string|array $middleware): self
     {
         $this->middleware = Arr::wrap($middleware);
 
@@ -58,16 +58,16 @@ class RouteRegistrar
         return $this->middleware ?? [];
     }
 
-    public function registerDirectory(string | array $directories): void
+    public function registerDirectory(string|array $directories): void
     {
         $directories = Arr::wrap($directories);
 
         $files = (new Finder())->files()->name('*.php')->in($directories);
 
-        collect($files)->each(fn (SplFileInfo $file) => $this->registerFile($file));
+        collect($files)->each(fn(SplFileInfo $file) => $this->registerFile($file));
     }
 
-    public function registerFile(string | SplFileInfo $path): void
+    public function registerFile(string|SplFileInfo $path): void
     {
         if (is_string($path)) {
             $path = new SplFileInfo($path);
@@ -85,7 +85,15 @@ class RouteRegistrar
 
     protected function fullQualifiedClassNameFromFile(SplFileInfo $file): string
     {
-        $class = trim(Str::replaceFirst($this->basePath, '', $file->getRealPath()), DIRECTORY_SEPARATOR);
+        $isNamespacedFile = !empty($nsFile = $this->namespacedPath($file->getRealPath()));
+
+        $class = trim(
+            Str::replaceFirst(
+                $isNamespacedFile ? $nsFile['path'] : $this->basePath,
+                $isNamespacedFile ? str_replace('\\', DIRECTORY_SEPARATOR, $nsFile['namespace']) : '',
+                $file->getRealPath()),
+            DIRECTORY_SEPARATOR
+        );
 
         $class = str_replace(
             [DIRECTORY_SEPARATOR, 'App\\'],
@@ -93,12 +101,29 @@ class RouteRegistrar
             ucfirst(Str::replaceLast('.php', '', $class))
         );
 
-        return $this->rootNamespace . $class;
+        return ($isNamespacedFile) ? $class : $this->rootNamespace . $class;
+    }
+
+    protected function namespacedPath(string $fileName): ?array
+    {
+        /** @var array $namespacedDirs */
+        $namespacedDirs = config('route-attributes.directory_namespaces', []);
+
+        foreach ($namespacedDirs as $directory => $namespace) {
+            if (str_contains($fileName, realpath($directory))) {
+                return [
+                    'path' => realpath($directory),
+                    'namespace' => $namespace
+                ];
+            }
+        }
+
+        return null;
     }
 
     protected function processAttributes(string $className): void
     {
-        if (! class_exists($className)) {
+        if (!class_exists($className)) {
             return;
         }
 
@@ -111,7 +136,7 @@ class RouteRegistrar
         }
 
         ($prefix = $classRouteAttributes->prefix())
-            ? $this->router->prefix($prefix)->group(fn () => $this->registerRoutes($class, $classRouteAttributes))
+            ? $this->router->prefix($prefix)->group(fn() => $this->registerRoutes($class, $classRouteAttributes))
             : $this->registerRoutes($class, $classRouteAttributes);
     }
 
@@ -152,7 +177,7 @@ class RouteRegistrar
                     continue;
                 }
 
-                if (! $attributeClass instanceof Route) {
+                if (!$attributeClass instanceof Route) {
                     continue;
                 }
 
@@ -179,7 +204,7 @@ class RouteRegistrar
                     // This also overrides class wheres if the same param is used
                     $wheres[$wheresAttributeClass->param] = $wheresAttributeClass->constraint;
                 }
-                if (! empty($wheres)) {
+                if (!empty($wheres)) {
                     $route->setWheres($wheres);
                 }
 
