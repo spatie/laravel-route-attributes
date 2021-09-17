@@ -112,7 +112,7 @@ class RouteRegistrar
 
         $groups = $classRouteAttributes->groups();
 
-        foreach($groups as $group) {
+        foreach ($groups as $group) {
             $router = $this->router;
             $router->group($group, fn () => $this->registerRoutes($class, $classRouteAttributes));
         }
