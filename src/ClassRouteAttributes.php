@@ -5,6 +5,7 @@ namespace Spatie\RouteAttributes;
 use ReflectionClass;
 use Spatie\RouteAttributes\Attributes\Domain;
 use Spatie\RouteAttributes\Attributes\DomainFromConfig;
+use Spatie\RouteAttributes\Attributes\Group;
 use Spatie\RouteAttributes\Attributes\Middleware;
 use Spatie\RouteAttributes\Attributes\Prefix;
 use Spatie\RouteAttributes\Attributes\Resource;
@@ -57,6 +58,35 @@ class ClassRouteAttributes
         }
 
         return config($attribute->domain);
+    }
+
+    /**
+     * @psalm-suppress NoInterfaceProperties
+     */
+    public function groups(): array
+    {
+        $groups = [];
+
+        /** @var ReflectionClass[] $attributes */
+        $attributes = $this->class->getAttributes(Group::class);
+        if (count($attributes) > 0) {
+            foreach ($attributes as $attribute) {
+                $attributeClass = $attribute->newInstance();
+                $groups[] = [
+                    'domain' => $attributeClass->domain,
+                    'prefix' => $attributeClass->prefix,
+                    'where' => $attributeClass->where,
+                    'as' => $attributeClass->as,
+                ];
+            }
+        } else {
+            $groups[] = [
+                'domain' => $this->domainFromConfig() ?? $this->domain(),
+                'prefix' => $this->prefix(),
+            ];
+        }
+
+        return $groups;
     }
 
     /**

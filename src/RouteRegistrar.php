@@ -110,9 +110,12 @@ class RouteRegistrar
             $this->registerResource($class, $classRouteAttributes);
         }
 
-        ($prefix = $classRouteAttributes->prefix())
-            ? $this->router->prefix($prefix)->group(fn () => $this->registerRoutes($class, $classRouteAttributes))
-            : $this->registerRoutes($class, $classRouteAttributes);
+        $groups = $classRouteAttributes->groups();
+
+        foreach($groups as $group) {
+            $router = $this->router;
+            $router->group($group, fn () => $this->registerRoutes($class, $classRouteAttributes));
+        }
     }
 
     protected function registerResource(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): void
@@ -162,14 +165,8 @@ class RouteRegistrar
                     ? $class->getName()
                     : [$class->getName(), $method->getName()];
 
-                if ($domain = $classRouteAttributes->domainFromConfig() ?? $classRouteAttributes->domain()) {
-                    $route = $this->router->domain($domain)
-                        ->name($attributeClass->name)
-                        ->match($httpMethods, $attributeClass->uri, $action);
-                } else {
-                    $route = $this->router->addRoute($httpMethods, $attributeClass->uri, $action)
-                        ->name($attributeClass->name);
-                }
+                $route = $this->router->addRoute($httpMethods, $attributeClass->uri, $action)
+                    ->name($attributeClass->name);
 
                 $wheres = $classRouteAttributes->wheres();
                 foreach ($wheresAttributes as $wheresAttribute) {
