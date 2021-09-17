@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.8.0 - 2021-09-17
+
+- add group attribute (#54)
+
 ## 1.7.0 - 2021-08-31
 
 - add additional functionality to get domain from a config file (#50)
