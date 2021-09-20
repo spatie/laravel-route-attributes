@@ -68,7 +68,7 @@ class ClassRouteAttributes
         $groups = [];
 
         /** @var ReflectionClass[] $attributes */
-        $attributes = $this->class->getAttributes(Group::class);
+        $attributes = $this->class->getAttributes(Group::class, \ReflectionAttribute::IS_INSTANCEOF);
         if (count($attributes) > 0) {
             foreach ($attributes as $attribute) {
                 $attributeClass = $attribute->newInstance();
@@ -161,7 +161,7 @@ class ClassRouteAttributes
     {
         $wheres = [];
         /** @var ReflectionClass[] $attributes */
-        $attributes = $this->class->getAttributes(Where::class);
+        $attributes = $this->class->getAttributes(Where::class, \ReflectionAttribute::IS_INSTANCEOF);
         foreach ($attributes as $attribute) {
             $attributeClass = $attribute->newInstance();
             $wheres[$attributeClass->param] = $attributeClass->constraint;
@@ -172,7 +172,7 @@ class ClassRouteAttributes
 
     protected function getAttribute(string $attributeClass): ?RouteAttribute
     {
-        $attributes = $this->class->getAttributes($attributeClass);
+        $attributes = $this->class->getAttributes($attributeClass, \ReflectionAttribute::IS_INSTANCEOF);
 
         if (! count($attributes)) {
             return null;
