@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.8.1 - 2021-09-20
+
+- fix: use \ReflectionAttribute::IS_INSTANCEOF (#55)
+
 ## 1.8.0 - 2021-09-17
 
 - add group attribute (#54)
