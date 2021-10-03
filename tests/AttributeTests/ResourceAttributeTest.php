@@ -8,6 +8,8 @@ use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestDo
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestExceptController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestFullController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestMiddlewareController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestNamesArrayController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestNamesStringController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestOnlyController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestPrefixController;
 use Spatie\RouteAttributes\Tests\TestClasses\Middleware\OtherTestMiddleware;
@@ -79,6 +81,48 @@ class ResourceAttributeTest extends TestCase
                 uri: 'posts/{post}',
                 name: 'posts.show',
                 domain: 'my-subdomain.localhost'
+            );
+    }
+
+    /** @test */
+    public function it_can_register_resource_with_names_as_string()
+    {
+        $this->routeRegistrar->registerClass(ResourceTestNamesStringController::class);
+
+        $this
+            ->assertRegisteredRoutesCount(2)
+            ->assertRouteRegistered(
+                ResourceTestNamesStringController::class,
+                controllerMethod: 'index',
+                uri: 'posts',
+                name: 'api.v1.posts.index',
+            )
+            ->assertRouteRegistered(
+                ResourceTestNamesStringController::class,
+                controllerMethod: 'show',
+                uri: 'posts/{post}',
+                name: 'api.v1.posts.show',
+            );
+    }
+
+    /** @test */
+    public function it_can_register_resource_with_names_as_array()
+    {
+        $this->routeRegistrar->registerClass(ResourceTestNamesArrayController::class);
+
+        $this
+            ->assertRegisteredRoutesCount(2)
+            ->assertRouteRegistered(
+                ResourceTestNamesArrayController::class,
+                controllerMethod: 'index',
+                uri: 'posts',
+                name: 'posts.list',
+            )
+            ->assertRouteRegistered(
+                ResourceTestNamesArrayController::class,
+                controllerMethod: 'show',
+                uri: 'posts/{post}',
+                name: 'posts.view',
             );
     }
 

@@ -144,6 +144,19 @@ class ClassRouteAttributes
     /**
      * @psalm-suppress NoInterfaceProperties
      */
+    public function names(): string | array | null
+    {
+        /** @var \Spatie\RouteAttributes\Attributes\Resource $attribute */
+        if (! $attribute = $this->getAttribute(Resource::class)) {
+            return null;
+        }
+
+        return $attribute->names;
+    }
+
+    /**
+     * @psalm-suppress NoInterfaceProperties
+     */
     public function middleware(): array
     {
         /** @var \Spatie\RouteAttributes\Attributes\Middleware $attribute */

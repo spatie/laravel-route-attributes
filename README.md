@@ -112,13 +112,15 @@ To register a [resource controller](https://laravel.com/docs/controllers#resourc
 
 You can use `only` or `except` parameters to manage your resource routes availability.
 
+You can use the `names` parameter to set the route names for the resource controller actions. Pass a string value to set a base route name for each controller action or pass an array value to define the route name for each controller action.
+
 Using `Resource` attribute with `Domain`, `Prefix` and `Middleware` attributes works as well.
 
 ```php
 use Spatie\RouteAttributes\Attributes\Resource;
 
 #[Prefix('api/v1')]
-#[Resource('posts', except: ['create', 'edit', 'destroy'])]
+#[Resource('posts', except: ['create', 'edit', 'destroy'], names: 'api.v1.posts')]
 class PostController
 {   
     public function index()

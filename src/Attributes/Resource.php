@@ -12,6 +12,7 @@ class Resource implements RouteAttribute
         public bool $apiResource = false,
         public array | string | null $except = null,
         public array | string | null $only = null,
+        public array | string | null $names = null,
     ) {
     }
 }
