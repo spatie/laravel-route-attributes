@@ -136,6 +136,10 @@ class RouteRegistrar
                 $route->except($except);
             }
 
+            if ($names = $classRouteAttributes->names()) {
+                $route->names($names);
+            }
+
             if ($middleware = $classRouteAttributes->middleware()) {
                 $route->middleware([...$this->middleware, ...$middleware]);
             }
