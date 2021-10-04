@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.9.0 - 2021-10-04
+
+- add support for the names parameter to the Resource attribute (#56)
+
 ## 1.8.1 - 2021-09-20
 
 - fix: use \ReflectionAttribute::IS_INSTANCEOF (#55)
