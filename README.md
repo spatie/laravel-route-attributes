@@ -60,9 +60,10 @@ return [
      */
     'enabled' => true,
 
-    /*
+   /*
      * Controllers in these directories that have routing attributes
      * will automatically be registered.
+     * Also you can use 'namespace => directory' pair
      */
     'directories' => [
         app_path('Http/Controllers'),
@@ -70,6 +71,27 @@ return [
 ];
 ```
 
+Also, you can also specify a namespace by using the "key-value" pair as directories.For instance, if you're using a different module, like `nWidart/laravel-modules`, you can specify namespaces this way.
+
+```php
+return [
+    /*
+     *  Automatic registration of routes will only happen if this setting is `true`
+     */
+    'enabled' => true,
+
+   /*
+     * Controllers in these directories that have routing attributes
+     * will automatically be registered.
+     * Also you can use 'namespace => directory' pair
+     */
+    'directories' => [
+        app_path('Http/Controllers'),
+        'Modules\Admin\Http\Controllers' => base_path('Modules/Admin/Http/Controllers'),
+        'Acme\Foo\Bar\Http\Controllers' => base_path('Modules/Foo/Bar/Http/Controllers'),
+    ],
+];
+```
 ## Usage
 
 The package provides several annotations that should be put on controller classes and methods. These annotations will be used to automatically register routes
