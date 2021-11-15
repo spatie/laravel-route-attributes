@@ -32,9 +32,7 @@ class RouteAttributesServiceProvider extends ServiceProvider
             ->useMiddleware(config('route-attributes.middleware') ?? []);
 
 
-        collect($this->getRouteDirectories())->each(function (string $directory, string|int $namespace) use (
-            $routeRegistrar
-        ) {
+        collect($this->getRouteDirectories())->each(function (string $directory, string|int $namespace) use ($routeRegistrar) {
             if (!is_string($namespace)) {
                 $routeRegistrar
                     ->hasNamespaceKey(false)
