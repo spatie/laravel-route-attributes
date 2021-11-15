@@ -24,15 +24,30 @@ class RouteAttributesServiceProvider extends ServiceProvider
 
     protected function registerRoutes(): void
     {
-        if (! $this->shouldRegisterRoutes()) {
+        if (!$this->shouldRegisterRoutes()) {
             return;
         }
 
         $routeRegistrar = (new RouteRegistrar(app()->router))
-            ->useRootNamespace(app()->getNamespace())
             ->useMiddleware(config('route-attributes.middleware') ?? []);
 
-        collect($this->getRouteDirectories())->each(fn (string $directory) => $routeRegistrar->registerDirectory($directory));
+
+        collect($this->getRouteDirectories())->each(function (string $directory, string|int $namespace) use (
+            $routeRegistrar
+        ) {
+            if (!is_string($namespace)) {
+                $routeRegistrar
+                    ->hasNamespaceKey(false)
+                    ->useRootNamespace(app()->getNamespace());
+            } else {
+                $routeRegistrar
+                    ->hasNamespaceKey(true)
+                    ->useRootNamespace($namespace)
+                    ->useBasePath($directory);
+            }
+
+            $routeRegistrar->registerDirectory($directory);
+        });
     }
 
     private function shouldRegisterRoutes(): bool
@@ -40,11 +55,11 @@ class RouteAttributesServiceProvider extends ServiceProvider
         if (! config('route-attributes.enabled')) {
             return false;
         }
-        
+
         if ($this->app->routesAreCached()) {
             return false;
         }
-        
+
         return true;
     }
 

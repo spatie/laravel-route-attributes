@@ -25,6 +25,8 @@ class RouteRegistrar
 
     protected array $middleware = [];
 
+    public bool $hasNamespaceKey = false;
+
     public function __construct(Router $router)
     {
         $this->router = $router;
@@ -53,10 +55,18 @@ class RouteRegistrar
         return $this;
     }
 
+    public function hasNamespaceKey(bool $value)
+    {
+        $this->hasNamespaceKey = $value;
+
+        return $this;
+    }
+
     public function middleware(): array
     {
         return $this->middleware ?? [];
     }
+
 
     public function registerDirectory(string | array $directories): void
     {
@@ -85,15 +95,20 @@ class RouteRegistrar
 
     protected function fullQualifiedClassNameFromFile(SplFileInfo $file): string
     {
-        $class = trim(Str::replaceFirst($this->basePath, '', $file->getRealPath()), DIRECTORY_SEPARATOR);
+        $basePath = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $this->basePath);
+        $class = trim(Str::replaceFirst($basePath, '', $file->getRealPath()), DIRECTORY_SEPARATOR);
 
-        $class = str_replace(
-            [DIRECTORY_SEPARATOR, 'App\\'],
-            ['\\', app()->getNamespace()],
-            ucfirst(Str::replaceLast('.php', '', $class))
-        );
+        if ($this->hasNamespaceKey) {
+            $class = '\\'.ucfirst(Str::replaceLast('.php', '', $class));
+        } else {
+            $class = str_replace(
+                [DIRECTORY_SEPARATOR, 'App\\'],
+                ['\\', app()->getNamespace()],
+                ucfirst(Str::replaceLast('.php', '', $class))
+            );
+        }
 
-        return $this->rootNamespace . $class;
+        return $this->rootNamespace.$class;
     }
 
     protected function processAttributes(string $className): void
