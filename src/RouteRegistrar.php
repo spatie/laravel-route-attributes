@@ -100,6 +100,7 @@ class RouteRegistrar
 
         if ($this->hasNamespaceKey) {
             $class = '\\'.ucfirst(Str::replaceLast('.php', '', $class));
+            $class = str_replace('/', '\\', $class);
         } else {
             $class = str_replace(
                 [DIRECTORY_SEPARATOR, 'App\\'],
