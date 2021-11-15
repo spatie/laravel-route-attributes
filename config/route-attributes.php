@@ -9,6 +9,7 @@ return [
     /*
      * Controllers in these directories that have routing attributes
      * will automatically be registered.
+     * Also you can use 'namespace => directory' pair
      */
     'directories' => [
         app_path('Http/Controllers'),
