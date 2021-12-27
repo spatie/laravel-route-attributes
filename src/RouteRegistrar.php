@@ -63,6 +63,7 @@ class RouteRegistrar
 
     public function registerDirectory(string | array $directories): void
     {
+        ray()->newScreen();
         $directories = Arr::wrap($directories);
 
         $files = (new Finder())->files()->name('*.php')->in($directories);
@@ -77,7 +78,7 @@ class RouteRegistrar
         }
 
         $fullyQualifiedClassName = $this->fullQualifiedClassNameFromFile($path);
-
+ray($fullyQualifiedClassName);
         $this->processAttributes($fullyQualifiedClassName);
     }
 
@@ -156,6 +157,7 @@ class RouteRegistrar
         ClassRouteAttributes $classRouteAttributes
     ): void {
         foreach ($class->getMethods() as $method) {
+            ray('here');
             $attributes = $method->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
             $wheresAttributes = $method->getAttributes(WhereAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
 
@@ -193,7 +195,7 @@ class RouteRegistrar
                 $action = $method->getName() === '__invoke'
                     ? $class->getName()
                     : [$class->getName(), $method->getName()];
-
+ray($httpMethods, $uri, $action);
                 $route = $this->router
                     ->addRoute(
                         $httpMethods,

@@ -11,15 +11,13 @@ return [
      * will automatically be registered.
      */
     'directories' => [
-        app_path('Http/Controllers'),
+      //  app_path('Http/Controllers'),
     ],
 
     /**
      * This middleware will be applied to all routes.
      */
     'middleware' => [
-        \Illuminate\Routing\Middleware\SubstituteBindings::class
+       // \Illuminate\Routing\Middleware\SubstituteBindings::class
     ]
-
-    // DiscoverRoutes::inDirectory()->middleware([])->onlyByAttributes();
 ];

@@ -1,14 +1,15 @@
 <?php
 
-namespace Spatie\RouteAttributes\Tests;
+namespace Spatie\RouteAttributes\Tests\RouteDiscovery;
 
+use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\ModelController\ModelController;
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\NestedController\Nested\ChildController;
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\NestedController\ParentController;
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\RouteName\CustomRouteNameController;
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\SingleController\MyController;
 
-class AutoDiscoveryTest extends TestCase
+class RouteDiscoveryTest extends TestCase
 {
     /** @test */
     public function it_can_automatically_discovery_a_simple_route()
@@ -32,7 +33,6 @@ class AutoDiscoveryTest extends TestCase
         $this
             ->routeRegistrar
             ->registerDirectory($this->getTestPath('TestClasses/AutoDiscovery/RouteName'));
-
         $this->assertRegisteredRoutesCount(1);
 
         $this->assertRouteRegistered(
