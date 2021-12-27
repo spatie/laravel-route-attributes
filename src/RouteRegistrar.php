@@ -229,13 +229,13 @@ class RouteRegistrar
 
     protected function autoDiscoverUri(ReflectionClass $class, ReflectionMethod $method): ?string
     {
-        $parts =  Str::of($class->getName())
+        $parts = Str::of($class->getName())
             ->after($this->rootNamespace)
             ->beforeLast('Controller')
             ->explode('\\');
 
         return collect($parts)
-            ->map(function(string $part) {
+            ->map(function (string $part) {
                 return Str::of($part)->kebab();
             })
             ->implode('/');

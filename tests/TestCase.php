@@ -65,7 +65,6 @@ class TestCase extends Orchestra
 
         $routeRegistered = collect($this->getRouteCollection()->getRoutes())
             ->contains(function (Route $route) use ($name, $middleware, $controllerMethod, $controller, $uri, $httpMethods, $domain, $wheres) {
-
                 foreach (Arr::wrap($httpMethods) as $httpMethod) {
                     if (! in_array(strtoupper($httpMethod), $route->methods)) {
                         return false;
