@@ -2,6 +2,7 @@
 
 namespace Spatie\RouteAttributes\Tests;
 
+use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\ModelController\ModelController;
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\NestedController\Nested\ChildController;
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\NestedController\ParentController;
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\RouteName\CustomRouteNameController;
@@ -43,11 +44,13 @@ class AutoDiscoveryTest extends TestCase
     }
 
     /** @test */
-    public function it_can_automatically_discovery_a_nested_route()
+    public function it_can_automatically_discover_a_nested_route()
     {
         $this
             ->routeRegistrar
             ->registerDirectory($this->getTestPath('TestClasses/AutoDiscovery/NestedController'));
+
+        $this->assertRegisteredRoutesCount(2);
 
         $this->assertRouteRegistered(
             ParentController::class,
@@ -61,6 +64,21 @@ class AutoDiscoveryTest extends TestCase
             uri: 'test-classes/auto-discovery/nested-controller/nested/child',
         );
 
-        $this->assertRegisteredRoutesCount(2);
+    }
+
+    /** @test */
+    public function it_can_automatically_discovery_a_model_route()
+    {
+        $this
+            ->routeRegistrar
+            ->registerDirectory($this->getTestPath('TestClasses/AutoDiscovery/ModelController'));
+
+        $this->assertRegisteredRoutesCount(1);
+
+        $this->assertRouteRegistered(
+            ModelController::class,
+            controllerMethod: 'edit',
+            uri: 'test-classes/auto-discovery/model-controller/model/{user}',
+        );
     }
 }

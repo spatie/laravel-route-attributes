@@ -2,12 +2,14 @@
 
 namespace Spatie\RouteAttributes;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use ReflectionAttribute;
 use ReflectionClass;
 use ReflectionMethod;
+use ReflectionParameter;
 use Spatie\RouteAttributes\Attributes\Route;
 use Spatie\RouteAttributes\Attributes\RouteAttribute;
 use Spatie\RouteAttributes\Attributes\Where;
@@ -222,8 +224,11 @@ class RouteRegistrar
     protected function autoDiscoverHttpMethods(ReflectionClass $class, ReflectionMethod $method): ?array
     {
         return match ($method->name) {
-            'index', 'get' => ['GET'],
-            default => null,
+            'index', 'create', 'show', 'edit' => ['GET'],
+            'store' => ['POST'],
+            'update' => ['PUT', 'PATCH'],
+            'destroy', 'delete' => ['DELETE'],
+            default => ['GET'],
         };
     }
 
@@ -234,10 +239,21 @@ class RouteRegistrar
             ->beforeLast('Controller')
             ->explode('\\');
 
-        return collect($parts)
+        $uri = collect($parts)
             ->map(function(string $part) {
                 return Str::of($part)->kebab();
             })
             ->implode('/');
+
+        /** @var ReflectionParameter $modelParameter */
+       $modelParameter = collect($method->getParameters())->first(function(ReflectionParameter $parameter) {
+           return is_a($parameter->getType()?->getName(), Model::class, true);
+       });
+
+       if ($modelParameter) {
+           $uri .= "/{{$modelParameter->getName()}}";
+       }
+
+        return $uri;
     }
 }
