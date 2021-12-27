@@ -109,6 +109,8 @@ class RouteRegistrar
 
         if ($classRouteAttributes->resource()) {
             $this->registerResource($class, $classRouteAttributes);
+
+            return;
         }
 
         $groups = $classRouteAttributes->groups();
@@ -229,8 +231,15 @@ class RouteRegistrar
 
     protected function autoDiscoverUri(ReflectionClass $class, ReflectionMethod $method): ?string
     {
-        $uri = Str::beforeLast($class->getShortName(), 'Controller');
+        $parts =  Str::of($class->getName())
+            ->after($this->rootNamespace)
+            ->beforeLast('Controller')
+            ->explode('\\');
 
-        return strtolower($uri);
+        return collect($parts)
+            ->map(function(string $part) {
+                return Str::of($part)->kebab();
+            })
+            ->implode('/');
     }
 }
