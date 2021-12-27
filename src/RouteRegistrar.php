@@ -152,8 +152,7 @@ class RouteRegistrar
     protected function registerRoutes(
         ReflectionClass      $class,
         ClassRouteAttributes $classRouteAttributes
-    ): void
-    {
+    ): void {
         foreach ($class->getMethods() as $method) {
             $attributes = $method->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
             $wheresAttributes = $method->getAttributes(WhereAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
@@ -168,13 +167,12 @@ class RouteRegistrar
 
                     if ($attributeClass instanceof ReflectionAttribute) {
                         $attributeClass = $attribute->newInstance();
-
                     }
                 } catch (Throwable $exception) {
                     continue;
                 }
 
-                if (!$attributeClass instanceof Route) {
+                if (! $attributeClass instanceof Route) {
                     $attributeClass = Route::new();
                 }
 
@@ -210,7 +208,7 @@ class RouteRegistrar
                     // This also overrides class wheres if the same param is used
                     $wheres[$wheresAttributeClass->param] = $wheresAttributeClass->constraint;
                 }
-                if (!empty($wheres)) {
+                if (! empty($wheres)) {
                     $route->setWheres($wheres);
                 }
 
@@ -223,7 +221,7 @@ class RouteRegistrar
 
     protected function autoDiscoverHttpMethods(ReflectionClass $class, ReflectionMethod $method): ?array
     {
-        return match($method->name) {
+        return match ($method->name) {
             'index', 'get' => ['GET'],
             default => null,
         };
