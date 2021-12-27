@@ -14,8 +14,8 @@ class Route implements RouteAttribute
     public array $middleware;
 
     public function __construct(
-        array | string $methods,
-        public string $uri,
+        array | string $methods = [],
+        public ?string $uri = null,
         public ?string $name = null,
         array | string $middleware = [],
     ) {
@@ -29,5 +29,10 @@ class Route implements RouteAttribute
             Arr::wrap($methods)
         );
         $this->middleware = Arr::wrap($middleware);
+    }
+
+    public static function new(): self
+    {
+        return new self;
     }
 }

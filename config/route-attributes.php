@@ -20,4 +20,6 @@ return [
     'middleware' => [
         \Illuminate\Routing\Middleware\SubstituteBindings::class
     ]
+
+    // DiscoverRoutes::inDirectory()->middleware([])->onlyByAttributes();
 ];

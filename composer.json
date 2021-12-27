@@ -17,7 +17,9 @@
     ],
     "require": {
         "php": "^8.0",
-        "illuminate/contracts": "^8.67"
+        "illuminate/contracts": "^8.67",
+        "illuminate/support": "^8.77",
+        "spatie/laravel-ray": "^1.27"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",

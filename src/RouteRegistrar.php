@@ -7,6 +7,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use ReflectionAttribute;
 use ReflectionClass;
+use ReflectionMethod;
 use Spatie\RouteAttributes\Attributes\Route;
 use Spatie\RouteAttributes\Attributes\RouteAttribute;
 use Spatie\RouteAttributes\Attributes\Where;
@@ -146,30 +147,57 @@ class RouteRegistrar
         });
     }
 
-    protected function registerRoutes(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): void
+    protected function registerRoutes(
+        ReflectionClass      $class,
+        ClassRouteAttributes $classRouteAttributes
+    ): void
     {
         foreach ($class->getMethods() as $method) {
             $attributes = $method->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
             $wheresAttributes = $method->getAttributes(WhereAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
 
+            if (! count($attributes)) {
+                $attributes = [Route::new()];
+            }
+
             foreach ($attributes as $attribute) {
                 try {
-                    $attributeClass = $attribute->newInstance();
-                } catch (Throwable) {
+                    $attributeClass = $attribute;
+
+                    if ($attributeClass instanceof ReflectionAttribute) {
+                        $attributeClass = $attribute->newInstance();
+
+                    }
+                } catch (Throwable $exception) {
                     continue;
                 }
 
-                if (! $attributeClass instanceof Route) {
-                    continue;
+                if (!$attributeClass instanceof Route) {
+                    $attributeClass = Route::new();
                 }
 
+                $uri = $attributeClass->uri;
                 $httpMethods = $attributeClass->methods;
+
+                if (! $uri) {
+                    $uri = $this->autoDiscoverUri($class, $method);
+                    $httpMethods = $this->autoDiscoverHttpMethods($class, $method);
+                }
+
+                if (! $uri) {
+                    continue;
+                }
 
                 $action = $method->getName() === '__invoke'
                     ? $class->getName()
                     : [$class->getName(), $method->getName()];
 
-                $route = $this->router->addRoute($httpMethods, $attributeClass->uri, $action)
+                $route = $this->router
+                    ->addRoute(
+                        $httpMethods,
+                        $uri,
+                        $action,
+                    )
                     ->name($attributeClass->name);
 
                 $wheres = $classRouteAttributes->wheres();
@@ -180,7 +208,7 @@ class RouteRegistrar
                     // This also overrides class wheres if the same param is used
                     $wheres[$wheresAttributeClass->param] = $wheresAttributeClass->constraint;
                 }
-                if (! empty($wheres)) {
+                if (!empty($wheres)) {
                     $route->setWheres($wheres);
                 }
 
@@ -189,5 +217,20 @@ class RouteRegistrar
                 $route->middleware([...$this->middleware, ...$classMiddleware, ...$methodMiddleware]);
             }
         }
+    }
+
+    protected function autoDiscoverHttpMethods(ReflectionClass $class, ReflectionMethod $method): ?array
+    {
+        return match($method->name) {
+            'index', 'get' => ['GET'],
+            default => null,
+        };
+    }
+
+    protected function autoDiscoverUri(ReflectionClass $class, ReflectionMethod $method): ?string
+    {
+        $uri = Str::beforeLast($class->getShortName(), 'Controller');
+
+        return strtolower($uri);
     }
 }
