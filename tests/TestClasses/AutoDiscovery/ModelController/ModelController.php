@@ -8,6 +8,5 @@ class ModelController
 {
     public function edit(User $user)
     {
-
     }
 }

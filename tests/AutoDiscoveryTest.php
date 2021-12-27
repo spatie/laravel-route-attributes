@@ -63,7 +63,6 @@ class AutoDiscoveryTest extends TestCase
             controllerMethod: 'index',
             uri: 'test-classes/auto-discovery/nested-controller/nested/child',
         );
-
     }
 
     /** @test */
