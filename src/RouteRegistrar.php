@@ -236,25 +236,25 @@ ray($httpMethods, $uri, $action);
 
     protected function autoDiscoverUri(ReflectionClass $class, ReflectionMethod $method): ?string
     {
-        $parts =  Str::of($class->getName())
+        $parts = Str::of($class->getName())
             ->after($this->rootNamespace)
             ->beforeLast('Controller')
             ->explode('\\');
 
         $uri = collect($parts)
-            ->map(function(string $part) {
+            ->map(function (string $part) {
                 return Str::of($part)->kebab();
             })
             ->implode('/');
 
         /** @var ReflectionParameter $modelParameter */
-       $modelParameter = collect($method->getParameters())->first(function(ReflectionParameter $parameter) {
-           return is_a($parameter->getType()?->getName(), Model::class, true);
-       });
+        $modelParameter = collect($method->getParameters())->first(function (ReflectionParameter $parameter) {
+            return is_a($parameter->getType()?->getName(), Model::class, true);
+        });
 
-       if ($modelParameter) {
-           $uri .= "/{{$modelParameter->getName()}}";
-       }
+        if ($modelParameter) {
+            $uri .= "/{{$modelParameter->getName()}}";
+        }
 
         return $uri;
     }
