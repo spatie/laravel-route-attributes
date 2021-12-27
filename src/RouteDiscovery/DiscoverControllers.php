@@ -3,7 +3,6 @@
 namespace Spatie\RouteAttributes\RouteDiscovery;
 
 use Spatie\RouteAttributes\RouteRegistrar;
-use Spatie\RouteAttributes\Tests\TestClasses\Middleware\AnotherTestMiddleware;
 
 class DiscoverControllers
 {

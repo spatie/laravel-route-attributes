@@ -78,7 +78,7 @@ class RouteRegistrar
         }
 
         $fullyQualifiedClassName = $this->fullQualifiedClassNameFromFile($path);
-ray($fullyQualifiedClassName);
+        ray($fullyQualifiedClassName);
         $this->processAttributes($fullyQualifiedClassName);
     }
 
@@ -195,7 +195,7 @@ ray($fullyQualifiedClassName);
                 $action = $method->getName() === '__invoke'
                     ? $class->getName()
                     : [$class->getName(), $method->getName()];
-ray($httpMethods, $uri, $action);
+                ray($httpMethods, $uri, $action);
                 $route = $this->router
                     ->addRoute(
                         $httpMethods,
