@@ -1,19 +1,14 @@
 <?php
 
-namespace Spatie\RouteAttributes\Tests\AttributeTests;
-
 use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\PostTestController;
 
-class PostAttributeTest extends TestCase
-{
-    /** @test */
-    public function it_can_register_a_post_route()
-    {
-        $this->routeRegistrar->registerClass(PostTestController::class);
+uses(TestCase::class);
 
-        $this
-            ->assertRegisteredRoutesCount(1)
-            ->assertRouteRegistered(PostTestController::class, 'myPostMethod', 'post', 'my-post-method');
-    }
-}
+it('can register a post route', function () {
+    $this->routeRegistrar->registerClass(PostTestController::class);
+
+    $this
+        ->assertRegisteredRoutesCount(1)
+        ->assertRouteRegistered(PostTestController::class, 'myPostMethod', 'post', 'my-post-method');
+});

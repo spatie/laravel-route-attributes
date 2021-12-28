@@ -1,19 +1,14 @@
 <?php
 
-namespace Spatie\RouteAttributes\Tests\AttributeTests;
-
 use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\DeleteTestController;
 
-class DeleteAttributeTest extends TestCase
-{
-    /** @test */
-    public function it_can_register_a_delete_route()
-    {
-        $this->routeRegistrar->registerClass(DeleteTestController::class);
+uses(TestCase::class);
 
-        $this
-            ->assertRegisteredRoutesCount(1)
-            ->assertRouteRegistered(DeleteTestController::class, 'myDeleteMethod', 'delete', 'my-delete-method');
-    }
-}
+it('can register a delete route', function () {
+    $this->routeRegistrar->registerClass(DeleteTestController::class);
+
+    $this
+        ->assertRegisteredRoutesCount(1)
+        ->assertRouteRegistered(DeleteTestController::class, 'myDeleteMethod', 'delete', 'my-delete-method');
+});

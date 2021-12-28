@@ -1,7 +1,5 @@
 <?php
 
-namespace Spatie\RouteAttributes\Tests\RouteDiscovery;
-
 use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\ControllerWithNonPublicMethods\NonPublicMethodsController;
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\ModelController\ModelController;
@@ -10,91 +8,80 @@ use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\NestedController\Pare
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\RouteName\CustomRouteNameController;
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\SingleController\MyController;
 
-class RouteDiscoveryTest extends TestCase
-{
-    /** @test */
-    public function it_can_automatically_discovery_a_simple_route()
-    {
-        $this
-            ->routeRegistrar
-            ->registerDirectory($this->getTestPath('TestClasses/AutoDiscovery/SingleController'));
+uses(TestCase::class);
 
-        $this->assertRegisteredRoutesCount(1);
+it('can automatically discovery a simple route', function () {
+    $this
+        ->routeRegistrar
+        ->registerDirectory($this->getTestPath('TestClasses/AutoDiscovery/SingleController'));
 
-        $this->assertRouteRegistered(
-            MyController::class,
-            controllerMethod: 'index',
-            uri: 'my',
-        );
-    }
+    $this->assertRegisteredRoutesCount(1);
 
-    /** @test */
-    public function it_can_automatically_discovery_a_route_with_a_custom_name()
-    {
-        $this
-            ->routeRegistrar
-            ->registerDirectory($this->getTestPath('TestClasses/AutoDiscovery/RouteName'));
-        $this->assertRegisteredRoutesCount(1);
+    $this->assertRouteRegistered(
+        MyController::class,
+        controllerMethod: 'index',
+        uri: 'my',
+    );
+});
 
-        $this->assertRouteRegistered(
-            CustomRouteNameController::class,
-            controllerMethod: 'index',
-            uri: 'custom-route-name',
-            name: 'this-is-a-custom-name',
-        );
-    }
+it('can automatically discovery a route with a custom name', function () {
+    $this
+        ->routeRegistrar
+        ->registerDirectory($this->getTestPath('TestClasses/AutoDiscovery/RouteName'));
+    $this->assertRegisteredRoutesCount(1);
 
-    /** @test */
-    public function it_can_automatically_discover_a_nested_route()
-    {
-        $this
-            ->routeRegistrar
-            ->registerDirectory($this->getTestPath('TestClasses/AutoDiscovery/NestedController'));
+    $this->assertRouteRegistered(
+        CustomRouteNameController::class,
+        controllerMethod: 'index',
+        uri: 'custom-route-name',
+        name: 'this-is-a-custom-name',
+    );
+});
 
-        $this->assertRegisteredRoutesCount(2);
+it('can automatically discover a nested route', function () {
+    $this
+        ->routeRegistrar
+        ->registerDirectory($this->getTestPath('TestClasses/AutoDiscovery/NestedController'));
 
-        $this->assertRouteRegistered(
-            ParentController::class,
-            controllerMethod: 'index',
-            uri: 'parent',
-        );
+    $this->assertRegisteredRoutesCount(2);
 
-        $this->assertRouteRegistered(
-            ChildController::class,
-            controllerMethod: 'index',
-            uri: 'nested/child',
-        );
-    }
+    $this->assertRouteRegistered(
+        ParentController::class,
+        controllerMethod: 'index',
+        uri: 'parent',
+    );
 
-    /** @test */
-    public function it_can_automatically_discovery_a_model_route()
-    {
-        $this
-            ->routeRegistrar
-            ->registerDirectory($this->getTestPath('TestClasses/AutoDiscovery/ModelController'));
+    $this->assertRouteRegistered(
+        ChildController::class,
+        controllerMethod: 'index',
+        uri: 'nested/child',
+    );
+});
 
-        $this->assertRegisteredRoutesCount(1);
+it('can automatically discovery a model route', function () {
+    $this
+        ->routeRegistrar
+        ->registerDirectory($this->getTestPath('TestClasses/AutoDiscovery/ModelController'));
 
-        $this->assertRouteRegistered(
-            ModelController::class,
-            controllerMethod: 'edit',
-            uri: 'model/{user}',
-        );
-    }
+    $this->assertRegisteredRoutesCount(1);
 
-    /** @test */
-    public function it_will_only_automatically_register_public_methods()
-    {
-        $this
-            ->routeRegistrar
-            ->registerDirectory($this->getTestPath('TestClasses/AutoDiscovery/ControllerWithNonPublicMethods'));
+    $this->assertRouteRegistered(
+        ModelController::class,
+        controllerMethod: 'edit',
+        uri: 'model/{user}',
+    );
+});
 
-        $this->assertRegisteredRoutesCount(1);
+it('will only automatically register public methods', function () {
+    $this
+        ->routeRegistrar
+        ->registerDirectory($this->getTestPath('TestClasses/AutoDiscovery/ControllerWithNonPublicMethods'));
 
-        $this->assertRouteRegistered(
-            NonPublicMethodsController::class,
-            controllerMethod: 'index',
-            uri: 'non-public-methods',
-        );
-    }
-}
+    $this->assertRegisteredRoutesCount(1);
+
+    $this->assertRouteRegistered(
+        NonPublicMethodsController::class,
+        controllerMethod: 'index',
+        uri: 'non-public-methods',
+    );
+});

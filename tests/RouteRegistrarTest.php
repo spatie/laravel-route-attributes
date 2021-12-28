@@ -1,67 +1,58 @@
 <?php
 
-namespace Spatie\RouteAttributes\Tests;
-
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteRegistrar\RegistrarTestFirstController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteRegistrar\RegistrarTestSecondController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteRegistrar\SubDirectory\RegistrarTestControllerInSubDirectory;
 use Spatie\RouteAttributes\Tests\TestClasses\Middleware\AnotherTestMiddleware;
 
-class RouteRegistrarTest extends TestCase
-{
-    /** @test */
-    public function the_registrar_can_register_a_single_file()
-    {
-        $this
-            ->routeRegistrar
-            ->registerFile($this->getTestPath('TestClasses/Controllers/RouteRegistrar/RegistrarTestFirstController.php'));
+uses(TestCase::class);
 
-        $this->assertRegisteredRoutesCount(1);
+test('the registrar can register a single file', function () {
+    $this
+        ->routeRegistrar
+        ->registerFile($this->getTestPath('TestClasses/Controllers/RouteRegistrar/RegistrarTestFirstController.php'));
 
-        $this->assertRouteRegistered(
-            RegistrarTestFirstController::class,
-            uri: 'first-method',
-        );
-    }
+    $this->assertRegisteredRoutesCount(1);
 
-    /** @test */
-    public function the_registrar_can_apply_config_middlewares_to_all_routes()
-    {
-        $this
-            ->routeRegistrar
-            ->registerFile($this->getTestPath('TestClasses/Controllers/RouteRegistrar/RegistrarTestFirstController.php'));
+    $this->assertRouteRegistered(
+        RegistrarTestFirstController::class,
+        uri: 'first-method',
+    );
+});
 
-        $this->assertRegisteredRoutesCount(1);
+test('the registrar can apply config middlewares to all routes', function () {
+    $this
+        ->routeRegistrar
+        ->registerFile($this->getTestPath('TestClasses/Controllers/RouteRegistrar/RegistrarTestFirstController.php'));
 
-        $this->assertRouteRegistered(
-            RegistrarTestFirstController::class,
-            uri: 'first-method',
-            middleware: [AnotherTestMiddleware::class]
-        );
-    }
+    $this->assertRegisteredRoutesCount(1);
 
-    /** @test */
-    public function the_registrar_can_register_a_whole_directory()
-    {
-        $this
-            ->routeRegistrar
-            ->registerDirectory($this->getTestPath('TestClasses/Controllers/RouteRegistrar'));
+    $this->assertRouteRegistered(
+        RegistrarTestFirstController::class,
+        uri: 'first-method',
+        middleware: [AnotherTestMiddleware::class]
+    );
+});
 
-        $this->assertRegisteredRoutesCount(3);
+test('the registrar can register a whole directory', function () {
+    $this
+        ->routeRegistrar
+        ->registerDirectory($this->getTestPath('TestClasses/Controllers/RouteRegistrar'));
 
-        $this->assertRouteRegistered(
-            RegistrarTestFirstController::class,
-            uri: 'first-method',
-        );
+    $this->assertRegisteredRoutesCount(3);
 
-        $this->assertRouteRegistered(
-            RegistrarTestSecondController::class,
-            uri: 'second-method',
-        );
+    $this->assertRouteRegistered(
+        RegistrarTestFirstController::class,
+        uri: 'first-method',
+    );
 
-        $this->assertRouteRegistered(
-            RegistrarTestControllerInSubDirectory::class,
-            uri: 'in-sub-directory',
-        );
-    }
-}
+    $this->assertRouteRegistered(
+        RegistrarTestSecondController::class,
+        uri: 'second-method',
+    );
+
+    $this->assertRouteRegistered(
+        RegistrarTestControllerInSubDirectory::class,
+        uri: 'in-sub-directory',
+    );
+});
