@@ -2,10 +2,10 @@
 
 namespace Spatie\RouteAttributes\RouteDiscovery;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;
-use Illuminate\Support\Facades\Route;
 
 class DiscoverViews
 {
@@ -29,7 +29,7 @@ class DiscoverViews
         $uri = Str::replaceLast('/index', '/', (string)$uri);
 
         $uri = collect(explode('/', $uri))
-            ->map(function(string $uriSegment) {
+            ->map(function (string $uriSegment) {
                 return Str::kebab($uriSegment);
             })
             ->join('/');

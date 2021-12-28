@@ -3,10 +3,8 @@
 namespace Spatie\RouteAttributes\Tests\RouteDiscovery;
 
 use Illuminate\Routing\ViewController;
-use Illuminate\Support\Facades\Route;
 use Spatie\RouteAttributes\RouteDiscovery\Discover;
 use Spatie\RouteAttributes\Tests\TestCase;
-use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\SingleController\MyController;
 
 class DiscoverViewsTest extends TestCase
 {
@@ -24,7 +22,7 @@ class DiscoverViewsTest extends TestCase
             'contact',
             'nested',
             'nested/another',
-        ])->each(function(string $uri) {
+        ])->each(function (string $uri) {
             $this->assertRouteRegistered(
                 ViewController::class,
                 controllerMethod: '\\' . ViewController::class,

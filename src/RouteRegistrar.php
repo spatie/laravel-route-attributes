@@ -76,8 +76,6 @@ class RouteRegistrar
                 $this->registerFile($file);
             });
         }
-
-
     }
 
     public function registerFile(string|SplFileInfo $path): void
@@ -111,7 +109,7 @@ class RouteRegistrar
 
     protected function processAttributes(string $className): void
     {
-        if (!class_exists($className)) {
+        if (! class_exists($className)) {
             return;
         }
 
@@ -129,7 +127,7 @@ class RouteRegistrar
 
         foreach ($groups as $group) {
             $router = $this->router;
-            $router->group($group, fn() => $this->registerRoutes($class, $classRouteAttributes));
+            $router->group($group, fn () => $this->registerRoutes($class, $classRouteAttributes));
         }
     }
 
@@ -164,14 +162,13 @@ class RouteRegistrar
     protected function registerRoutes(
         ReflectionClass      $class,
         ClassRouteAttributes $classRouteAttributes
-    ): void
-    {
+    ): void {
         foreach ($class->getMethods() as $method) {
             ray('here');
             $attributes = $method->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
             $wheresAttributes = $method->getAttributes(WhereAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
 
-            if (!count($attributes)) {
+            if (! count($attributes)) {
                 $attributes = [Route::new()];
             }
 
@@ -186,19 +183,19 @@ class RouteRegistrar
                     continue;
                 }
 
-                if (!$attributeClass instanceof Route) {
+                if (! $attributeClass instanceof Route) {
                     $attributeClass = Route::new();
                 }
 
                 $uri = $attributeClass->uri;
                 $httpMethods = $attributeClass->methods;
 
-                if (!$uri) {
+                if (! $uri) {
                     $uri = $this->autoDiscoverUri($class, $method);
                     $httpMethods = $this->autoDiscoverHttpMethods($class, $method);
                 }
 
-                if (!$uri) {
+                if (! $uri) {
                     continue;
                 }
 
@@ -222,7 +219,7 @@ class RouteRegistrar
                     // This also overrides class wheres if the same param is used
                     $wheres[$wheresAttributeClass->param] = $wheresAttributeClass->constraint;
                 }
-                if (!empty($wheres)) {
+                if (! empty($wheres)) {
                     $route->setWheres($wheres);
                 }
 
