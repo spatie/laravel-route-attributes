@@ -166,8 +166,15 @@ class RouteRegistrar
         ClassRouteAttributes $classRouteAttributes
     ): void
     {
+        if ($class->isAbstract()) {
+            return;
+        }
+
         foreach ($class->getMethods() as $method) {
-            ray('here');
+           if (! $method->isPublic()) {
+               continue;
+           }
+
             $attributes = $method->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
             $wheresAttributes = $method->getAttributes(WhereAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
 
@@ -263,7 +270,7 @@ class RouteRegistrar
             return is_a($parameter->getType()?->getName(), Model::class, true);
         });
 
-        if (! in_array($method->getName(), $this->commonControllerMethods())) {
+        if (! in_array($method->getName(), $this->commonControllerMethodNames())) {
             $uri .= '/' . Str::kebab($method->getName());
         }
 
@@ -274,7 +281,7 @@ class RouteRegistrar
         return $uri;
     }
 
-    protected function commonControllerMethods(): array
+    protected function commonControllerMethodNames(): array
     {
         return ['index', '__invoke', 'get', 'show', 'create', 'store', 'edit', 'update', 'destroy', 'delete'];
     }

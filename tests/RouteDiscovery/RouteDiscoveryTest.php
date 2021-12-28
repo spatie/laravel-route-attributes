@@ -3,6 +3,7 @@
 namespace Spatie\RouteAttributes\Tests\RouteDiscovery;
 
 use Spatie\RouteAttributes\Tests\TestCase;
+use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\ControllerWithNonPublicMethods\NonPublicMethodsController;
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\ModelController\ModelController;
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\NestedController\Nested\ChildController;
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\NestedController\ParentController;
@@ -78,6 +79,22 @@ class RouteDiscoveryTest extends TestCase
             ModelController::class,
             controllerMethod: 'edit',
             uri: 'model/{user}',
+        );
+    }
+
+    /** @test */
+    public function it_will_only_automatically_register_public_methods()
+    {
+        $this
+            ->routeRegistrar
+            ->registerDirectory($this->getTestPath('TestClasses/AutoDiscovery/ControllerWithNonPublicMethods'));
+
+        $this->assertRegisteredRoutesCount(1);
+
+        $this->assertRouteRegistered(
+            NonPublicMethodsController::class,
+            controllerMethod: 'index',
+            uri: 'non-public-methods',
         );
     }
 }
