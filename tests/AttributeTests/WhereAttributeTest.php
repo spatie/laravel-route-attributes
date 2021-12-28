@@ -3,7 +3,6 @@
 use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\WhereTestController;
 
-uses(TestCase::class);
 
 it('can apply where on each method of a controller', function () {
     $this->routeRegistrar->registerClass(WhereTestController::class);

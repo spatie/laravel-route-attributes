@@ -3,7 +3,6 @@
 use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\AnyTestController;
 
-uses(TestCase::class);
 
 it('can register an any route', function () {
     $this->routeRegistrar->registerClass(AnyTestController::class);

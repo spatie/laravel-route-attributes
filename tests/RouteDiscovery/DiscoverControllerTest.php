@@ -6,7 +6,6 @@ use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\CustomMethod\CustomMethodController;
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\SingleController\MyController;
 
-uses(TestCase::class);
 
 it('can discover controller in a directory', function () {
     Discover::controllers()

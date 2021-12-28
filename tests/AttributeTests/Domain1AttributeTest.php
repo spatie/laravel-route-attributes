@@ -6,7 +6,6 @@ use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Domain1TestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Domain2TestController;
 
-uses(TestCase::class);
 
 it('registers the same url on different domains', function () {
     config()->set('domains.test', 'config.localhost');

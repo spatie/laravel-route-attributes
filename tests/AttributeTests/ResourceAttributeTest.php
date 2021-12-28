@@ -13,7 +13,6 @@ use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestPr
 use Spatie\RouteAttributes\Tests\TestClasses\Middleware\OtherTestMiddleware;
 use Spatie\RouteAttributes\Tests\TestClasses\Middleware\TestMiddleware;
 
-uses(TestCase::class);
 
 it('can register resource with prefix', function () {
     $this->routeRegistrar->registerClass(ResourceTestPrefixController::class);

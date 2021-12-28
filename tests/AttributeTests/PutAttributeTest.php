@@ -3,7 +3,6 @@
 use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\PutTestController;
 
-uses(TestCase::class);
 
 it('can register a put route', function () {
     $this->routeRegistrar->registerClass(PutTestController::class);

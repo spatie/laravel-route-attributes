@@ -8,7 +8,6 @@ use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\NestedController\Pare
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\RouteName\CustomRouteNameController;
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\SingleController\MyController;
 
-uses(TestCase::class);
 
 it('can automatically discovery a simple route', function () {
     $this

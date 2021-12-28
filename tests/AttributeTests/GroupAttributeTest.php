@@ -3,7 +3,6 @@
 use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\GroupTestController;
 
-uses(TestCase::class);
 
 it('can apply a domain on the url of every method', function () {
     $this->routeRegistrar->registerClass(GroupTestController::class);

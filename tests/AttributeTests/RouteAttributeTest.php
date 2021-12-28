@@ -10,7 +10,6 @@ use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RouteNam
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RoutePostTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Middleware\TestMiddleware;
 
-uses(TestCase::class);
 
 test('the route annotation can register a get route', function () {
     $this->routeRegistrar->registerClass(RouteGetTestController::class);

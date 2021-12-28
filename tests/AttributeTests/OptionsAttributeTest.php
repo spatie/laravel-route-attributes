@@ -3,7 +3,6 @@
 use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\OptionsTestController;
 
-uses(TestCase::class);
 
 it('can register a options route', function () {
     $this->routeRegistrar->registerClass(OptionsTestController::class);

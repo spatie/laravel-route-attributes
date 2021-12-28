@@ -1,5 +1,7 @@
 <?php
 
+uses(\Spatie\RouteAttributes\Tests\TestCase::class)->in('tests', 'AttributeTests', 'TestClasses', 'RouteDiscovery');
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
