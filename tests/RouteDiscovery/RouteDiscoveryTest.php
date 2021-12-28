@@ -60,13 +60,13 @@ it('can automatically discovery a model route', function () {
         ->routeRegistrar
         ->registerDirectory($this->getTestPath('TestClasses/AutoDiscovery/ModelController'));
 
-    $this->assertRegisteredRoutesCount(1);
-
-    $this->assertRouteRegistered(
-        ModelController::class,
-        controllerMethod: 'edit',
-        uri: 'model/{user}',
-    );
+    $this
+        ->assertRegisteredRoutesCount(1)
+        ->assertRouteRegistered(
+            ModelController::class,
+            controllerMethod: 'edit',
+            uri: 'model/{user}',
+        );
 });
 
 it('will only automatically register public methods', function () {
@@ -74,11 +74,11 @@ it('will only automatically register public methods', function () {
         ->routeRegistrar
         ->registerDirectory($this->getTestPath('TestClasses/AutoDiscovery/ControllerWithNonPublicMethods'));
 
-    $this->assertRegisteredRoutesCount(1);
-
-    $this->assertRouteRegistered(
-        NonPublicMethodsController::class,
-        controllerMethod: 'index',
-        uri: 'non-public-methods',
-    );
+    $this
+        ->assertRegisteredRoutesCount(1)
+        ->assertRouteRegistered(
+            NonPublicMethodsController::class,
+            controllerMethod: 'index',
+            uri: 'non-public-methods',
+        );
 });

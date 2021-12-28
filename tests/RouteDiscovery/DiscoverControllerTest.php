@@ -11,9 +11,9 @@ it('can discover controller in a directory', function () {
         ->useBasePath($this->getTestPath())
         ->in($this->getTestPath('TestClasses/AutoDiscovery/SingleController'));
 
-    $this->assertRegisteredRoutesCount(1);
-
-    $this->assertRouteRegistered(
+    $this
+        ->assertRegisteredRoutesCount(1)
+        ->assertRouteRegistered(
         MyController::class,
         controllerMethod: 'index',
         uri: 'my',
@@ -26,18 +26,16 @@ it('can discover controllers with custom methods', function () {
         ->useBasePath($this->getTestPath())
         ->in($this->getTestPath('TestClasses/AutoDiscovery/CustomMethod'));
 
-    $this->assertRegisteredRoutesCount(1);
-
-    $this->assertRouteRegistered(
+    $this
+        ->assertRegisteredRoutesCount(1)
+        ->assertRouteRegistered(
         CustomMethodController::class,
         controllerMethod: 'myCustomMethod',
         uri: 'custom-method/my-custom-method'
     );
 });
 
-// Helpers
-function it_can_use_a_prefix_when_discovering_routes()
-{
+it('can use a prefix when discovering routes', function() {
     Route::prefix('my-prefix')->group(function () {
         Discover::controllers()
             ->useRootNamespace('Spatie\RouteAttributes\Tests\\')
@@ -45,12 +43,11 @@ function it_can_use_a_prefix_when_discovering_routes()
             ->in(test()->getTestPath('TestClasses/AutoDiscovery/SingleController'));
     });
 
-    test()->assertRegisteredRoutesCount(1);
-
-
-    test()->assertRouteRegistered(
+    $this
+        ->assertRegisteredRoutesCount(1)
+        ->assertRouteRegistered(
         MyController::class,
         controllerMethod: 'index',
-        uri: 'my',
+        uri: 'my-prefix/my',
     );
-}
+});
