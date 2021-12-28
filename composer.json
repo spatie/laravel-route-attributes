@@ -24,8 +24,6 @@
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
-        "psalm/plugin-laravel": "^1.4",
-        "vimeo/psalm": "^4.1",
         "pestphp/pest": "^1.20"
     },
     "autoload": {
@@ -40,7 +38,6 @@
         }
     },
     "scripts": {
-        "psalm": "vendor/bin/psalm",
         "test": "vendor/bin/phpunit --colors=always",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
     },
