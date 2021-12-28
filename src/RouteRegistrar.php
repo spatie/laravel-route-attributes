@@ -209,7 +209,7 @@ class RouteRegistrar
                 $action = $method->getName() === '__invoke'
                     ? $class->getName()
                     : [$class->getName(), $method->getName()];
-                ray($httpMethods, $uri, $action);
+
                 $route = $this->router
                     ->addRoute(
                         $httpMethods,
@@ -257,9 +257,7 @@ class RouteRegistrar
 
         $uri = collect($parts)
             ->filter()
-            ->map(function (string $part) {
-                return Str::of($part)->kebab();
-            })
+            ->map(fn(string $part) => Str::of($part)->kebab())
             ->implode('/');
 
         /** @var ReflectionParameter $modelParameter */
