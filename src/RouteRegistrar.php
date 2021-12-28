@@ -257,7 +257,7 @@ class RouteRegistrar
 
         $uri = collect($parts)
             ->filter()
-            ->map(fn(string $part) => Str::of($part)->kebab())
+            ->map(fn (string $part) => Str::of($part)->kebab())
             ->implode('/');
 
         /** @var ReflectionParameter $modelParameter */
