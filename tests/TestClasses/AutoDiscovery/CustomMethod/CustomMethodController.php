@@ -6,6 +6,5 @@ class CustomMethodController
 {
     public function myCustomMethod()
     {
-
     }
 }

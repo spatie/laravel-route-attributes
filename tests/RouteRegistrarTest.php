@@ -2,7 +2,6 @@
 
 namespace Spatie\RouteAttributes\Tests;
 
-use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\CustomMethod\CustomMethodController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteRegistrar\RegistrarTestFirstController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteRegistrar\RegistrarTestSecondController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteRegistrar\SubDirectory\RegistrarTestControllerInSubDirectory;
