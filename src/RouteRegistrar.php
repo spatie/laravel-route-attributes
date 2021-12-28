@@ -198,8 +198,8 @@ class RouteRegistrar
                 $httpMethods = $attributeClass->methods;
 
                 if (! $uri) {
-                    $uri = $this->autoDiscoverUri($class, $method);
-                    $httpMethods = $this->autoDiscoverHttpMethods($class, $method);
+                    $uri = $this->discoverUri($class, $method);
+                    $httpMethods = $this->discoverHttpMethods($class, $method);
                 }
 
                 if (! $uri) {
@@ -237,7 +237,7 @@ class RouteRegistrar
         }
     }
 
-    protected function autoDiscoverHttpMethods(ReflectionClass $class, ReflectionMethod $method): ?array
+    protected function discoverHttpMethods(ReflectionClass $class, ReflectionMethod $method): ?array
     {
         return match ($method->name) {
             'index', 'create', 'show', 'edit' => ['GET'],
@@ -248,7 +248,7 @@ class RouteRegistrar
         };
     }
 
-    protected function autoDiscoverUri(ReflectionClass $class, ReflectionMethod $method): ?string
+    protected function discoverUri(ReflectionClass $class, ReflectionMethod $method): ?string
     {
         $parts = Str::of($class->getFileName())
             ->after($this->registeringDirectory)
