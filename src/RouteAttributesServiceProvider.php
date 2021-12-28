@@ -2,24 +2,21 @@
 
 namespace Spatie\RouteAttributes;
 
-use Illuminate\Support\ServiceProvider;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class RouteAttributesServiceProvider extends ServiceProvider
+class RouteAttributesServiceProvider extends PackageServiceProvider
 {
-    public function boot()
+    public function configurePackage(Package $package): void
     {
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/../config/route-attributes.php' => config_path('route-attributes.php'),
-            ], 'config');
-        }
-
-        $this->registerRoutes();
+        $package
+            ->name('laravel-route-attributes')
+            ->hasConfigFile();
     }
 
-    public function register()
+    public function packageRegistered()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/route-attributes.php', 'route-attributes');
+        $this->registerRoutes();
     }
 
     protected function registerRoutes(): void
@@ -40,11 +37,11 @@ class RouteAttributesServiceProvider extends ServiceProvider
         if (! config('route-attributes.enabled')) {
             return false;
         }
-        
+
         if ($this->app->routesAreCached()) {
             return false;
         }
-        
+
         return true;
     }
 
@@ -52,6 +49,8 @@ class RouteAttributesServiceProvider extends ServiceProvider
     {
         $testClassDirectory = __DIR__ . '/../tests/TestClasses';
 
-        return app()->runningUnitTests() && file_exists($testClassDirectory) ? (array)$testClassDirectory : config('route-attributes.directories');
+        return app()->runningUnitTests() && file_exists($testClassDirectory)
+            ? (array)$testClassDirectory
+            : config('route-attributes.directories');
     }
 }
