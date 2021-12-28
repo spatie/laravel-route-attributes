@@ -22,7 +22,7 @@ class DiscoverTest extends TestCase
         $this->assertRouteRegistered(
             MyController::class,
             controllerMethod: 'index',
-            uri: 'test-classes/auto-discovery/single-controller/my',
+            uri: 'my',
         );
     }
 
@@ -41,7 +41,7 @@ class DiscoverTest extends TestCase
         $this->assertRouteRegistered(
             MyController::class,
             controllerMethod: 'index',
-            uri: 'my-prefix/test-classes/auto-discovery/single-controller/my',
+            uri: 'my',
         );
     }
 }

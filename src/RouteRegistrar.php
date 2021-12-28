@@ -28,6 +28,8 @@ class RouteRegistrar
 
     protected array $middleware = [];
 
+    protected string $registeringDirectory = '';
+
     public function __construct(Router $router)
     {
         $this->router = $router;
@@ -49,7 +51,7 @@ class RouteRegistrar
         return $this;
     }
 
-    public function useMiddleware(string | array $middleware): self
+    public function useMiddleware(string|array $middleware): self
     {
         $this->middleware = Arr::wrap($middleware);
 
@@ -61,24 +63,31 @@ class RouteRegistrar
         return $this->middleware ?? [];
     }
 
-    public function registerDirectory(string | array $directories): void
+    public function registerDirectory(string|array $directories): void
     {
-        ray()->newScreen();
         $directories = Arr::wrap($directories);
 
-        $files = (new Finder())->files()->name('*.php')->in($directories);
+        foreach ($directories as $directory) {
+            $files = (new Finder())->files()->name('*.php')->in($directory);
 
-        collect($files)->each(fn (SplFileInfo $file) => $this->registerFile($file));
+            collect($files)->each(function (SplFileInfo $file) use ($directory) {
+                $this->registeringDirectory = $directory;
+
+                $this->registerFile($file);
+            });
+        }
+
+
     }
 
-    public function registerFile(string | SplFileInfo $path): void
+    public function registerFile(string|SplFileInfo $path): void
     {
         if (is_string($path)) {
             $path = new SplFileInfo($path);
         }
 
         $fullyQualifiedClassName = $this->fullQualifiedClassNameFromFile($path);
-ray($fullyQualifiedClassName);
+
         $this->processAttributes($fullyQualifiedClassName);
     }
 
@@ -102,7 +111,7 @@ ray($fullyQualifiedClassName);
 
     protected function processAttributes(string $className): void
     {
-        if (! class_exists($className)) {
+        if (!class_exists($className)) {
             return;
         }
 
@@ -120,7 +129,7 @@ ray($fullyQualifiedClassName);
 
         foreach ($groups as $group) {
             $router = $this->router;
-            $router->group($group, fn () => $this->registerRoutes($class, $classRouteAttributes));
+            $router->group($group, fn() => $this->registerRoutes($class, $classRouteAttributes));
         }
     }
 
@@ -155,13 +164,14 @@ ray($fullyQualifiedClassName);
     protected function registerRoutes(
         ReflectionClass      $class,
         ClassRouteAttributes $classRouteAttributes
-    ): void {
+    ): void
+    {
         foreach ($class->getMethods() as $method) {
             ray('here');
             $attributes = $method->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
             $wheresAttributes = $method->getAttributes(WhereAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
 
-            if (! count($attributes)) {
+            if (!count($attributes)) {
                 $attributes = [Route::new()];
             }
 
@@ -176,26 +186,26 @@ ray($fullyQualifiedClassName);
                     continue;
                 }
 
-                if (! $attributeClass instanceof Route) {
+                if (!$attributeClass instanceof Route) {
                     $attributeClass = Route::new();
                 }
 
                 $uri = $attributeClass->uri;
                 $httpMethods = $attributeClass->methods;
 
-                if (! $uri) {
+                if (!$uri) {
                     $uri = $this->autoDiscoverUri($class, $method);
                     $httpMethods = $this->autoDiscoverHttpMethods($class, $method);
                 }
 
-                if (! $uri) {
+                if (!$uri) {
                     continue;
                 }
 
                 $action = $method->getName() === '__invoke'
                     ? $class->getName()
                     : [$class->getName(), $method->getName()];
-ray($httpMethods, $uri, $action);
+                ray($httpMethods, $uri, $action);
                 $route = $this->router
                     ->addRoute(
                         $httpMethods,
@@ -212,7 +222,7 @@ ray($httpMethods, $uri, $action);
                     // This also overrides class wheres if the same param is used
                     $wheres[$wheresAttributeClass->param] = $wheresAttributeClass->constraint;
                 }
-                if (! empty($wheres)) {
+                if (!empty($wheres)) {
                     $route->setWheres($wheres);
                 }
 
@@ -236,12 +246,14 @@ ray($httpMethods, $uri, $action);
 
     protected function autoDiscoverUri(ReflectionClass $class, ReflectionMethod $method): ?string
     {
-        $parts = Str::of($class->getName())
-            ->after($this->rootNamespace)
+    ;
+        $parts = Str::of($class->getFileName())
+            ->after($this->registeringDirectory)
             ->beforeLast('Controller')
-            ->explode('\\');
+            ->explode('/');
 
         $uri = collect($parts)
+            ->filter()
             ->map(function (string $part) {
                 return Str::of($part)->kebab();
             })

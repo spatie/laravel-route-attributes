@@ -11,6 +11,13 @@ class DiscoverControllers
 
     protected string $rootNamespace;
 
+    public function __construct()
+    {
+        $this->rootNamespace = '';
+
+        $this->basePath = base_path();
+    }
+
     public function useRootNamespace(string $rootNamespace): self
     {
         $this->rootNamespace = $rootNamespace;

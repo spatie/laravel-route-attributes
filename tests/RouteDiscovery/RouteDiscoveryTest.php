@@ -23,7 +23,7 @@ class RouteDiscoveryTest extends TestCase
         $this->assertRouteRegistered(
             MyController::class,
             controllerMethod: 'index',
-            uri: 'test-classes/auto-discovery/single-controller/my',
+            uri: 'my',
         );
     }
 
@@ -38,7 +38,7 @@ class RouteDiscoveryTest extends TestCase
         $this->assertRouteRegistered(
             CustomRouteNameController::class,
             controllerMethod: 'index',
-            uri: 'test-classes/auto-discovery/route-name/custom-route-name',
+            uri: 'custom-route-name',
             name: 'this-is-a-custom-name',
         );
     }
@@ -55,13 +55,13 @@ class RouteDiscoveryTest extends TestCase
         $this->assertRouteRegistered(
             ParentController::class,
             controllerMethod: 'index',
-            uri: 'test-classes/auto-discovery/nested-controller/parent',
+            uri: 'parent',
         );
 
         $this->assertRouteRegistered(
             ChildController::class,
             controllerMethod: 'index',
-            uri: 'test-classes/auto-discovery/nested-controller/nested/child',
+            uri: 'nested/child',
         );
     }
 
@@ -77,7 +77,7 @@ class RouteDiscoveryTest extends TestCase
         $this->assertRouteRegistered(
             ModelController::class,
             controllerMethod: 'edit',
-            uri: 'test-classes/auto-discovery/model-controller/model/{user}',
+            uri: 'model/{user}',
         );
     }
 }
