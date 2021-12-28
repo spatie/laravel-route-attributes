@@ -6,16 +6,13 @@ class NonPublicMethodsController
 {
     public function index()
     {
-
     }
 
     protected function willNotBeDiscovered()
     {
-
     }
 
     private function anotherOneThatWillNotBeDiscovered()
     {
-
     }
 }
