@@ -246,7 +246,6 @@ class RouteRegistrar
 
     protected function autoDiscoverUri(ReflectionClass $class, ReflectionMethod $method): ?string
     {
-    ;
         $parts = Str::of($class->getFileName())
             ->after($this->registeringDirectory)
             ->beforeLast('Controller')
@@ -264,10 +263,19 @@ class RouteRegistrar
             return is_a($parameter->getType()?->getName(), Model::class, true);
         });
 
+        if (! in_array($method->getName(), $this->commonControllerMethods())) {
+            $uri .= '/' . Str::kebab($method->getName());
+        }
+
         if ($modelParameter) {
             $uri .= "/{{$modelParameter->getName()}}";
         }
 
         return $uri;
+    }
+
+    protected function commonControllerMethods(): array
+    {
+        return ['index', '__invoke', 'get', 'show', 'create', 'store', 'edit', 'update', 'destroy', 'delete'];
     }
 }

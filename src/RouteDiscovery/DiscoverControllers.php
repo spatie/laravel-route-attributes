@@ -3,7 +3,6 @@
 namespace Spatie\RouteAttributes\RouteDiscovery;
 
 use Spatie\RouteAttributes\RouteRegistrar;
-use Spatie\RouteAttributes\Tests\TestClasses\Middleware\AnotherTestMiddleware;
 
 class DiscoverControllers
 {
@@ -32,7 +31,7 @@ class DiscoverControllers
         return $this;
     }
 
-    public function inDirectory(string $directory)
+    public function in(string $directory)
     {
         $router = app()->router;
 

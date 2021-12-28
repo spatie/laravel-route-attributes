@@ -75,15 +75,15 @@ class TestCase extends Orchestra
                     return false;
                 }
                 $routeController = $route->getAction(0) ?? get_class($route->getController());
+
                 if ($routeController !== $controller) {
                     return false;
                 }
-
                 $routeMethod = $route->getAction(1) ?? $route->getActionMethod();
+
                 if ($routeMethod !== $controllerMethod) {
                     return false;
                 }
-
                 if (array_diff($route->middleware(), array_merge($middleware, $this->routeRegistrar->middleware()))) {
                     return false;
                 }
