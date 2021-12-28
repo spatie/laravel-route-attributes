@@ -1,8 +1,6 @@
 <?php
 
-use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\DeleteTestController;
-
 
 it('can register a delete route', function () {
     $this->routeRegistrar->registerClass(DeleteTestController::class);

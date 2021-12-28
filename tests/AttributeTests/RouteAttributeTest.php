@@ -1,7 +1,5 @@
 <?php
 
-use Spatie\RouteAttributes\RouteRegistrar;
-use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\InvokableRouteGetTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RouteGetTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RouteMiddlewareTestController;
@@ -9,7 +7,6 @@ use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RouteMul
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RouteNameTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteAttribute\RoutePostTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Middleware\TestMiddleware;
-
 
 test('the route annotation can register a get route', function () {
     $this->routeRegistrar->registerClass(RouteGetTestController::class);

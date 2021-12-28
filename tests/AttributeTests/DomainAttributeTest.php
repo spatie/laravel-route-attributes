@@ -1,8 +1,6 @@
 <?php
 
-use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\DomainTestController;
-
 
 it('can apply a domain on the url of every method', function () {
     $this->routeRegistrar->registerClass(DomainTestController::class);

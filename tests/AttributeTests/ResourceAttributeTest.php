@@ -1,6 +1,5 @@
 <?php
 
-use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestApiController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestDomainController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestExceptController;
@@ -12,7 +11,6 @@ use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestOn
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestPrefixController;
 use Spatie\RouteAttributes\Tests\TestClasses\Middleware\OtherTestMiddleware;
 use Spatie\RouteAttributes\Tests\TestClasses\Middleware\TestMiddleware;
-
 
 it('can register resource with prefix', function () {
     $this->routeRegistrar->registerClass(ResourceTestPrefixController::class);

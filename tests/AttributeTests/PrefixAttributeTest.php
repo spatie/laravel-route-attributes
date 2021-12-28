@@ -1,8 +1,6 @@
 <?php
 
-use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\PrefixTestController;
-
 
 it('can apply a prefix on the url of every method', function () {
     $this->routeRegistrar->registerClass(PrefixTestController::class);

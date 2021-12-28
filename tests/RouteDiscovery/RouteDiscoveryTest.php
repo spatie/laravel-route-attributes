@@ -1,13 +1,11 @@
 <?php
 
-use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\ControllerWithNonPublicMethods\NonPublicMethodsController;
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\ModelController\ModelController;
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\NestedController\Nested\ChildController;
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\NestedController\ParentController;
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\RouteName\CustomRouteNameController;
 use Spatie\RouteAttributes\Tests\TestClasses\AutoDiscovery\SingleController\MyController;
-
 
 it('can automatically discovery a simple route', function () {
     $this

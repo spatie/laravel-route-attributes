@@ -1,8 +1,6 @@
 <?php
 
-use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\OptionsTestController;
-
 
 it('can register a options route', function () {
     $this->routeRegistrar->registerClass(OptionsTestController::class);
