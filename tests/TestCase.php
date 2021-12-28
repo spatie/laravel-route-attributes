@@ -15,7 +15,7 @@ class TestCase extends Orchestra
 {
     protected RouteRegistrar $routeRegistrar;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
