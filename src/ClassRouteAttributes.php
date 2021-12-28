@@ -21,9 +21,6 @@ class ClassRouteAttributes
         $this->class = $class;
     }
 
-    /**
-     * @psalm-suppress NoInterfaceProperties
-     */
     public function prefix(): ?string
     {
         /** @var \Spatie\RouteAttributes\Attributes\Prefix $attribute */
@@ -34,9 +31,6 @@ class ClassRouteAttributes
         return $attribute->prefix;
     }
 
-    /**
-     * @psalm-suppress NoInterfaceProperties
-     */
     public function domain(): ?string
     {
         /** @var \Spatie\RouteAttributes\Attributes\Domain $attribute */
@@ -47,9 +41,6 @@ class ClassRouteAttributes
         return $attribute->domain;
     }
 
-    /**
-     * @psalm-suppress NoInterfaceProperties
-     */
     public function domainFromConfig(): ?string
     {
         /** @var \Spatie\RouteAttributes\Attributes\DomainFromConfig $attribute */
@@ -60,9 +51,6 @@ class ClassRouteAttributes
         return config($attribute->domain);
     }
 
-    /**
-     * @psalm-suppress NoInterfaceProperties
-     */
     public function groups(): array
     {
         $groups = [];
@@ -89,9 +77,6 @@ class ClassRouteAttributes
         return $groups;
     }
 
-    /**
-     * @psalm-suppress NoInterfaceProperties
-     */
     public function resource(): ?string
     {
         /** @var \Spatie\RouteAttributes\Attributes\Resource $attribute */
@@ -102,9 +87,6 @@ class ClassRouteAttributes
         return $attribute->resource;
     }
 
-    /**
-     * @psalm-suppress NoInterfaceProperties
-     */
     public function apiResource(): ?string
     {
         /** @var \Spatie\RouteAttributes\Attributes\Resource $attribute */
@@ -115,9 +97,6 @@ class ClassRouteAttributes
         return $attribute->apiResource;
     }
 
-    /**
-     * @psalm-suppress NoInterfaceProperties
-     */
     public function except(): string | array | null
     {
         /** @var \Spatie\RouteAttributes\Attributes\Resource $attribute */
@@ -128,9 +107,6 @@ class ClassRouteAttributes
         return $attribute->except;
     }
 
-    /**
-     * @psalm-suppress NoInterfaceProperties
-     */
     public function only(): string | array | null
     {
         /** @var \Spatie\RouteAttributes\Attributes\Resource $attribute */
@@ -141,9 +117,6 @@ class ClassRouteAttributes
         return $attribute->only;
     }
 
-    /**
-     * @psalm-suppress NoInterfaceProperties
-     */
     public function names(): string | array | null
     {
         /** @var \Spatie\RouteAttributes\Attributes\Resource $attribute */
@@ -154,9 +127,6 @@ class ClassRouteAttributes
         return $attribute->names;
     }
 
-    /**
-     * @psalm-suppress NoInterfaceProperties
-     */
     public function middleware(): array
     {
         /** @var \Spatie\RouteAttributes\Attributes\Middleware $attribute */
@@ -167,9 +137,6 @@ class ClassRouteAttributes
         return $attribute->middleware;
     }
 
-    /**
-     * @psalm-suppress NoInterfaceProperties
-     */
     public function wheres(): array
     {
         $wheres = [];
