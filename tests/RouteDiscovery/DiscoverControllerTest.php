@@ -14,10 +14,10 @@ it('can discover controller in a directory', function () {
     $this
         ->assertRegisteredRoutesCount(1)
         ->assertRouteRegistered(
-        MyController::class,
-        controllerMethod: 'index',
-        uri: 'my',
-    );
+            MyController::class,
+            controllerMethod: 'index',
+            uri: 'my',
+        );
 });
 
 it('can discover controllers with custom methods', function () {
@@ -29,13 +29,13 @@ it('can discover controllers with custom methods', function () {
     $this
         ->assertRegisteredRoutesCount(1)
         ->assertRouteRegistered(
-        CustomMethodController::class,
-        controllerMethod: 'myCustomMethod',
-        uri: 'custom-method/my-custom-method'
-    );
+            CustomMethodController::class,
+            controllerMethod: 'myCustomMethod',
+            uri: 'custom-method/my-custom-method'
+        );
 });
 
-it('can use a prefix when discovering routes', function() {
+it('can use a prefix when discovering routes', function () {
     Route::prefix('my-prefix')->group(function () {
         Discover::controllers()
             ->useRootNamespace('Spatie\RouteAttributes\Tests\\')
@@ -46,8 +46,8 @@ it('can use a prefix when discovering routes', function() {
     $this
         ->assertRegisteredRoutesCount(1)
         ->assertRouteRegistered(
-        MyController::class,
-        controllerMethod: 'index',
-        uri: 'my-prefix/my',
-    );
+            MyController::class,
+            controllerMethod: 'index',
+            uri: 'my-prefix/my',
+        );
 });
