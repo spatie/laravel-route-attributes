@@ -2,22 +2,12 @@
 
 return [
     /*
-     *  Automatic registration of routes will only happen if this setting is `true`
      */
-    'enabled' => false,
-
-    /*
-     * Controllers in these directories that have routing attributes
-     * will automatically be registered.
-     */
-    'directories' => [
+    'autodiscover_controllers_in_directory' => [
         app_path('Http/Controllers'),
     ],
 
-    /**
-     * This middleware will be applied to all routes.
-     */
-    'middleware' => [
-         \Illuminate\Routing\Middleware\SubstituteBindings::class
-    ]
+    'auto_discover_views_in_directory' => [
+        // 'docs' => [resource_path('views/docs']
+    ],
 ];
