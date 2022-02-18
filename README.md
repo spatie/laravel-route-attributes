@@ -70,6 +70,15 @@ return [
 ];
 ```
 
+For controllers outside of the applications root namespace directories can also be added usin a `namespace => path` pattern in the directories array. In the following example controllers from `Modules\Admin\Http\Controllers` will be included.
+
+```php
+'directories' => [
+    'Modules\Admin\Http\Controllers\\' => base_path('admin-module/Http/Controllers'),
+    app_path('Http/Controllers'),
+],
+```
+
 ## Usage
 
 The package provides several annotations that should be put on controller classes and methods. These annotations will be used to automatically register routes
