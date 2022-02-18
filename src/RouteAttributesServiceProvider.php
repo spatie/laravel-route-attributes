@@ -29,10 +29,19 @@ class RouteAttributesServiceProvider extends ServiceProvider
         }
 
         $routeRegistrar = (new RouteRegistrar(app()->router))
-            ->useRootNamespace(app()->getNamespace())
             ->useMiddleware(config('route-attributes.middleware') ?? []);
 
-        collect($this->getRouteDirectories())->each(fn (string $directory) => $routeRegistrar->registerDirectory($directory));
+        collect($this->getRouteDirectories())->each(function (string $directory, string|int $namespace) use ($routeRegistrar) {
+            is_string($namespace)
+                ? $routeRegistrar
+                    ->useRootNamespace($namespace)
+                    ->useBasePath($directory)
+                    ->registerDirectory($directory)
+                : $routeRegistrar
+                    ->useRootNamespace(app()->getNamespace())
+                    ->useBasePath(app()->path())
+                    ->registerDirectory($directory);
+        });
     }
 
     private function shouldRegisterRoutes(): bool
@@ -40,11 +49,11 @@ class RouteAttributesServiceProvider extends ServiceProvider
         if (! config('route-attributes.enabled')) {
             return false;
         }
-        
+
         if ($this->app->routesAreCached()) {
             return false;
         }
-        
+
         return true;
     }
 
