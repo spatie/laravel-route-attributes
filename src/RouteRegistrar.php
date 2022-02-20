@@ -63,7 +63,9 @@ class RouteRegistrar
         $directories = Arr::wrap($directories);
 
         $files = (new Finder())->files()->name('*.php')->in($directories);
-
+        collect($files)->each(function (SplFileInfo $file) {
+            dump('register ' . $file->getRealPath());
+        });
         collect($files)->each(fn (SplFileInfo $file) => $this->registerFile($file));
     }
 
