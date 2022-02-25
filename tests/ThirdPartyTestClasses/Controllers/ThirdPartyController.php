@@ -6,10 +6,8 @@ use Spatie\RouteAttributes\Attributes\Get;
 
 class ThirdPartyController
 {
-
     #[Get('third-party')]
     public function thirdPartyGetMethod()
     {
     }
-
 }
