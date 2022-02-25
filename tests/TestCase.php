@@ -35,7 +35,7 @@ class TestCase extends Orchestra
 
     public function getTestPath(string $directory = null): string
     {
-        return __DIR__ . ($directory ? '/' . $directory : '');
+        return __DIR__ . ($directory ? DIRECTORY_SEPARATOR . $directory : '');
     }
 
     public function assertRegisteredRoutesCount(int $expectedNumber): self
