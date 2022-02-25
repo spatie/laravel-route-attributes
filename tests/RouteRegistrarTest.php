@@ -71,9 +71,9 @@ class RouteRegistrarTest extends TestCase
     {
         require_once(__DIR__ . '/ThirdPartyTestClasses/Controllers/ThirdPartyController.php');
         $this->routeRegistrar
-            ->useBasePath(__DIR__ . '/ThirdPartyTestClasses/Controllers')
+            ->useBasePath($this->getTestPath('ThirdPartyTestClasses' . DIRECTORY_SEPARATOR . 'Controllers'))
             ->useRootNamespace('ThirdParty\Http\Controllers\\')
-            ->registerDirectory(__DIR__ . '/ThirdPartyTestClasses/Controllers');
+            ->registerDirectory($this->getTestPath('ThirdPartyTestClasses' . DIRECTORY_SEPARATOR . 'Controllers'));
 
         $this->assertRegisteredRoutesCount(1);
         $this->assertRouteRegistered(
