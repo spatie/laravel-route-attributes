@@ -67,7 +67,7 @@ class RouteRegistrarTest extends TestCase
     }
 
     /** @test */
-    public function the_register_can_register_a_directory_with_defined_namespace()
+    public function the_registrar_can_register_a_directory_with_defined_namespace()
     {
         require_once(__DIR__ . '/ThirdPartyTestClasses/Controllers/ThirdPartyController.php');
         $this->routeRegistrar
