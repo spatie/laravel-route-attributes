@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.10.0 - 2022-02-25
+
+## What's Changed
+
+- Namespaced controller directories by @danielsetreus in https://github.com/spatie/laravel-route-attributes/pull/69
+
+## New Contributors
+
+- @danielsetreus made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/69
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.9.1...1.10.0
+
 ## 1.9.1 - 2022-01-19
 
 - add support for Laravel 9
