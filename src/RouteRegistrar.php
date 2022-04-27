@@ -140,9 +140,7 @@ class RouteRegistrar
                 $route->names($names);
             }
 
-            if ($middleware = $classRouteAttributes->middleware()) {
-                $route->middleware([...$this->middleware, ...$middleware]);
-            }
+            $route->middleware([...$this->middleware, ...$classRouteAttributes->middleware()]);
         });
     }
 
