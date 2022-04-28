@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.10.1 - 2022-04-28
+
+## What's Changed
+
+- Fixes implicit route model binding bug when using Resource attribute. by @samueljtaylor in https://github.com/spatie/laravel-route-attributes/pull/77
+
+## New Contributors
+
+- @samueljtaylor made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/77
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.10.0...1.10.1
+
 ## 1.10.0 - 2022-02-25
 
 ## What's Changed
