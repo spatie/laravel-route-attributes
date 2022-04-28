@@ -12,6 +12,7 @@ use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestNa
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestNamesStringController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestOnlyController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestPrefixController;
+use Spatie\RouteAttributes\Tests\TestClasses\Middleware\AnotherTestMiddleware;
 use Spatie\RouteAttributes\Tests\TestClasses\Middleware\OtherTestMiddleware;
 use Spatie\RouteAttributes\Tests\TestClasses\Middleware\TestMiddleware;
 
@@ -58,6 +59,37 @@ class ResourceAttributeTest extends TestCase
                 uri: 'posts/{post}',
                 middleware: [TestMiddleware::class, OtherTestMiddleware::class],
                 name: 'posts.show',
+            );
+    }
+
+    /** @test */
+    public function it_can_register_resource_with_only_default_middleware()
+    {
+        $this->routeRegistrar->registerClass(ResourceTestOnlyController::class);
+
+        $this
+            ->assertRegisteredRoutesCount(3)
+            ->assertRouteRegistered(
+                ResourceTestOnlyController::class,
+                controllerMethod: 'index',
+                uri: 'posts',
+                middleware: [AnotherTestMiddleware::class],
+                name: 'posts.index'
+            )
+            ->assertRouteRegistered(
+                ResourceTestOnlyController::class,
+                controllerMethod: 'store',
+                httpMethods: 'post',
+                uri: 'posts',
+                middleware: [AnotherTestMiddleware::class],
+                name: 'posts.store'
+            )
+            ->assertRouteRegistered(
+                ResourceTestOnlyController::class,
+                controllerMethod: 'show',
+                uri: 'posts/{post}',
+                middleware: [AnotherTestMiddleware::class],
+                name: 'posts.show'
             );
     }
 

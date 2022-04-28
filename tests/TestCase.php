@@ -83,7 +83,7 @@ class TestCase extends Orchestra
                     return false;
                 }
 
-                if (array_diff($route->middleware(), array_merge($middleware, $this->routeRegistrar->middleware()))) {
+                if (array_diff(array_merge($middleware, $this->routeRegistrar->middleware()), $route->middleware())) {
                     return false;
                 }
 
