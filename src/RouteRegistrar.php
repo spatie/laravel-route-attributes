@@ -149,6 +149,7 @@ class RouteRegistrar
         foreach ($class->getMethods() as $method) {
             $attributes = $method->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
             $wheresAttributes = $method->getAttributes(WhereAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
+            $fallbackAttributes = $method->getAttributes(Fallback::class, ReflectionAttribute::IS_INSTANCEOF);
 
             foreach ($attributes as $attribute) {
                 try {
@@ -185,6 +186,10 @@ class RouteRegistrar
                 $classMiddleware = $classRouteAttributes->middleware();
                 $methodMiddleware = $attributeClass->middleware;
                 $route->middleware([...$this->middleware, ...$classMiddleware, ...$methodMiddleware]);
+
+                if (count($fallbackAttributes) > 0) {
+                    $route->fallback();
+                }
             }
         }
     }
