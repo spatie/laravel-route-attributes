@@ -55,14 +55,15 @@ class TestCase extends Orchestra
         string | array $middleware = [],
         ?string $name = null,
         ?string $domain = null,
-        ?array $wheres = []
+        ?array $wheres = [],
+        ?bool $isFallback = false
     ): self {
         if (! is_array($middleware)) {
             $middleware = Arr::wrap($middleware);
         }
 
         $routeRegistered = collect($this->getRouteCollection()->getRoutes())
-            ->contains(function (Route $route) use ($name, $middleware, $controllerMethod, $controller, $uri, $httpMethods, $domain, $wheres) {
+            ->contains(function (Route $route) use ($name, $middleware, $controllerMethod, $controller, $uri, $httpMethods, $domain, $wheres, $isFallback) {
                 foreach (Arr::wrap($httpMethods) as $httpMethod) {
                     if (! in_array(strtoupper($httpMethod), $route->methods)) {
                         return false;
@@ -96,6 +97,10 @@ class TestCase extends Orchestra
                 }
 
                 if ($wheres !== $route->wheres) {
+                    return false;
+                }
+
+                if ($route->isFallback !== $isFallback) {
                     return false;
                 }
 
