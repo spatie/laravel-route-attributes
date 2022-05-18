@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.10.2 - 2022-05-18
+
+## What's Changed
+
+- fix: make order of routes predictable by @jaulz in https://github.com/spatie/laravel-route-attributes/pull/79
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.10.1...1.10.2
+
 ## 1.10.1 - 2022-04-28
 
 ## What's Changed
