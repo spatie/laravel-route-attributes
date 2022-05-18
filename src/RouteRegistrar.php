@@ -62,7 +62,7 @@ class RouteRegistrar
     {
         $directories = Arr::wrap($directories);
 
-        $files = (new Finder())->files()->name('*.php')->in($directories);
+        $files = (new Finder())->files()->name('*.php')->in($directories)->sortByName();
 
         collect($files)->each(fn (SplFileInfo $file) => $this->registerFile($file));
     }
