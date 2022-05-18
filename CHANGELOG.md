@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.11.0 - 2022-05-18
+
+## What's Changed
+
+- feat: add Fallback attribute by @jaulz in https://github.com/spatie/laravel-route-attributes/pull/78
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.10.2...1.11.0
+
 ## 1.10.2 - 2022-05-18
 
 ## What's Changed
