@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.12.1 - 2022-08-09
+
+- fix config file
+
 ## 1.12.0 - 2022-08-09
 
 ### What's Changed
