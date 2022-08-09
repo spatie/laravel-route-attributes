@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.12.0 - 2022-08-09
+
+### What's Changed
+
+- Fix automated tests by @Tofandel in https://github.com/spatie/laravel-route-attributes/pull/84
+- Add fileinfo extension by @Tofandel in https://github.com/spatie/laravel-route-attributes/pull/85
+- feat: add grouped configurations and improve tests by @Tofandel in https://github.com/spatie/laravel-route-attributes/pull/83
+
+### New Contributors
+
+- @Tofandel made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/84
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.11.0...1.12.0
+
 ## 1.11.0 - 2022-05-18
 
 ## What's Changed
