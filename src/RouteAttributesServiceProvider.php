@@ -38,7 +38,7 @@ class RouteAttributesServiceProvider extends ServiceProvider
 
                 $routeRegistrar
                     ->useRootNamespace($directory['namespace'] ?? app()->getNamespace())
-                    ->useBasePath($directory['base_path'] ?? (isset($directory['namespace']) ? $namespace : app()->basePath()))
+                    ->useBasePath($directory['base_path'] ?? (isset($directory['namespace']) ? $namespace : app()->path()))
                     ->group($options, fn () => $routeRegistrar->registerDirectory($namespace));
             } else {
                 is_string($namespace)
