@@ -12,6 +12,13 @@ return [
      */
     'directories' => [
         app_path('Http/Controllers'),
+        /*
+         *  Alternative syntax to register by directory with global options
+         */
+        //app_path('Http/Controllers/Api') => [
+        //    'prefix' => 'api',
+        //    'middleware' => 'api'
+        //]
     ],
 
     /**

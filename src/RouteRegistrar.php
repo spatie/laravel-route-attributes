@@ -33,6 +33,13 @@ class RouteRegistrar
         $this->basePath = app()->path();
     }
 
+    public function group(array $options, $routes): self
+    {
+        $this->router->group($options, $routes);
+
+        return $this;
+    }
+
     public function useBasePath(string $basePath): self
     {
         $this->basePath = $basePath;
@@ -42,7 +49,7 @@ class RouteRegistrar
 
     public function useRootNamespace(string $rootNamespace): self
     {
-        $this->rootNamespace = $rootNamespace;
+        $this->rootNamespace = rtrim($rootNamespace, '\\') . '\\';
 
         return $this;
     }

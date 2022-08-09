@@ -2,6 +2,7 @@
 
 namespace Spatie\RouteAttributes;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 
 class RouteAttributesServiceProvider extends ServiceProvider
@@ -31,16 +32,27 @@ class RouteAttributesServiceProvider extends ServiceProvider
         $routeRegistrar = (new RouteRegistrar(app()->router))
             ->useMiddleware(config('route-attributes.middleware') ?? []);
 
-        collect($this->getRouteDirectories())->each(function (string $directory, string|int $namespace) use ($routeRegistrar) {
-            is_string($namespace)
-                ? $routeRegistrar
-                    ->useRootNamespace($namespace)
-                    ->useBasePath($directory)
-                    ->registerDirectory($directory)
-                : $routeRegistrar
-                    ->useRootNamespace(app()->getNamespace())
-                    ->useBasePath(app()->path())
-                    ->registerDirectory($directory);
+        $this->app->singleton(RouteRegistrar::class, fn () => $routeRegistrar);
+
+        collect($this->getRouteDirectories())->each(function (string|array $directory, string|int $namespace) use ($routeRegistrar) {
+            if (is_array($directory)) {
+                $options = Arr::except($directory, ['namespace', 'base_path']);
+
+                $routeRegistrar
+                    ->useRootNamespace($directory['namespace'] ?? app()->getNamespace())
+                    ->useBasePath($directory['base_path'] ?? $namespace)
+                    ->group($options, fn () => $routeRegistrar->registerDirectory($namespace));
+            } else {
+                is_string($namespace)
+                    ? $routeRegistrar
+                        ->useRootNamespace($namespace)
+                        ->useBasePath($directory)
+                        ->registerDirectory($directory)
+                    : $routeRegistrar
+                        ->useRootNamespace(app()->getNamespace())
+                        ->useBasePath(app()->path())
+                        ->registerDirectory($directory);
+            }
         });
     }
 
@@ -59,8 +71,6 @@ class RouteAttributesServiceProvider extends ServiceProvider
 
     private function getRouteDirectories(): array
     {
-        $testClassDirectory = __DIR__ . '/../tests/TestClasses';
-
-        return app()->runningUnitTests() && file_exists($testClassDirectory) ? (array)$testClassDirectory : config('route-attributes.directories');
+        return config('route-attributes.directories');
     }
 }
