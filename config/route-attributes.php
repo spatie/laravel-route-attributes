@@ -9,9 +9,17 @@ return [
     /*
      * Controllers in these directories that have routing attributes
      * will automatically be registered.
+     *
+     * Optionally, you can pass middleware by passes key/values
      */
     'directories' => [
         app_path('Http/Controllers'),
+        /*
+        app_path('Http/Controllers/Api') => [
+           'prefix' => 'api',
+           'middleware' => 'api',
+        ],
+        */
     ],
 
     /**

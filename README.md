@@ -66,18 +66,33 @@ return [
     /*
      * Controllers in these directories that have routing attributes
      * will automatically be registered.
+     *
+     * Optionally, you can pass middleware by passes key/values
      */
     'directories' => [
         app_path('Http/Controllers'),
+
+        app_path('Http/Controllers/Web') => [
+            'middleware' => ['web']
+        ],
+        
+        app_path('Http/Controllers/Api') => [
+            'prefix' => 'api',
+            'middleware' => 'api'
+        ],
     ],
 ];
 ```
 
-For controllers outside of the applications root namespace directories can also be added usin a `namespace => path` pattern in the directories array. In the following example controllers from `Modules\Admin\Http\Controllers` will be included.
+For controllers outside of the applications root namespace directories can also be added using a `namespace => path` pattern in the directories array. In the following example controllers from `Modules\Admin\Http\Controllers` will be included.
 
 ```php
 'directories' => [
     'Modules\Admin\Http\Controllers\\' => base_path('admin-module/Http/Controllers'),
+    // Or
+    base_path('admin-module/Http/Controllers') => [
+        'namespace' => 'Modules\Admin\Http\Controllers\\'
+    ],
     app_path('Http/Controllers'),
 ],
 ```

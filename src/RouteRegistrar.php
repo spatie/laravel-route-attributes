@@ -30,19 +30,26 @@ class RouteRegistrar
     {
         $this->router = $router;
 
-        $this->basePath = app()->path();
+        $this->useBasePath(app()->path());
+    }
+
+    public function group(array $options, $routes): self
+    {
+        $this->router->group($options, $routes);
+
+        return $this;
     }
 
     public function useBasePath(string $basePath): self
     {
-        $this->basePath = $basePath;
+        $this->basePath = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $basePath);
 
         return $this;
     }
 
     public function useRootNamespace(string $rootNamespace): self
     {
-        $this->rootNamespace = $rootNamespace;
+        $this->rootNamespace = rtrim(str_replace('/', '\\', $rootNamespace), '\\') . '\\';
 
         return $this;
     }
