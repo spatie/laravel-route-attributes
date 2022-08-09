@@ -49,7 +49,7 @@ class RouteRegistrar
 
     public function useRootNamespace(string $rootNamespace): self
     {
-        $this->rootNamespace = rtrim($rootNamespace, '\\') . '\\';
+        $this->rootNamespace = rtrim(str_replace('/', '\\', $rootNamespace), '\\') . '\\';
 
         return $this;
     }
