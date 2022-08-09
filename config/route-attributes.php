@@ -10,7 +10,7 @@ return [
      * Controllers in these directories that have routing attributes
      * will automatically be registered.
      *
-     * Optionally, you can pass middleware by passes key/values
+     * Optionally, you can specify group configuration by using key/values
      */
     'directories' => [
         app_path('Http/Controllers'),
