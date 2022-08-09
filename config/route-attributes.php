@@ -19,7 +19,7 @@ return [
            'prefix' => 'api',
            'middleware' => 'api',
         ],
-        /*
+        */
     ],
 
     /**
