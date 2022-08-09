@@ -32,15 +32,13 @@ class RouteAttributesServiceProvider extends ServiceProvider
         $routeRegistrar = (new RouteRegistrar(app()->router))
             ->useMiddleware(config('route-attributes.middleware') ?? []);
 
-        $this->app->singleton(RouteRegistrar::class, fn () => $routeRegistrar);
-
         collect($this->getRouteDirectories())->each(function (string|array $directory, string|int $namespace) use ($routeRegistrar) {
             if (is_array($directory)) {
                 $options = Arr::except($directory, ['namespace', 'base_path']);
 
                 $routeRegistrar
                     ->useRootNamespace($directory['namespace'] ?? app()->getNamespace())
-                    ->useBasePath($directory['base_path'] ?? $namespace)
+                    ->useBasePath($directory['base_path'] ?? isset($directory['namespace']) ? $namespace : app()->basePath())
                     ->group($options, fn () => $routeRegistrar->registerDirectory($namespace));
             } else {
                 is_string($namespace)
