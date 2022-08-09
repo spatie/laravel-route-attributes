@@ -30,7 +30,7 @@ class RouteRegistrar
     {
         $this->router = $router;
 
-        $this->basePath = app()->path();
+        $this->useBasePath(app()->path());
     }
 
     public function group(array $options, $routes): self
@@ -42,7 +42,7 @@ class RouteRegistrar
 
     public function useBasePath(string $basePath): self
     {
-        $this->basePath = $basePath;
+        $this->basePath = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $basePath);
 
         return $this;
     }
