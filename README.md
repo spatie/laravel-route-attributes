@@ -66,19 +66,20 @@ return [
     /*
      * Controllers in these directories that have routing attributes
      * will automatically be registered.
+     *
+     * Optionally, you can pass middleware by passes key/values
      */
     'directories' => [
         app_path('Http/Controllers'),
-        /*
-         *  Alternative syntax to segment by subdirectory with global group options
-         */
+
         app_path('Http/Controllers/Web') => [
             'middleware' => ['web']
-        ]
+        ],
+        
         app_path('Http/Controllers/Api') => [
             'prefix' => 'api',
             'middleware' => 'api'
-        ]
+        ],
     ],
 ];
 ```
