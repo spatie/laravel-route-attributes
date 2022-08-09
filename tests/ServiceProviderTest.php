@@ -61,6 +61,5 @@ class ServiceProviderTest extends TestCase
             uri: 'grouped/my-post-method',
             middleware: ['SomeMiddleware', 'api']
         );
-
     }
 }
