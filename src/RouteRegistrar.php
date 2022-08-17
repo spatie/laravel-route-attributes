@@ -155,6 +155,14 @@ class RouteRegistrar
     protected function registerRoutes(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): void
     {
         foreach ($class->getMethods() as $method) {
+            if (count($method->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF)) === 0) {
+                foreach ($class->getInterfaces() as $interface) {
+                    if ($interface->hasMethod($method->getName())) {
+                        $method = $interface->getMethod($method->getName());
+                    }
+                }
+            }
+
             $attributes = $method->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
             $wheresAttributes = $method->getAttributes(WhereAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
             $fallbackAttributes = $method->getAttributes(Fallback::class, ReflectionAttribute::IS_INSTANCEOF);
