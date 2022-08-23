@@ -159,8 +159,10 @@ class RouteRegistrar
             $attributes = $method->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
             $wheresAttributes = $method->getAttributes(WhereAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
             $fallbackAttributes = $method->getAttributes(Fallback::class, ReflectionAttribute::IS_INSTANCEOF);
-            $scopeBindingsAttribute = $method->getAttributes(ScopeBindings::class,
-                ReflectionAttribute::IS_INSTANCEOF)[0] ?? null;
+            $scopeBindingsAttribute = $method->getAttributes(
+                ScopeBindings::class,
+                ReflectionAttribute::IS_INSTANCEOF
+            )[0] ?? null;
 
             foreach ($attributes as $attribute) {
                 try {
@@ -189,7 +191,7 @@ class RouteRegistrar
                     if ($scopeBindingsAttributeClass->scopeBindings) {
                         $route->scopeBindings();
                     }
-                } elseif($classRouteAttributes->scopeBindings()){
+                } elseif ($classRouteAttributes->scopeBindings()) {
                     $route->scopeBindings();
                 }
 
