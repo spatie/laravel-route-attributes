@@ -10,6 +10,7 @@ use Spatie\RouteAttributes\Attributes\Middleware;
 use Spatie\RouteAttributes\Attributes\Prefix;
 use Spatie\RouteAttributes\Attributes\Resource;
 use Spatie\RouteAttributes\Attributes\RouteAttribute;
+use Spatie\RouteAttributes\Attributes\ScopeBindings;
 use Spatie\RouteAttributes\Attributes\Where;
 
 class ClassRouteAttributes
@@ -165,6 +166,16 @@ class ClassRouteAttributes
         }
 
         return $attribute->middleware;
+    }
+
+    public function scopeBindings(): bool
+    {
+        /** @var \Spatie\RouteAttributes\Attributes\ScopeBindings $attribute */
+        if (! $attribute = $this->getAttribute(ScopeBindings::class)) {
+            return false;
+        }
+
+        return $attribute->scopeBindings;
     }
 
     /**
