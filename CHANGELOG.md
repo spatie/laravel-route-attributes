@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.14.0 - 2022-08-24
+
+### What's Changed
+
+- Implemented scoped bindings by @Radiergummi in https://github.com/spatie/laravel-route-attributes/pull/90
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.12.1...1.14.0
+
 ## 1.12.1 - 2022-08-09
 
 - fix config file
