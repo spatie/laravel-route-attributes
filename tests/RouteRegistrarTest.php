@@ -6,7 +6,11 @@ use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteRegistrar\Registra
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteRegistrar\RegistrarTestSecondController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\RouteRegistrar\SubDirectory\RegistrarTestControllerInSubDirectory;
 use Spatie\RouteAttributes\Tests\TestClasses\Middleware\AnotherTestMiddleware;
+use ThirdParty\Http\Controllers\Api\AnApiController;
+use ThirdParty\Http\Controllers\Api\AnotherApiController;
 use ThirdParty\Http\Controllers\ThirdPartyController;
+use ThirdParty\Http\Controllers\View\AViewController;
+use const DIRECTORY_SEPARATOR;
 
 class RouteRegistrarTest extends TestCase
 {
@@ -79,6 +83,36 @@ class RouteRegistrarTest extends TestCase
         $this->assertRouteRegistered(
             ThirdPartyController::class,
             uri: 'third-party',
+            controllerMethod: 'thirdPartyGetMethod',
+        );
+    }
+
+    /** @test */
+    public function the_registrar_will_handle_nested_directories_correctly() :void
+    {
+
+        require_once(__DIR__ . '/ThirdPartyTestClasses/MultipleDirectoriesControllerDirectory/Controllers/Api/AnApiController.php');
+        require_once(__DIR__ . '/ThirdPartyTestClasses/MultipleDirectoriesControllerDirectory/Controllers/Api/AnotherApiController.php');
+        require_once(__DIR__ . '/ThirdPartyTestClasses/MultipleDirectoriesControllerDirectory/Controllers/View/AViewController.php');
+        $this->routeRegistrar
+            ->useBasePath($this->getTestPath('ThirdPartyTestClasses' . DIRECTORY_SEPARATOR . 'MultipleDirectoriesControllerDirectory' . DIRECTORY_SEPARATOR . 'Controllers'))
+            ->useRootNamespace('ThirdParty\Http\Controllers\\')
+            ->registerDirectory($this->getTestPath('ThirdPartyTestClasses' . DIRECTORY_SEPARATOR . 'MultipleDirectoriesControllerDirectory' . DIRECTORY_SEPARATOR . 'Controllers'));
+
+        $this->assertRegisteredRoutesCount(3);
+        $this->assertRouteRegistered(
+            AnApiController::class,
+            uri: 'somewhere',
+            controllerMethod: 'thirdPartyGetMethod',
+        );
+        $this->assertRouteRegistered(
+            AnotherApiController::class,
+            uri: 'somewhen',
+            controllerMethod: 'thirdPartyGetMethod',
+        );
+        $this->assertRouteRegistered(
+            AViewController::class,
+            uri: 'somehow',
             controllerMethod: 'thirdPartyGetMethod',
         );
     }

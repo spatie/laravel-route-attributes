@@ -70,7 +70,7 @@ class RouteRegistrar
         return $this->middleware ?? [];
     }
 
-    public function registerDirectory(string | array $directories): void
+    public function registerDirectory(string | array $directory): void
     {
         $directory = Arr::wrap($directory);
 

@@ -104,7 +104,7 @@ class TestCase extends Orchestra
                 return true;
             });
 
-        $this->assertTrue($routeRegistered, 'The expected route was not registered');
+        $this->assertTrue($routeRegistered, 'The expected route with uri ' .$uri.' was not registered (?correctly)');
 
         return $this;
     }
