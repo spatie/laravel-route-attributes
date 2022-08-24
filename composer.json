@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": "^8.0",
-        "illuminate/contracts": "^8.67|^9.0"
+        "illuminate/contracts": "^8.70|^9.0"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0|^7.0",
