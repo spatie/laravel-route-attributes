@@ -21,6 +21,8 @@ class RouteAttributesServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/route-attributes.php', 'route-attributes');
+
+        $this->app->bind(RouteRegistrar::class,fn()=> new RouteRegistrar($this->app->router));
     }
 
     protected function registerRoutes(): void
@@ -29,7 +31,7 @@ class RouteAttributesServiceProvider extends ServiceProvider
             return;
         }
 
-        $routeRegistrar = (new RouteRegistrar(app()->router))
+        $routeRegistrar = app(RouteRegistrar::class)
             ->useMiddleware(config('route-attributes.middleware') ?? []);
 
         collect($this->getRouteDirectories())->each(function (string|array $directory, string|int $namespace) use ($routeRegistrar) {
@@ -54,7 +56,7 @@ class RouteAttributesServiceProvider extends ServiceProvider
         });
     }
 
-    private function shouldRegisterRoutes(): bool
+    protected function shouldRegisterRoutes(): bool
     {
         if (! config('route-attributes.enabled')) {
             return false;
@@ -67,8 +69,8 @@ class RouteAttributesServiceProvider extends ServiceProvider
         return true;
     }
 
-    private function getRouteDirectories(): array
+    protected function getRouteDirectories(): array
     {
-        return config('route-attributes.directories');
+        return array_reverse(config('route-attributes.directories'));
     }
 }

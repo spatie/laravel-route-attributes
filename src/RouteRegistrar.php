@@ -19,6 +19,9 @@ use Throwable;
 
 class RouteRegistrar
 {
+
+    protected array $processedFiles = [];
+
     private Router $router;
 
     protected string $basePath;
@@ -69,11 +72,14 @@ class RouteRegistrar
 
     public function registerDirectory(string | array $directories): void
     {
-        $directories = Arr::wrap($directories);
+        $directory = Arr::wrap($directory);
 
-        $files = (new Finder())->files()->name('*.php')->in($directories)->sortByName();
+        $files = (new Finder())->files()->name('*.php')->in($directory)->sortByName();
 
-        collect($files)->each(fn (SplFileInfo $file) => $this->registerFile($file));
+        $files = collect($files)->filter(fn ($value, $key) => !in_array($key, $this->processedFiles));
+        $files->each(fn ($value, $key) => $this->processedFiles[] = $key);
+
+        $files->each(fn (\SplFileInfo $file) => $this->registerFile($file));
     }
 
     public function registerFile(string | SplFileInfo $path): void
