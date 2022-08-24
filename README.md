@@ -354,6 +354,34 @@ register the route as follows;
 Route::get('my-get-route', [MyController::class, 'myGetMethod'])->domain('example.com');
 ```
 
+### Scoping bindings
+When implicitly binding multiple Eloquent models in a single route definition, you may wish to scope the second Eloquent model such that it must be a child of the previous Eloquent model.  
+By adding the `ScopeBindings` annotation, you can enable this behaviour:
+
+````php
+use Spatie\RouteAttributes\Attributes\Get;
+use Spatie\RouteAttributes\Attributes\ScopeBindings;
+
+class MyController
+{
+    #[Get('users/{user}/posts/{post}')]
+    #[ScopeBindings]
+    public function getUserPost(User $user, Post $post)
+    {
+        return $post;
+    }
+}
+````
+
+This is akin to using the `->scopeBindings()` method on the route registrar manually:
+```php
+Route::get('/users/{user}/posts/{post}', function (User $user, Post $post) {
+    return $post;
+})->scopeBindings();
+```
+
+You can also use the annotation on controllers to enable implicitly scoped bindings for all its methods.
+
 ### Specifying wheres
 
 You can use the `Where` annotation on a class or method to constrain the format of your route parameters.
