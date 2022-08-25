@@ -17,8 +17,7 @@ class ClassRouteAttributes
 {
     public function __construct(
         private ReflectionClass $class
-    )
-    {
+    ) {
     }
 
     /**
