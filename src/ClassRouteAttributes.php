@@ -15,11 +15,10 @@ use Spatie\RouteAttributes\Attributes\Where;
 
 class ClassRouteAttributes
 {
-    private ReflectionClass $class;
-
-    public function __construct(ReflectionClass $class)
+    public function __construct(
+        private ReflectionClass $class
+    )
     {
-        $this->class = $class;
     }
 
     /**
