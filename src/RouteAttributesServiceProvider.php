@@ -22,7 +22,7 @@ class RouteAttributesServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/route-attributes.php', 'route-attributes');
 
-        $this->app->bind(RouteRegistrar::class,fn()=> new RouteRegistrar($this->app->router));
+        $this->app->bind(RouteRegistrar::class,fn()=> new RouteRegistrar(app()->router));
     }
 
     protected function registerRoutes(): void
