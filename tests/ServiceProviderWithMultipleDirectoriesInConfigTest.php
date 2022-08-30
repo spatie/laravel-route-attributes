@@ -34,7 +34,6 @@ class ServiceProviderWithMultipleDirectoriesInConfigTest extends TestCase
     {
 
         $this->directoryConfig = $config;
-        $this->setUpTheTestEnvironment();
         $this->app->bind(RouteRegistrar::class, function ($app) {
             $registrar = new RouteRegistrar($app->router);
             $registrar->useBasePath($this->getTestPath('ThirdPartyTestClasses' . DIRECTORY_SEPARATOR . 'MultipleDirectoriesControllerDirectory' . DIRECTORY_SEPARATOR . 'Controllers'))
@@ -43,18 +42,13 @@ class ServiceProviderWithMultipleDirectoriesInConfigTest extends TestCase
             return $registrar;
         });
         $this->routeRegistrar = app(RouteRegistrar::class);
+        $provider = new RouteAttributesServiceProvider(app());
+        $provider->boot();
         $this->assertRegisteredRoutesCount($expectedRouteCount);
 
         foreach ($expectedRoutes as $registeredRoute) {
             $this->assertRouteRegistered(...$registeredRoute);
         }
-    }
-
-    protected function getPackageProviders($app)
-    {
-        return [
-            RouteAttributesServiceProvider::class,
-        ];
     }
 
     protected function configServiceProvider(): array
