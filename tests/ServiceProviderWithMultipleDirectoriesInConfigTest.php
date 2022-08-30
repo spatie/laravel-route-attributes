@@ -25,6 +25,15 @@ class ServiceProviderWithMultipleDirectoriesInConfigTest extends TestCase
 
     public function setUp(): void
     {
+        $this->refreshApplication();
+        $this->app->bind(RouteRegistrar::class, function ($app) {
+            $registrar = new RouteRegistrar($app->router);
+            $registrar->useBasePath($this->getTestPath('ThirdPartyTestClasses' . DIRECTORY_SEPARATOR . 'MultipleDirectoriesControllerDirectory' . DIRECTORY_SEPARATOR . 'Controllers'))
+                ->useRootNamespace('ThirdParty\Http\Controllers\\')
+                ->registerDirectory($this->getTestPath('ThirdPartyTestClasses' . DIRECTORY_SEPARATOR . 'MultipleDirectoriesControllerDirectory' . DIRECTORY_SEPARATOR . 'Controllers'));
+            return $registrar;
+        });
+        $this->routeRegistrar = app(RouteRegistrar::class);
     }
 
     /** @test
@@ -34,14 +43,11 @@ class ServiceProviderWithMultipleDirectoriesInConfigTest extends TestCase
     {
 
         $this->directoryConfig = $config;
-        $this->app->bind(RouteRegistrar::class, function ($app) {
-            $registrar = new RouteRegistrar($app->router);
-            $registrar->useBasePath($this->getTestPath('ThirdPartyTestClasses' . DIRECTORY_SEPARATOR . 'MultipleDirectoriesControllerDirectory' . DIRECTORY_SEPARATOR . 'Controllers'))
-                ->useRootNamespace('ThirdParty\Http\Controllers\\')
-                ->registerDirectory($this->getTestPath('ThirdPartyTestClasses' . DIRECTORY_SEPARATOR . 'MultipleDirectoriesControllerDirectory' . DIRECTORY_SEPARATOR . 'Controllers'));
-            return $registrar;
-        });
-        $this->routeRegistrar = app(RouteRegistrar::class);
+
+        config(['route-attributes.enabled' => true]);
+        config(['route-attributes.directories'=> $this->directoryConfig]);
+        config(['route-attributes.middleware'=> 'defaultMiddleware']);
+
         $provider = new RouteAttributesServiceProvider(app());
         $provider->boot();
         $this->assertRegisteredRoutesCount($expectedRouteCount);
