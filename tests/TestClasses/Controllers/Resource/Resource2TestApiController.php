@@ -3,10 +3,10 @@
 namespace Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource;
 
 use Illuminate\Http\Request;
-use Spatie\RouteAttributes\Attributes\Resource;
+use Spatie\RouteAttributes\Attributes\ApiResource;
 
-#[Resource('posts', apiResource: true)]
-class ResourceTestApiController
+#[ApiResource('posts')]
+class Resource2TestApiController
 {
     public function index()
     {

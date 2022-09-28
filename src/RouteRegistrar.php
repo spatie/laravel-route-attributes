@@ -149,6 +149,14 @@ class RouteRegistrar
                 $route->names($names);
             }
 
+            if ($parameters = $classRouteAttributes->parameters()) {
+                $route->parameters($parameters);
+            }
+
+            if (! is_null($shallow = $classRouteAttributes->shallow())) {
+                $route->shallow($shallow);
+            }
+
             $route->middleware([...$this->middleware, ...$classRouteAttributes->middleware()]);
         });
     }

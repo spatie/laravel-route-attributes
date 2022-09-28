@@ -104,6 +104,32 @@ class ClassRouteAttributes
     /**
      * @psalm-suppress NoInterfaceProperties
      */
+    public function parameters(): array | string | null
+    {
+        /** @var \Spatie\RouteAttributes\Attributes\Resource $attribute */
+        if (! $attribute = $this->getAttribute(Resource::class)) {
+            return null;
+        }
+
+        return $attribute->parameters;
+    }
+
+    /**
+     * @psalm-suppress NoInterfaceProperties
+     */
+    public function shallow(): bool | null
+    {
+        /** @var \Spatie\RouteAttributes\Attributes\Resource $attribute */
+        if (! $attribute = $this->getAttribute(Resource::class)) {
+            return null;
+        }
+
+        return $attribute->shallow;
+    }
+
+    /**
+     * @psalm-suppress NoInterfaceProperties
+     */
     public function apiResource(): ?string
     {
         /** @var \Spatie\RouteAttributes\Attributes\Resource $attribute */
