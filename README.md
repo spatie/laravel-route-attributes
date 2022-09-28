@@ -140,11 +140,11 @@ To register a [resource controller](https://laravel.com/docs/controllers#resourc
 
 You can use `only` or `except` parameters to manage your resource routes availability (See [example 1](#resource-example-1) & [example 2](#resource-example-2)).
 
-You can use the `names` parameter to set the route names for the resource controller actions. Pass a string value to set a base route name for each controller action or pass an array value to define the route name for each controller action (See [example 1](#resource-example-1)).
-
 You can use `parameters` parameter to modify the default parameters set by the resource attribute (See [example 1](#resource-example-1)).
 
-Using `Resource` attribute with `Domain`, `Prefix` and `Middleware` attributes works as well (See [example 1](#resource-example-2)).
+Using `Resource` attribute with `Domain`, `Prefix` and `Middleware` attributes works as well (See [example 2](#resource-example-2)).
+
+You can use the `names` parameter to set the route names for the resource controller actions. Pass a string value to set a base route name for each controller action or pass an array value to define the route name for each controller action (See [example 2](#resource-example-2)).
 
 You can use `shallow` parameter to make a nested resource to apply nesting only to routes without a unique child identifier [`index`, `create`, `store`] (See [example 2](#resource-example-2)).
 
