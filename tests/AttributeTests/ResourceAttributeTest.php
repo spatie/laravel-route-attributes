@@ -3,8 +3,8 @@
 namespace Spatie\RouteAttributes\Tests\AttributeTests;
 
 use Spatie\RouteAttributes\Tests\TestCase;
-use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\Resource1TestApiController;
-use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\Resource2TestApiController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ApiResource1TestController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ApiResource2TestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestDomainController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestExceptController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestFullController;
@@ -284,7 +284,7 @@ class ResourceAttributeTest extends TestCase
     }
 
     /** @test */
-    public function it_can_register_api_resource($controllerClass = Resource1TestApiController::class)
+    public function it_can_register_api_resource($controllerClass = ApiResource1TestController::class)
     {
         $this->routeRegistrar->registerClass($controllerClass);
 
@@ -328,7 +328,7 @@ class ResourceAttributeTest extends TestCase
     /** @test */
     public function it_can_register_api_resource_2()
     {
-        $this->it_can_register_api_resource(Resource2TestApiController::class);
+        $this->it_can_register_api_resource(ApiResource2TestController::class);
     }
 
     /** @test */
