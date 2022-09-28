@@ -136,19 +136,26 @@ We have left no HTTP verb behind. You can use these attributes on controller met
 
 ### Resource controllers
 
-To register a [resource controller](https://laravel.com/docs/controllers#resource-controllers), use the `Resource` attribute as shown in the example below.
+To register a [resource controller](https://laravel.com/docs/controllers#resource-controllers), use the `Resource` attribute as shown in examples below.
 
-You can use `only` or `except` parameters to manage your resource routes availability.
+You can use `only` or `except` parameters to manage your resource routes availability (See [example 1](#resource-example-1) & [example 2](#resource-example-2)).
 
-You can use the `names` parameter to set the route names for the resource controller actions. Pass a string value to set a base route name for each controller action or pass an array value to define the route name for each controller action.
+You can use the `names` parameter to set the route names for the resource controller actions. Pass a string value to set a base route name for each controller action or pass an array value to define the route name for each controller action (See [example 1](#resource-example-1)).
 
-Using `Resource` attribute with `Domain`, `Prefix` and `Middleware` attributes works as well.
+You can use `parameters` parameter to modify the default parameters set by the resource attribute (See [example 1](#resource-example-1)).
+
+Using `Resource` attribute with `Domain`, `Prefix` and `Middleware` attributes works as well (See [example 1](#resource-example-2)).
+
+You can use `shallow` parameter to make a nested resource to apply nesting only to routes without a unique child identifier [`index`, `create`, `store`] (See [example 2](#resource-example-2)).
+
+You can use `apiResource` parameter to only include actions used in APIs. Alternatively, you can use `ApiResource` attribute (See [example 2](#resource-example-2)).
+
+#### Resource Example 1
 
 ```php
 use Spatie\RouteAttributes\Attributes\Resource;
 
-#[Prefix('api/v1')]
-#[Resource('posts', except: ['create', 'edit', 'destroy'], names: 'api.v1.posts')]
+#[Resource('posts', except: ['create', 'edit', 'destroy'], parameters: ['posts' => 'post_slug'])]
 class PostController
 {   
     public function index()
@@ -159,14 +166,49 @@ class PostController
     {
     }
 
-    public function show($id)
+    public function show($post_slug)
     {
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $post_slug)
     {
     }
 }
+```
+
+The attribute in the example above will automatically register following routes:
+
+```php
+Route::get('posts', [PhotoCommentController::class, 'index'])->name('posts.index');
+Route::post('posts', [PhotoCommentController::class, 'store'])->name('posts.show');
+Route::get('posts/{post_slug}', [PhotoCommentController::class, 'show'])->name('posts.show');
+Route::match(['put', 'patch'], 'posts/{post_slug}', [PhotoCommentController::class, 'update'])->name('posts.update');
+```
+
+#### Resource Example 2
+
+```php
+use Spatie\RouteAttributes\Attributes\ApiResource;
+
+#[Prefix('api/v1')]
+#[ApiResource('photos.comments', only: ['index', 'show'], shallow: true, names: 'api.v1.photoComments')]
+class PhotoCommentController
+{   
+    public function index(Request $request, Photo $photo)
+    {
+    }
+
+    public function show(Comment $comment)
+    {
+    }
+}
+```
+
+The attribute in the example above will automatically register following routes:
+
+```php
+Route::get('api/v1/photos/{photo}/comments', [PhotoCommentController::class, 'index'])->name('api.v1.photoComments.index');
+Route::get('api/v1/comments/{comment}', [PhotoCommentController::class, 'show'])->name('api.v1.photoComments.show');
 ```
 
 ### Using multiple verbs
@@ -254,7 +296,7 @@ These annotations will automatically register these routes:
 
 ```php
 Route::get('my-route', [MyController::class, 'firstMethod'])->middleware(MyMiddleware::class);
-Route::get('my-other-route', [MyController::class, 'secondMethod'])->middleware([MyMiddleware::class, MyOtherMiddleware]);
+Route::get('my-other-route', [MyController::class, 'secondMethod'])->middleware([MyMiddleware::class, MyOtherMiddleware::class]);
 ```
 
 ### Specifying a prefix
