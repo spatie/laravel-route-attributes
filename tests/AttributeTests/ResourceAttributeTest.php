@@ -284,40 +284,40 @@ class ResourceAttributeTest extends TestCase
     }
 
     /** @test */
-    public function it_can_register_api_resource($controllerClass = ApiResource1TestController::class)
+    public function it_can_register_api_resource()
     {
-        $this->routeRegistrar->registerClass($controllerClass);
+        $this->routeRegistrar->registerClass(ApiResource1TestController::class);
 
         $this
             ->assertRegisteredRoutesCount(5)
             ->assertRouteRegistered(
-                $controllerClass,
+                ApiResource1TestController::class,
                 controllerMethod: 'index',
                 uri: 'posts',
                 name: 'posts.index'
             )
             ->assertRouteRegistered(
-                $controllerClass,
+                ApiResource1TestController::class,
                 controllerMethod: 'store',
                 httpMethods: 'post',
                 uri: 'posts',
                 name: 'posts.store'
             )
             ->assertRouteRegistered(
-                $controllerClass,
+                ApiResource1TestController::class,
                 controllerMethod: 'show',
                 uri: 'posts/{post}',
                 name: 'posts.show'
             )
             ->assertRouteRegistered(
-                $controllerClass,
+                ApiResource1TestController::class,
                 controllerMethod: 'update',
                 httpMethods: 'put',
                 uri: 'posts/{post}',
                 name: 'posts.update'
             )
             ->assertRouteRegistered(
-                $controllerClass,
+                ApiResource1TestController::class,
                 controllerMethod: 'destroy',
                 httpMethods: 'delete',
                 uri: 'posts/{post}',
@@ -328,7 +328,43 @@ class ResourceAttributeTest extends TestCase
     /** @test */
     public function it_can_register_api_resource_2()
     {
-        $this->it_can_register_api_resource(ApiResource2TestController::class);
+        $this->routeRegistrar->registerClass(ApiResource2TestController::class);
+
+        $this
+            ->assertRegisteredRoutesCount(5)
+            ->assertRouteRegistered(
+                ApiResource2TestController::class,
+                controllerMethod: 'index',
+                uri: 'posts',
+                name: 'posts.index'
+            )
+            ->assertRouteRegistered(
+                ApiResource2TestController::class,
+                controllerMethod: 'store',
+                httpMethods: 'post',
+                uri: 'posts',
+                name: 'posts.store'
+            )
+            ->assertRouteRegistered(
+                ApiResource2TestController::class,
+                controllerMethod: 'show',
+                uri: 'posts/{post}',
+                name: 'posts.show'
+            )
+            ->assertRouteRegistered(
+                ApiResource2TestController::class,
+                controllerMethod: 'update',
+                httpMethods: 'put',
+                uri: 'posts/{post}',
+                name: 'posts.update'
+            )
+            ->assertRouteRegistered(
+                ApiResource2TestController::class,
+                controllerMethod: 'destroy',
+                httpMethods: 'delete',
+                uri: 'posts/{post}',
+                name: 'posts.destroy'
+            );
     }
 
     /** @test */
