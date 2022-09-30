@@ -146,7 +146,7 @@ You can use the `names` parameter to set the route names for the resource contro
 
 You can use `shallow` parameter to make a nested resource to apply nesting only to routes without a unique child identifier (`index`, `create`, `store`).
 
-You can use `apiResource` parameter to only include actions used in APIs. Alternatively, you can use `ApiResource` attribute.
+You can use `apiResource` boolean parameter to only include actions used in APIs. Alternatively, you can use the `ApiResource` attribute, which extends the `Resource` attribute class, but the parameter `apiResource` is already set to `true`.
 
 Using `Resource` attribute with `Domain`, `Prefix` and `Middleware` attributes works as well.
 
@@ -162,6 +162,7 @@ use Spatie\RouteAttributes\Attributes\Resource;
     names: 'api.v1.photoComments',
     except: ['destroy'],
 )]
+// OR #[ApiResource(resource: 'photos.comments', shallow: true, ...)]
 class PhotoCommentController
 {   
     public function index(Photo $photo)
