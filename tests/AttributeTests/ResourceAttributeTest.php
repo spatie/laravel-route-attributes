@@ -3,7 +3,8 @@
 namespace Spatie\RouteAttributes\Tests\AttributeTests;
 
 use Spatie\RouteAttributes\Tests\TestCase;
-use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestApiController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ApiResource1TestController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ApiResource2TestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestDomainController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestExceptController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestFullController;
@@ -11,7 +12,9 @@ use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestMi
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestNamesArrayController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestNamesStringController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestOnlyController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestParametersController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestPrefixController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestShallowController;
 use Spatie\RouteAttributes\Tests\TestClasses\Middleware\AnotherTestMiddleware;
 use Spatie\RouteAttributes\Tests\TestClasses\Middleware\OtherTestMiddleware;
 use Spatie\RouteAttributes\Tests\TestClasses\Middleware\TestMiddleware;
@@ -283,41 +286,172 @@ class ResourceAttributeTest extends TestCase
     /** @test */
     public function it_can_register_api_resource()
     {
-        $this->routeRegistrar->registerClass(ResourceTestApiController::class);
+        $this->routeRegistrar->registerClass(ApiResource1TestController::class);
 
         $this
             ->assertRegisteredRoutesCount(5)
             ->assertRouteRegistered(
-                ResourceTestApiController::class,
+                ApiResource1TestController::class,
                 controllerMethod: 'index',
                 uri: 'posts',
                 name: 'posts.index'
             )
             ->assertRouteRegistered(
-                ResourceTestApiController::class,
+                ApiResource1TestController::class,
                 controllerMethod: 'store',
                 httpMethods: 'post',
                 uri: 'posts',
                 name: 'posts.store'
             )
             ->assertRouteRegistered(
-                ResourceTestApiController::class,
+                ApiResource1TestController::class,
                 controllerMethod: 'show',
                 uri: 'posts/{post}',
                 name: 'posts.show'
             )
             ->assertRouteRegistered(
-                ResourceTestApiController::class,
+                ApiResource1TestController::class,
                 controllerMethod: 'update',
                 httpMethods: 'put',
                 uri: 'posts/{post}',
                 name: 'posts.update'
             )
             ->assertRouteRegistered(
-                ResourceTestApiController::class,
+                ApiResource1TestController::class,
                 controllerMethod: 'destroy',
                 httpMethods: 'delete',
                 uri: 'posts/{post}',
+                name: 'posts.destroy'
+            );
+    }
+
+    /** @test */
+    public function it_can_register_api_resource_2()
+    {
+        $this->routeRegistrar->registerClass(ApiResource2TestController::class);
+
+        $this
+            ->assertRegisteredRoutesCount(5)
+            ->assertRouteRegistered(
+                ApiResource2TestController::class,
+                controllerMethod: 'index',
+                uri: 'posts',
+                name: 'posts.index'
+            )
+            ->assertRouteRegistered(
+                ApiResource2TestController::class,
+                controllerMethod: 'store',
+                httpMethods: 'post',
+                uri: 'posts',
+                name: 'posts.store'
+            )
+            ->assertRouteRegistered(
+                ApiResource2TestController::class,
+                controllerMethod: 'show',
+                uri: 'posts/{post}',
+                name: 'posts.show'
+            )
+            ->assertRouteRegistered(
+                ApiResource2TestController::class,
+                controllerMethod: 'update',
+                httpMethods: 'put',
+                uri: 'posts/{post}',
+                name: 'posts.update'
+            )
+            ->assertRouteRegistered(
+                ApiResource2TestController::class,
+                controllerMethod: 'destroy',
+                httpMethods: 'delete',
+                uri: 'posts/{post}',
+                name: 'posts.destroy'
+            );
+    }
+
+    /** @test */
+    public function it_can_register_shallow_resource()
+    {
+        $this->routeRegistrar->registerClass(ResourceTestShallowController::class);
+
+        $this
+            ->assertRegisteredRoutesCount(7)
+            ->assertRouteRegistered(
+                ResourceTestShallowController::class,
+                controllerMethod: 'index',
+                uri: 'users/{user}/posts',
+                name: 'users.posts.index'
+            )
+            ->assertRouteRegistered(
+                ResourceTestShallowController::class,
+                controllerMethod: 'create',
+                uri: 'users/{user}/posts/create',
+                name: 'users.posts.create'
+            )
+            ->assertRouteRegistered(
+                ResourceTestShallowController::class,
+                controllerMethod: 'store',
+                httpMethods: 'post',
+                uri: 'users/{user}/posts',
+                name: 'users.posts.store'
+            )
+            ->assertRouteRegistered(
+                ResourceTestShallowController::class,
+                controllerMethod: 'show',
+                uri: 'posts/{post}',
+                name: 'posts.show'
+            )
+            ->assertRouteRegistered(
+                ResourceTestShallowController::class,
+                controllerMethod: 'edit',
+                uri: 'posts/{post}/edit',
+                name: 'posts.edit'
+            )
+            ->assertRouteRegistered(
+                ResourceTestShallowController::class,
+                controllerMethod: 'update',
+                httpMethods: 'put',
+                uri: 'posts/{post}',
+                name: 'posts.update'
+            )
+            ->assertRouteRegistered(
+                ResourceTestShallowController::class,
+                controllerMethod: 'destroy',
+                httpMethods: 'delete',
+                uri: 'posts/{post}',
+                name: 'posts.destroy'
+            );
+    }
+
+    /** @test */
+    public function it_can_register_resource_with_modified_parameters()
+    {
+        $this->routeRegistrar->registerClass(ResourceTestParametersController::class);
+
+        $this
+            ->assertRegisteredRoutesCount(7)
+            ->assertRouteRegistered(
+                ResourceTestParametersController::class,
+                controllerMethod: 'show',
+                uri: 'posts/{draft}',
+                name: 'posts.show'
+            )
+            ->assertRouteRegistered(
+                ResourceTestParametersController::class,
+                controllerMethod: 'edit',
+                uri: 'posts/{draft}/edit',
+                name: 'posts.edit'
+            )
+            ->assertRouteRegistered(
+                ResourceTestParametersController::class,
+                controllerMethod: 'update',
+                httpMethods: 'put',
+                uri: 'posts/{draft}',
+                name: 'posts.update'
+            )
+            ->assertRouteRegistered(
+                ResourceTestParametersController::class,
+                controllerMethod: 'destroy',
+                httpMethods: 'delete',
+                uri: 'posts/{draft}',
                 name: 'posts.destroy'
             );
     }

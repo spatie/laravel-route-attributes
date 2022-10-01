@@ -140,7 +140,13 @@ To register a [resource controller](https://laravel.com/docs/controllers#resourc
 
 You can use `only` or `except` parameters to manage your resource routes availability.
 
+You can use `parameters` parameter to modify the default parameters set by the resource attribute.
+
 You can use the `names` parameter to set the route names for the resource controller actions. Pass a string value to set a base route name for each controller action or pass an array value to define the route name for each controller action.
+
+You can use `shallow` parameter to make a nested resource to apply nesting only to routes without a unique child identifier (`index`, `create`, `store`).
+
+You can use `apiResource` boolean parameter to only include actions used in APIs. Alternatively, you can use the `ApiResource` attribute, which extends the `Resource` attribute class, but the parameter `apiResource` is already set to `true`.
 
 Using `Resource` attribute with `Domain`, `Prefix` and `Middleware` attributes works as well.
 
@@ -148,25 +154,42 @@ Using `Resource` attribute with `Domain`, `Prefix` and `Middleware` attributes w
 use Spatie\RouteAttributes\Attributes\Resource;
 
 #[Prefix('api/v1')]
-#[Resource('posts', except: ['create', 'edit', 'destroy'], names: 'api.v1.posts')]
-class PostController
+#[Resource(
+    resource: 'photos.comments', 
+    apiResource: true,
+    shallow: true, 
+    parameters: ['comments' => 'comment:uuid'],
+    names: 'api.v1.photoComments',
+    except: ['destroy'],
+)]
+// OR #[ApiResource(resource: 'photos.comments', shallow: true, ...)]
+class PhotoCommentController
 {   
-    public function index()
+    public function index(Photo $photo)
     {
     }
 
-    public function store(Request $request)
+    public function store(Request $request, Photo $photo)
     {
     }
 
-    public function show($id)
+    public function show(Comment $comment)
     {
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Comment $comment)
     {
     }
 }
+```
+
+The attribute in the example above will automatically register following routes:
+
+```php
+Route::get('api/v1/photos/{photo}/comments', [PhotoCommentController::class, 'index'])->name('api.v1.photoComments.index');
+Route::post('api/v1/photos/{photo}/comments', [PhotoCommentController::class, 'store'])->name('api.v1.photoComments.store');
+Route::get('api/v1/comments/{comment}', [PhotoCommentController::class, 'show'])->name('api.v1.photoComments.show');
+Route::match(['put', 'patch'], 'api/v1/comments/{comment}', [PhotoCommentController::class, 'update'])->name('api.v1.photoComments.update');
 ```
 
 ### Using multiple verbs
@@ -254,7 +277,7 @@ These annotations will automatically register these routes:
 
 ```php
 Route::get('my-route', [MyController::class, 'firstMethod'])->middleware(MyMiddleware::class);
-Route::get('my-other-route', [MyController::class, 'secondMethod'])->middleware([MyMiddleware::class, MyOtherMiddleware]);
+Route::get('my-other-route', [MyController::class, 'secondMethod'])->middleware([MyMiddleware::class, MyOtherMiddleware::class]);
 ```
 
 ### Specifying a prefix

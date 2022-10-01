@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Spatie\RouteAttributes\Attributes\Resource;
 
 #[Resource('posts', apiResource: true)]
-class ResourceTestApiController
+class ApiResource1TestController
 {
     public function index()
     {
