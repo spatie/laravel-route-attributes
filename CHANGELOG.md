@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.15.0 - 2022-10-01
+
+### What's Changed
+
+- Change Constructor syntax by @idanieldrew in https://github.com/spatie/laravel-route-attributes/pull/92
+- Resource Attribute extended by @sirmathays in https://github.com/spatie/laravel-route-attributes/pull/93
+
+### New Contributors
+
+- @idanieldrew made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/92
+- @sirmathays made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/93
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.13.0...1.15.0
+
 ## 1.14.0 - 2022-08-24
 
 ### What's Changed
