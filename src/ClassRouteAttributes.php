@@ -27,11 +27,12 @@ class ClassRouteAttributes
     public function prefix(): ?string
     {
         /** @var \Spatie\RouteAttributes\Attributes\Prefix $attribute */
-        if (! $attribute = $this->getAttribute(Prefix::class)) {
-            return null;
+        $attribute = $this->getAttribute(Prefix::class);
+        if ($attribute !== null) {
+            return $attribute->prefix;
         }
 
-        return $attribute->prefix;
+        return optional($this->parent())->prefix();
     }
 
     /**
@@ -40,11 +41,12 @@ class ClassRouteAttributes
     public function domain(): ?string
     {
         /** @var \Spatie\RouteAttributes\Attributes\Domain $attribute */
-        if (! $attribute = $this->getAttribute(Domain::class)) {
-            return null;
+        $attribute = $this->getAttribute(Domain::class);
+        if ($attribute !== null) {
+            return $attribute->domain;
         }
 
-        return $attribute->domain;
+        return optional($this->parent())->domain();
     }
 
     /**
@@ -63,7 +65,7 @@ class ClassRouteAttributes
     /**
      * @psalm-suppress NoInterfaceProperties
      */
-    public function groups(): array
+    public function groups($withDefault = true): array
     {
         $groups = [];
 
@@ -79,11 +81,16 @@ class ClassRouteAttributes
                     'as' => $attributeClass->as,
                 ];
             }
-        } else {
-            $groups[] = [
-                'domain' => $this->domainFromConfig() ?? $this->domain(),
-                'prefix' => $this->prefix(),
-            ];
+        } elseif ($withDefault) {
+            $parentGroups = optional($this->parent())->groups(false);
+            if ($parentGroups !== null && count($parentGroups) > 0) {
+                $groups = $parentGroups;
+            } else {
+                $groups[] = [
+                    'domain' => $this->domainFromConfig() ?? $this->domain(),
+                    'prefix' => $this->prefix(),
+                ];
+            }
         }
 
         return $groups;
@@ -186,11 +193,12 @@ class ClassRouteAttributes
     public function middleware(): array
     {
         /** @var \Spatie\RouteAttributes\Attributes\Middleware $attribute */
-        if (! $attribute = $this->getAttribute(Middleware::class)) {
-            return [];
+        $attribute = $this->getAttribute(Middleware::class);
+        if ($attribute !== null) {
+            return $attribute->middleware;
         }
 
-        return $attribute->middleware;
+        return optional($this->parent())->middleware() ?? [];
     }
 
     public function scopeBindings(): bool
@@ -234,6 +242,15 @@ class ClassRouteAttributes
         }
 
         return $defaults;
+    }
+
+    protected function parent(): ?self
+    {
+        if (($parent = $this->class->getParentClass()) === false) {
+            return null;
+        }
+
+        return new self($parent);
     }
 
     protected function getAttribute(string $attributeClass): ?RouteAttribute
