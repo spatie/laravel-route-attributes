@@ -7,6 +7,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use ReflectionAttribute;
 use ReflectionClass;
+use Spatie\RouteAttributes\Attributes\Defaults;
 use Spatie\RouteAttributes\Attributes\Fallback;
 use Spatie\RouteAttributes\Attributes\Route;
 use Spatie\RouteAttributes\Attributes\RouteAttribute;
@@ -166,6 +167,7 @@ class RouteRegistrar
         foreach ($class->getMethods() as $method) {
             $attributes = $method->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
             $wheresAttributes = $method->getAttributes(WhereAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
+            $defaultAttributes = $method->getAttributes(Defaults::class, ReflectionAttribute::IS_INSTANCEOF);
             $fallbackAttributes = $method->getAttributes(Fallback::class, ReflectionAttribute::IS_INSTANCEOF);
             $scopeBindingsAttribute = $method->getAttributes(
                 ScopeBindings::class,
@@ -213,6 +215,20 @@ class RouteRegistrar
                 }
                 if (! empty($wheres)) {
                     $route->setWheres($wheres);
+                }
+
+                $defaults = $classRouteAttributes->defaults();
+
+                foreach ($defaultAttributes as $defaultAttribute) {
+                    /** @var Defaults $default */
+                    $defaultAttributeClass = $defaultAttribute->newInstance();
+
+                    // This also overrides class defaults if the same default key is used
+                    $defaults[$defaultAttributeClass->key] = $defaultAttributeClass->value;
+                }
+
+                if (! empty($defaults)) {
+                    $route->setDefaults($defaults);
                 }
 
                 $classMiddleware = $classRouteAttributes->middleware();
