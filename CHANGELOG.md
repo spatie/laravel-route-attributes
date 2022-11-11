@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.16.0 - 2022-11-11
+
+### What's Changed
+
+- Add defaults as attribute by @stfndamjanovic in https://github.com/spatie/laravel-route-attributes/pull/95
+
+### New Contributors
+
+- @stfndamjanovic made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/95
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.15.0...1.16.0
+
 ## 1.15.0 - 2022-10-01
 
 ### What's Changed
