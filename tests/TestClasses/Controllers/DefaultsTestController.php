@@ -31,6 +31,5 @@ class DefaultsTestController
     #[Defaults('param', 'method-default')]
     public function myOverrideMethod()
     {
-
     }
 }

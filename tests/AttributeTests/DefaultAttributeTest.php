@@ -42,7 +42,7 @@ class DefaultAttributeTest extends TestCase
                 defaults: [
                     'param' => 'controller-default',
                     'param2' => 'method-default-first',
-                    'param3' => 'method-default-second'
+                    'param3' => 'method-default-second',
                 ]
             );
     }
