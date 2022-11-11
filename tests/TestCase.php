@@ -49,14 +49,15 @@ class TestCase extends Orchestra
         ?string $domain = null,
         ?array $wheres = [],
         ?bool $isFallback = false,
-        ?bool $enforcesScopedBindings = false
+        ?bool $enforcesScopedBindings = false,
+        ?array $defaults = []
     ): self {
         if (! is_array($middleware)) {
             $middleware = Arr::wrap($middleware);
         }
 
         $routeRegistered = collect($this->getRouteCollection()->getRoutes())
-            ->contains(function (Route $route) use ($name, $middleware, $controllerMethod, $controller, $uri, $httpMethods, $domain, $wheres, $isFallback, $enforcesScopedBindings) {
+            ->contains(function (Route $route) use ($name, $middleware, $controllerMethod, $controller, $uri, $httpMethods, $domain, $wheres, $isFallback, $enforcesScopedBindings, $defaults) {
                 foreach (Arr::wrap($httpMethods) as $httpMethod) {
                     if (! in_array(strtoupper($httpMethod), $route->methods)) {
                         return false;
@@ -90,6 +91,10 @@ class TestCase extends Orchestra
                 }
 
                 if ($wheres !== $route->wheres) {
+                    return false;
+                }
+
+                if ($defaults !== $route->defaults) {
                     return false;
                 }
 

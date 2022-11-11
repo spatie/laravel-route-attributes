@@ -482,6 +482,53 @@ Route::get('my-get-route', [MyController::class, 'myGetMethod'])->prefix('my-sec
 Route::post('my-post-route', [MyController::class, 'myPostMethod'])->prefix('my-second-prefix')->domain('my-second-subdomain.localhost');
 ```
 
+### Specifying defaults
+
+You can use the `Defaults` annotation on a class or method to define the default values of your optional route parameters.
+
+```php
+use Spatie\RouteAttributes\Attributes\Defaults;
+use Spatie\RouteAttributes\Attributes\Get;
+use Spatie\RouteAttributes\Attributes\Post;
+
+#[Defaults('param', 'controller-default')]
+class MyController extends Controller
+{
+    #[Get('my-get-route/{param?}')]
+    public function myGetMethod($param)
+    {
+    }
+
+    #[Post('my-post-route/{param?}/{param2?}')]
+    #[Defaults('param2', 'method-default')]
+    public function myPostMethod($param, $param2)
+    {
+    }
+
+    #[Get('my-default-route/{param?}/{param2?}/{param3?}')]
+    #[Defaults('param2', 'method-default-first')]
+    #[Defaults('param3', 'method-default-second')]
+    public function myDefaultMethod($param, $param2, $param3)
+    {
+    }
+
+    #[Get('my-override-route/{param?}')]
+    #[Defaults('param', 'method-default')]
+    public function myOverrideMethod($param)
+    {
+    }
+}
+```
+
+These annotations will automatically register these routes:
+
+```php
+Route::get('my-get-route/{param?}', [MyController::class, 'myGetMethod'])->setDefaults(['param', 'controller-default']);
+Route::post('my-post-route/{param?}/{param2?}', [MyController::class, 'myPostMethod'])->setDefaults(['param', 'controller-default', 'param2' => 'method-default']);
+Route::get('my-default-route/{param?}/{param2?}/{param3?}', [MyController::class, 'myDefaultMethod'])->setDefaults(['param', 'controller-default', 'param2' => 'method-default-first', 'param3' => 'method-default-second']);
+Route::get('my-override-route/{param?}', [MyController::class, 'myOverrideMethod'])->setDefaults(['param', 'method-default']);
+```
+
 ## Testing
 
 ``` bash
