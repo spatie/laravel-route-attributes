@@ -218,7 +218,6 @@ class RouteRegistrar
                 }
 
                 $defaults = $classRouteAttributes->defaults();
-
                 foreach ($defaultAttributes as $defaultAttribute) {
                     /** @var Defaults $default */
                     $defaultAttributeClass = $defaultAttribute->newInstance();
@@ -226,7 +225,6 @@ class RouteRegistrar
                     // This also overrides class defaults if the same default key is used
                     $defaults[$defaultAttributeClass->key] = $defaultAttributeClass->value;
                 }
-
                 if (! empty($defaults)) {
                     $route->setDefaults($defaults);
                 }
