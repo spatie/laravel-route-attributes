@@ -3,6 +3,7 @@
 namespace Spatie\RouteAttributes;
 
 use ReflectionClass;
+use Spatie\RouteAttributes\Attributes\Defaults;
 use Spatie\RouteAttributes\Attributes\Domain;
 use Spatie\RouteAttributes\Attributes\DomainFromConfig;
 use Spatie\RouteAttributes\Attributes\Group;
@@ -216,6 +217,23 @@ class ClassRouteAttributes
         }
 
         return $wheres;
+    }
+
+    /**
+     * @psalm-suppress NoInterfaceProperties
+     */
+    public function defaults(): array
+    {
+        $defaults = [];
+        /** @var ReflectionClass[] $attributes */
+        $attributes = $this->class->getAttributes(Defaults::class, \ReflectionAttribute::IS_INSTANCEOF);
+
+        foreach ($attributes as $attribute) {
+            $attributeClass = $attribute->newInstance();
+            $defaults[$attributeClass->key] = $attributeClass->value;
+        }
+
+        return $defaults;
     }
 
     protected function getAttribute(string $attributeClass): ?RouteAttribute
