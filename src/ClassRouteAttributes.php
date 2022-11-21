@@ -82,18 +82,26 @@ class ClassRouteAttributes
                 ];
             }
         } elseif ($withDefault) {
-            $parentGroups = optional($this->parent())->groups(false);
-            if ($parentGroups !== null && count($parentGroups) > 0) {
-                $groups = $parentGroups;
-            } else {
-                $groups[] = [
-                    'domain' => $this->domainFromConfig() ?? $this->domain(),
-                    'prefix' => $this->prefix(),
-                ];
-            }
+            $groups = $this->groupsDefault();
         }
 
         return $groups;
+    }
+
+    /**
+     * @psalm-suppress NoInterfaceProperties
+     */
+    public function groupsDefault(): array
+    {
+        $parentGroups = optional($this->parent())->groups(false);
+        if ($parentGroups !== null && count($parentGroups) > 0) {
+            return $parentGroups;
+        }
+
+        return [[
+            'domain' => $this->domainFromConfig() ?? $this->domain(),
+            'prefix' => $this->prefix(),
+        ]];
     }
 
     /**
