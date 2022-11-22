@@ -8,6 +8,7 @@ use Spatie\RouteAttributes\Attributes\Where;
 use Spatie\RouteAttributes\Attributes\WhereAlpha;
 use Spatie\RouteAttributes\Attributes\WhereAlphaNumeric;
 use Spatie\RouteAttributes\Attributes\WhereNumber;
+use Spatie\RouteAttributes\Attributes\WhereUlid;
 use Spatie\RouteAttributes\Attributes\WhereUuid;
 
 #[Where('param', '[0-9]+')]
@@ -35,6 +36,7 @@ class WhereTestController
     #[WhereAlpha('alpha')]
     #[WhereAlphaNumeric('alpha-numeric')]
     #[WhereNumber('number')]
+    #[WhereUlid('ulid')]
     #[WhereUuid('uuid')]
     public function myShorthands()
     {

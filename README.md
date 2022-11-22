@@ -445,6 +445,7 @@ For convenience, some commonly used regular expression patterns have helper attr
 #[WhereAlpha('alpha')]
 #[WhereAlphaNumeric('alpha-numeric')]
 #[WhereNumber('number')]
+#[WhereUlid('ulid')]
 #[WhereUuid('uuid')]
 ```
 
