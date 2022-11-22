@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.17.0 - 2022-11-22
+
+### What's Changed
+
+- Update README.md by @michaelnabil230 in https://github.com/spatie/laravel-route-attributes/pull/97
+- Add WhereUlid shorthand where by @rodrigopedra in https://github.com/spatie/laravel-route-attributes/pull/96
+
+### New Contributors
+
+- @michaelnabil230 made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/97
+- @rodrigopedra made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/96
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.16.0...1.17.0
+
 ## 1.16.0 - 2022-11-11
 
 ### What's Changed
