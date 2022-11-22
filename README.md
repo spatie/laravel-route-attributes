@@ -15,7 +15,6 @@ class MyController
     #[Get('my-route')]
     public function myMethod()
     {
-
     }
 }
 ```
@@ -215,7 +214,6 @@ class MyController
     #[Get('my-route', name: "my-route-name")]
     public function myMethod()
     {
-
     }
 }
 ```
@@ -344,9 +342,9 @@ Route::post('my-post-route', [MyController::class, 'myPostMethod'])->domain('my-
 There maybe a need to define a domain from a configuration file, for example where
 your subdomain will be different on your development environment to your production environment.
 
-```
-config/domains.php
 
+```php
+// config/domains.php
 return [
     'main' => env('SITE_URL', 'example.com'),
     'subdomain' => env('SUBDOMAIN_URL', 'subdomain.exmaple.com')
