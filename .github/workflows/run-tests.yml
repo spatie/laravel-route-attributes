@@ -15,10 +15,10 @@ jobs:
         include:
           - laravel: 9.*
             testbench: 7.*
-            phpunit: 9.*
+            phpunit: 9.4.*
           - laravel: 8.*
             testbench: 6.*
-            phpunit: '^9.4'
+            phpunit: 9.4.*
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
