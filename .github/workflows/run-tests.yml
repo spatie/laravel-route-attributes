@@ -18,7 +18,7 @@ jobs:
             phpunit: 9.*
           - laravel: 8.*
             testbench: 6.*
-            phpunit: 9.4.*
+            phpunit: 9.4.4
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
