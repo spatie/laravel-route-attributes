@@ -18,10 +18,11 @@
     "require": {
         "php": "^8.0",
         "illuminate/contracts": "^8.70|^9.0",
-        "laravel/framework": "8.*",
-        "nesbot/carbon": "^2.63",
-        "orchestra/testbench": "6.*",
-        "phpunit/phpunit": "9.4.*"
+        "nesbot/carbon": "^2.63"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.25|^7.0",
+        "phpunit/phpunit": "^9.5.10"
     },
     "autoload": {
         "psr-4": {

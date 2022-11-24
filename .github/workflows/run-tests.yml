@@ -15,7 +15,7 @@ jobs:
         include:
           - laravel: 9.*
             testbench: 7.*
-            phpunit: 9.4.*
+            phpunit: 9.5.*
           - laravel: 8.*
             testbench: 6.*
             phpunit: 9.4.*
@@ -36,7 +36,7 @@ jobs:
       - name: Install dependencies
         run: |
           composer require "phpunit/phpunit:${{ matrix.phpunit }}" "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update --ignore-platform-req=php
-          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --ignore-platform-req=php
+          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
       - name: Execute tests
         run: vendor/bin/phpunit
