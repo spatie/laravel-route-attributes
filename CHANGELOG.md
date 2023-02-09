@@ -2,6 +2,23 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.18.0 - 2023-02-09
+
+### What's Changed
+
+- Add support for Laravel 10 by @Nielsvanpach
+- Add Dependabot Automation by @patinthehat in https://github.com/spatie/laravel-route-attributes/pull/99
+- Bump actions/checkout from 2 to 3 by @dependabot in https://github.com/spatie/laravel-route-attributes/pull/100
+- Add PHP 8.2 to tests workflow by @patinthehat in https://github.com/spatie/laravel-route-attributes/pull/98
+- Bump dependabot/fetch-metadata from 1.3.5 to 1.3.6 by @dependabot in https://github.com/spatie/laravel-route-attributes/pull/105
+
+### New Contributors
+
+- @patinthehat made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/99
+- @dependabot made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/100
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.17.0...1.18.0
+
 ## 1.17.0 - 2022-11-22
 
 ### What's Changed
