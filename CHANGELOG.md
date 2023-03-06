@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.18.1 - 2023-03-06
+
+### What's Changed
+
+- 🐛 Should filter null values when resolving group by @juliomotol in https://github.com/spatie/laravel-route-attributes/pull/111
+
+### New Contributors
+
+- @juliomotol made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/111
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.18.0...1.18.1
+
 ## 1.18.0 - 2023-02-09
 
 ### What's Changed
