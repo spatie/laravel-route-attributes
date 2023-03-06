@@ -72,18 +72,18 @@ class ClassRouteAttributes
         if (count($attributes) > 0) {
             foreach ($attributes as $attribute) {
                 $attributeClass = $attribute->newInstance();
-                $groups[] = [
+                $groups[] = array_filter([
                     'domain' => $attributeClass->domain,
                     'prefix' => $attributeClass->prefix,
                     'where' => $attributeClass->where,
                     'as' => $attributeClass->as,
-                ];
+                ]);
             }
         } else {
-            $groups[] = [
+            $groups[] = array_filter([
                 'domain' => $this->domainFromConfig() ?? $this->domain(),
                 'prefix' => $this->prefix(),
-            ];
+            ]);
         }
 
         return $groups;
