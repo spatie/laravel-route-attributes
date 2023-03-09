@@ -133,33 +133,7 @@ class RouteRegistrar
         $this->router->group([
             'domain' => $classRouteAttributes->domain(),
             'prefix' => $classRouteAttributes->prefix(),
-        ], function () use ($class, $classRouteAttributes) {
-            $route = $classRouteAttributes->apiResource()
-                ? $this->router->apiResource($classRouteAttributes->resource(), $class->getName())
-                : $this->router->resource($classRouteAttributes->resource(), $class->getName());
-
-            if ($only = $classRouteAttributes->only()) {
-                $route->only($only);
-            }
-
-            if ($except = $classRouteAttributes->except()) {
-                $route->except($except);
-            }
-
-            if ($names = $classRouteAttributes->names()) {
-                $route->names($names);
-            }
-
-            if ($parameters = $classRouteAttributes->parameters()) {
-                $route->parameters($parameters);
-            }
-
-            if (! is_null($shallow = $classRouteAttributes->shallow())) {
-                $route->shallow($shallow);
-            }
-
-            $route->middleware([...$this->middleware, ...$classRouteAttributes->middleware()]);
-        });
+        ], $this->getRoutes($class, $classRouteAttributes));
     }
 
     protected function registerRoutes(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): void
@@ -301,5 +275,37 @@ class RouteRegistrar
         if (!empty($defaults))
             $route->setDefaults($defaults);
 
+    }
+
+    /**
+     * @param ReflectionClass $class
+     * @param ClassRouteAttributes $classRouteAttributes
+     * @return \Closure
+     */
+    public function getRoutes(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): \Closure
+    {
+        return function () use ($class, $classRouteAttributes) {
+            $route = $classRouteAttributes->apiResource()
+                ? $this->router->apiResource($classRouteAttributes->resource(), $class->getName())
+                : $this->router->resource($classRouteAttributes->resource(), $class->getName());
+
+            $methods = [
+                'only',
+                'except',
+                'names',
+                'parameters',
+                'shallow',
+            ];
+
+            foreach ($methods as $method) {
+                $value = $classRouteAttributes->$method();
+
+                if ($value !== null) {
+                    $route->$method($value);
+                }
+            }
+
+            $route->middleware([...$this->middleware, ...$classRouteAttributes->middleware()]);
+        };
     }
 }
