@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.18.2 - 2023-03-09
+
+### What's Changed
+
+- minor modify by @asharifineyestani in https://github.com/spatie/laravel-route-attributes/pull/113
+- Add WhereIn attribute by @themrcatsu in https://github.com/spatie/laravel-route-attributes/pull/112
+
+### New Contributors
+
+- @asharifineyestani made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/113
+- @themrcatsu made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/112
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.18.1...1.18.2
+
 ## 1.18.1 - 2023-03-06
 
 ### What's Changed
