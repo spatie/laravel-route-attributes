@@ -26,7 +26,7 @@ class ClassRouteAttributes
      */
     public function prefix(): ?string
     {
-        /** @var \Spatie\RouteAttributes\Attributes\Prefix $attribute */
+        /** @var Prefix $attribute */
         if (! $attribute = $this->getAttribute(Prefix::class)) {
             return null;
         }
@@ -39,7 +39,7 @@ class ClassRouteAttributes
      */
     public function domain(): ?string
     {
-        /** @var \Spatie\RouteAttributes\Attributes\Domain $attribute */
+        /** @var Domain $attribute */
         if (! $attribute = $this->getAttribute(Domain::class)) {
             return null;
         }
@@ -52,7 +52,7 @@ class ClassRouteAttributes
      */
     public function domainFromConfig(): ?string
     {
-        /** @var \Spatie\RouteAttributes\Attributes\DomainFromConfig $attribute */
+        /** @var DomainFromConfig $attribute */
         if (! $attribute = $this->getAttribute(DomainFromConfig::class)) {
             return null;
         }
@@ -94,7 +94,7 @@ class ClassRouteAttributes
      */
     public function resource(): ?string
     {
-        /** @var \Spatie\RouteAttributes\Attributes\Resource $attribute */
+        /** @var Resource $attribute */
         if (! $attribute = $this->getAttribute(Resource::class)) {
             return null;
         }
@@ -107,7 +107,7 @@ class ClassRouteAttributes
      */
     public function parameters(): array | string | null
     {
-        /** @var \Spatie\RouteAttributes\Attributes\Resource $attribute */
+        /** @var Resource $attribute */
         if (! $attribute = $this->getAttribute(Resource::class)) {
             return null;
         }
@@ -120,7 +120,7 @@ class ClassRouteAttributes
      */
     public function shallow(): bool | null
     {
-        /** @var \Spatie\RouteAttributes\Attributes\Resource $attribute */
+        /** @var Resource $attribute */
         if (! $attribute = $this->getAttribute(Resource::class)) {
             return null;
         }
@@ -133,7 +133,7 @@ class ClassRouteAttributes
      */
     public function apiResource(): ?string
     {
-        /** @var \Spatie\RouteAttributes\Attributes\Resource $attribute */
+        /** @var Resource $attribute */
         if (! $attribute = $this->getAttribute(Resource::class)) {
             return null;
         }
@@ -146,7 +146,7 @@ class ClassRouteAttributes
      */
     public function except(): string | array | null
     {
-        /** @var \Spatie\RouteAttributes\Attributes\Resource $attribute */
+        /** @var Resource $attribute */
         if (! $attribute = $this->getAttribute(Resource::class)) {
             return null;
         }
@@ -159,7 +159,7 @@ class ClassRouteAttributes
      */
     public function only(): string | array | null
     {
-        /** @var \Spatie\RouteAttributes\Attributes\Resource $attribute */
+        /** @var Resource $attribute */
         if (! $attribute = $this->getAttribute(Resource::class)) {
             return null;
         }
@@ -172,7 +172,7 @@ class ClassRouteAttributes
      */
     public function names(): string | array | null
     {
-        /** @var \Spatie\RouteAttributes\Attributes\Resource $attribute */
+        /** @var Resource $attribute */
         if (! $attribute = $this->getAttribute(Resource::class)) {
             return null;
         }
@@ -185,7 +185,7 @@ class ClassRouteAttributes
      */
     public function middleware(): array
     {
-        /** @var \Spatie\RouteAttributes\Attributes\Middleware $attribute */
+        /** @var Middleware $attribute */
         if (! $attribute = $this->getAttribute(Middleware::class)) {
             return [];
         }
@@ -195,7 +195,7 @@ class ClassRouteAttributes
 
     public function scopeBindings(): bool
     {
-        /** @var \Spatie\RouteAttributes\Attributes\ScopeBindings $attribute */
+        /** @var ScopeBindings $attribute */
         if (! $attribute = $this->getAttribute(ScopeBindings::class)) {
             return false;
         }

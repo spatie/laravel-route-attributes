@@ -80,7 +80,7 @@ return [
 ];
 ```
 
-For controllers outside of the applications root namespace directories can also be added using a `namespace => path` pattern in the directories array. In the following example controllers from `Modules\Admin\Http\Controllers` will be included.
+For controllers outside the applications root namespace directories can also be added using a `namespace => path` pattern in the directories array. In the following example controllers from `Modules\Admin\Http\Controllers` will be included.
 
 ```php
 'directories' => [
@@ -347,7 +347,7 @@ your subdomain will be different on your development environment to your product
 // config/domains.php
 return [
     'main' => env('SITE_URL', 'example.com'),
-    'subdomain' => env('SUBDOMAIN_URL', 'subdomain.exmaple.com')
+    'subdomain' => env('SUBDOMAIN_URL', 'subdomain.example.com')
 ];
 ```
 
@@ -400,7 +400,7 @@ Route::get('/users/{user}/posts/{post}', function (User $user, Post $post) {
 
 You can also use the annotation on controllers to enable implicitly scoped bindings for all its methods.
 
-### Specifying wheres
+### Specifying where
 
 You can use the `Where` annotation on a class or method to constrain the format of your route parameters.
 
