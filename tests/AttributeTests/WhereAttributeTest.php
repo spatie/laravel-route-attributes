@@ -59,6 +59,7 @@ class WhereAttributeTest extends TestCase
                     'param' => '[0-9]+',
                     'alpha' => '[a-zA-Z]+',
                     'alpha-numeric' => '[a-zA-Z0-9]+',
+                    'in' => 'value1|value2',
                     'number' => '[0-9]+',
                     'ulid' => '[0-7][0-9A-HJKMNP-TV-Z]{25}',
                     'uuid' => '[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}',

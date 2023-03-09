@@ -7,6 +7,7 @@ use Spatie\RouteAttributes\Attributes\Post;
 use Spatie\RouteAttributes\Attributes\Where;
 use Spatie\RouteAttributes\Attributes\WhereAlpha;
 use Spatie\RouteAttributes\Attributes\WhereAlphaNumeric;
+use Spatie\RouteAttributes\Attributes\WhereIn;
 use Spatie\RouteAttributes\Attributes\WhereNumber;
 use Spatie\RouteAttributes\Attributes\WhereUlid;
 use Spatie\RouteAttributes\Attributes\WhereUuid;
@@ -35,6 +36,7 @@ class WhereTestController
     #[Get('my-shorthands')]
     #[WhereAlpha('alpha')]
     #[WhereAlphaNumeric('alpha-numeric')]
+    #[WhereIn('in', ['value1', 'value2'])]
     #[WhereNumber('number')]
     #[WhereUlid('ulid')]
     #[WhereUuid('uuid')]

@@ -439,6 +439,7 @@ For convenience, some commonly used regular expression patterns have helper attr
 ```php 
 #[WhereAlpha('alpha')]
 #[WhereAlphaNumeric('alpha-numeric')]
+#[WhereIn('in', ['value1', 'value2'])]
 #[WhereNumber('number')]
 #[WhereUlid('ulid')]
 #[WhereUuid('uuid')]
