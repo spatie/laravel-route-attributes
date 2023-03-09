@@ -164,15 +164,11 @@ class RouteRegistrar
 
     protected function registerRoutes(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): void
     {
+
         foreach ($class->getMethods() as $method) {
-            $attributes = $method->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
-            $wheresAttributes = $method->getAttributes(WhereAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
-            $defaultAttributes = $method->getAttributes(Defaults::class, ReflectionAttribute::IS_INSTANCEOF);
-            $fallbackAttributes = $method->getAttributes(Fallback::class, ReflectionAttribute::IS_INSTANCEOF);
-            $scopeBindingsAttribute = $method->getAttributes(
-                ScopeBindings::class,
-                ReflectionAttribute::IS_INSTANCEOF
-            )[0] ?? null;
+
+            list($attributes, $wheresAttributes, $defaultAttributes, $fallbackAttributes, $scopeBindingsAttribute) = $this->getAttributesForTheMethod($method);
+
 
             foreach ($attributes as $attribute) {
                 try {
@@ -181,62 +177,129 @@ class RouteRegistrar
                     continue;
                 }
 
-                if (! $attributeClass instanceof Route) {
+                if (!$attributeClass instanceof Route)
                     continue;
-                }
 
-                $httpMethods = $attributeClass->methods;
 
-                $action = $method->getName() === '__invoke'
-                    ? $class->getName()
-                    : [$class->getName(), $method->getName()];
+                list($httpMethods, $action) = $this->getHTTPMethodsAndAction($attributeClass, $method, $class);
 
-                $route = $this->router->addRoute($httpMethods, $attributeClass->uri, $action)
-                    ->name($attributeClass->name);
 
-                if ($scopeBindingsAttribute) {
-                    /** @var ScopeBindings $scopeBindingsAttributeClass */
-                    $scopeBindingsAttributeClass = $scopeBindingsAttribute->newInstance();
+                $route = $this->router->addRoute($httpMethods, $attributeClass->uri, $action)->name($attributeClass->name);
 
-                    if ($scopeBindingsAttributeClass->scopeBindings) {
-                        $route->scopeBindings();
-                    }
-                } elseif ($classRouteAttributes->scopeBindings()) {
-                    $route->scopeBindings();
-                }
 
-                $wheres = $classRouteAttributes->wheres();
-                foreach ($wheresAttributes as $wheresAttribute) {
-                    /** @var Where $wheresAttributeClass */
-                    $wheresAttributeClass = $wheresAttribute->newInstance();
+                $this->setScopeBindingsIfAvailable($scopeBindingsAttribute, $route, $classRouteAttributes);
 
-                    // This also overrides class wheres if the same param is used
-                    $wheres[$wheresAttributeClass->param] = $wheresAttributeClass->constraint;
-                }
-                if (! empty($wheres)) {
-                    $route->setWheres($wheres);
-                }
 
-                $defaults = $classRouteAttributes->defaults();
-                foreach ($defaultAttributes as $defaultAttribute) {
-                    /** @var Defaults $default */
-                    $defaultAttributeClass = $defaultAttribute->newInstance();
+                $this->setWheresIfAvailable($classRouteAttributes, $wheresAttributes, $route);
 
-                    // This also overrides class defaults if the same default key is used
-                    $defaults[$defaultAttributeClass->key] = $defaultAttributeClass->value;
-                }
-                if (! empty($defaults)) {
-                    $route->setDefaults($defaults);
-                }
 
-                $classMiddleware = $classRouteAttributes->middleware();
-                $methodMiddleware = $attributeClass->middleware;
-                $route->middleware([...$this->middleware, ...$classMiddleware, ...$methodMiddleware]);
+                $this->setDefaultsIfAvailable($classRouteAttributes, $defaultAttributes, $route);
 
-                if (count($fallbackAttributes) > 0) {
+
+                $this->addMiddlewareToRoute($classRouteAttributes, $attributeClass, $route);
+
+
+                if (count($fallbackAttributes) > 0)
                     $route->fallback();
-                }
+
             }
         }
+
+    }
+
+    /**
+     * @param ReflectionAttribute|null $scopeBindingsAttribute
+     * @param \Illuminate\Routing\Route $route
+     * @param ClassRouteAttributes $classRouteAttributes
+     * @return void
+     */
+    public function setScopeBindingsIfAvailable(?ReflectionAttribute $scopeBindingsAttribute, \Illuminate\Routing\Route $route, ClassRouteAttributes $classRouteAttributes): void
+    {
+        if ($scopeBindingsAttribute) {
+            $scopeBindingsAttributeClass = $scopeBindingsAttribute->newInstance();
+
+            if ($scopeBindingsAttributeClass->scopeBindings) {
+                $route->scopeBindings();
+            }
+        } elseif ($classRouteAttributes->scopeBindings()) {
+            $route->scopeBindings();
+        }
+    }
+
+    /**
+     * @param \ReflectionMethod $method
+     * @return array
+     */
+    public function getAttributesForTheMethod(\ReflectionMethod $method): array
+    {
+        $attributes = $method->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
+        $wheresAttributes = $method->getAttributes(WhereAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
+        $defaultAttributes = $method->getAttributes(Defaults::class, ReflectionAttribute::IS_INSTANCEOF);
+        $fallbackAttributes = $method->getAttributes(Fallback::class, ReflectionAttribute::IS_INSTANCEOF);
+        $scopeBindingsAttribute = $method->getAttributes(ScopeBindings::class, ReflectionAttribute::IS_INSTANCEOF)[0] ?? null;
+        return array($attributes, $wheresAttributes, $defaultAttributes, $fallbackAttributes, $scopeBindingsAttribute);
+    }
+
+    /**
+     * @param ClassRouteAttributes $classRouteAttributes
+     * @param mixed $wheresAttributes
+     * @param \Illuminate\Routing\Route $route
+     * @return void
+     */
+    public function setWheresIfAvailable(ClassRouteAttributes $classRouteAttributes, mixed $wheresAttributes, \Illuminate\Routing\Route $route): void
+    {
+        $wheres = $classRouteAttributes->wheres();
+        foreach ($wheresAttributes as $wheresAttribute) {
+            $wheresAttributeClass = $wheresAttribute->newInstance();
+            $wheres[$wheresAttributeClass->param] = $wheresAttributeClass->constraint;
+        }
+        if (!empty($wheres))
+            $route->setWheres($wheres);
+
+    }
+
+    /**
+     * @param Route $attributeClass
+     * @param \ReflectionMethod $method
+     * @param ReflectionClass $class
+     * @return array
+     */
+    public function getHTTPMethodsAndAction(Route $attributeClass, \ReflectionMethod $method, ReflectionClass $class): array
+    {
+        $httpMethods = $attributeClass->methods;
+        $action = $method->getName() === '__invoke' ? $class->getName() : [$class->getName(), $method->getName()];
+        return array($httpMethods, $action);
+    }
+
+    /**
+     * @param ClassRouteAttributes $classRouteAttributes
+     * @param Route $attributeClass
+     * @param \Illuminate\Routing\Route $route
+     * @return void
+     */
+    public function addMiddlewareToRoute(ClassRouteAttributes $classRouteAttributes, Route $attributeClass, \Illuminate\Routing\Route $route): void
+    {
+        $classMiddleware = $classRouteAttributes->middleware();
+        $methodMiddleware = $attributeClass->middleware;
+        $route->middleware([...$this->middleware, ...$classMiddleware, ...$methodMiddleware]);
+    }
+
+    /**
+     * @param ClassRouteAttributes $classRouteAttributes
+     * @param mixed $defaultAttributes
+     * @param \Illuminate\Routing\Route $route
+     * @return void
+     */
+    public function setDefaultsIfAvailable(ClassRouteAttributes $classRouteAttributes, mixed $defaultAttributes, \Illuminate\Routing\Route $route): void
+    {
+        $defaults = $classRouteAttributes->defaults();
+        foreach ($defaultAttributes as $defaultAttribute) {
+            $defaultAttributeClass = $defaultAttribute->newInstance();
+
+            $defaults[$defaultAttributeClass->key] = $defaultAttributeClass->value;
+        }
+        if (!empty($defaults))
+            $route->setDefaults($defaults);
+
     }
 }
