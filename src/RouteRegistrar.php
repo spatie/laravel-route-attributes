@@ -12,7 +12,6 @@ use Spatie\RouteAttributes\Attributes\Fallback;
 use Spatie\RouteAttributes\Attributes\Route;
 use Spatie\RouteAttributes\Attributes\RouteAttribute;
 use Spatie\RouteAttributes\Attributes\ScopeBindings;
-use Spatie\RouteAttributes\Attributes\Where;
 use Spatie\RouteAttributes\Attributes\WhereAttribute;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;
@@ -138,9 +137,7 @@ class RouteRegistrar
 
     protected function registerRoutes(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): void
     {
-
         foreach ($class->getMethods() as $method) {
-
             list($attributes, $wheresAttributes, $defaultAttributes, $fallbackAttributes, $scopeBindingsAttribute) = $this->getAttributesForTheMethod($method);
 
 
@@ -151,8 +148,9 @@ class RouteRegistrar
                     continue;
                 }
 
-                if (!$attributeClass instanceof Route)
+                if (! $attributeClass instanceof Route) {
                     continue;
+                }
 
 
                 list($httpMethods, $action) = $this->getHTTPMethodsAndAction($attributeClass, $method, $class);
@@ -173,12 +171,11 @@ class RouteRegistrar
                 $this->addMiddlewareToRoute($classRouteAttributes, $attributeClass, $route);
 
 
-                if (count($fallbackAttributes) > 0)
+                if (count($fallbackAttributes) > 0) {
                     $route->fallback();
-
+                }
             }
         }
-
     }
 
     /**
@@ -211,7 +208,8 @@ class RouteRegistrar
         $defaultAttributes = $method->getAttributes(Defaults::class, ReflectionAttribute::IS_INSTANCEOF);
         $fallbackAttributes = $method->getAttributes(Fallback::class, ReflectionAttribute::IS_INSTANCEOF);
         $scopeBindingsAttribute = $method->getAttributes(ScopeBindings::class, ReflectionAttribute::IS_INSTANCEOF)[0] ?? null;
-        return array($attributes, $wheresAttributes, $defaultAttributes, $fallbackAttributes, $scopeBindingsAttribute);
+
+        return [$attributes, $wheresAttributes, $defaultAttributes, $fallbackAttributes, $scopeBindingsAttribute];
     }
 
     /**
@@ -227,9 +225,9 @@ class RouteRegistrar
             $wheresAttributeClass = $wheresAttribute->newInstance();
             $wheres[$wheresAttributeClass->param] = $wheresAttributeClass->constraint;
         }
-        if (!empty($wheres))
+        if (! empty($wheres)) {
             $route->setWheres($wheres);
-
+        }
     }
 
     /**
@@ -242,7 +240,8 @@ class RouteRegistrar
     {
         $httpMethods = $attributeClass->methods;
         $action = $method->getName() === '__invoke' ? $class->getName() : [$class->getName(), $method->getName()];
-        return array($httpMethods, $action);
+
+        return [$httpMethods, $action];
     }
 
     /**
@@ -272,9 +271,9 @@ class RouteRegistrar
 
             $defaults[$defaultAttributeClass->key] = $defaultAttributeClass->value;
         }
-        if (!empty($defaults))
+        if (! empty($defaults)) {
             $route->setDefaults($defaults);
-
+        }
     }
 
     /**
