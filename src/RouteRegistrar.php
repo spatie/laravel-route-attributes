@@ -132,7 +132,7 @@ class RouteRegistrar
         $this->router->group([
             'domain' => $classRouteAttributes->domain(),
             'prefix' => $classRouteAttributes->prefix(),
-        ], $this->getRoutes($class, $classRouteAttributes));
+        ], $this->getResourceRoutes($class, $classRouteAttributes));
     }
 
     protected function registerRoutes(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): void
@@ -281,7 +281,7 @@ class RouteRegistrar
      * @param ClassRouteAttributes $classRouteAttributes
      * @return \Closure
      */
-    public function getRoutes(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): \Closure
+    public function getResourceRoutes(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): \Closure
     {
         return function () use ($class, $classRouteAttributes) {
             $route = $classRouteAttributes->apiResource()
