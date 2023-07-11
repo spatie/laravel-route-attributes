@@ -254,7 +254,7 @@ class RouteRegistrar
     {
         $classMiddleware = $classRouteAttributes->middleware();
         $methodMiddleware = $attributeClass->middleware;
-        $route->middleware([...$this->middleware, ...$classMiddleware, ...$methodMiddleware]);
+        $route->middleware(array_values(array_unique([...$this->middleware, ...$classMiddleware, ...$methodMiddleware])));
     }
 
     /**
@@ -304,7 +304,7 @@ class RouteRegistrar
                 }
             }
 
-            $route->middleware([...$this->middleware, ...$classRouteAttributes->middleware()]);
+            $route->middleware(array_values(array_unique([...$this->middleware, ...$classRouteAttributes->middleware()])));
         };
     }
 }

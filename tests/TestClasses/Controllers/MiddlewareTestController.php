@@ -19,4 +19,9 @@ class MiddlewareTestController
     public function multipleMiddleware()
     {
     }
+
+    #[Route('get', 'duplicate-middleware', middleware: TestMiddleware::class)]
+    public function duplicateMiddleware()
+    {
+    }
 }

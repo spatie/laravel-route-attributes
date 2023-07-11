@@ -15,7 +15,7 @@ class MiddlewareAttributeTest extends TestCase
         $this->routeRegistrar->registerClass(MiddlewareTestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(2)
+            ->assertRegisteredRoutesCount(3)
             ->assertRouteRegistered(
                 MiddlewareTestController::class,
                 controllerMethod: 'singleMiddleware',
@@ -27,6 +27,12 @@ class MiddlewareAttributeTest extends TestCase
                 controllerMethod: 'multipleMiddleware',
                 uri: 'multiple-middleware',
                 middleware: [TestMiddleware::class, OtherTestMiddleware::class],
+            )
+            ->assertRouteRegistered(
+                MiddlewareTestController::class,
+                controllerMethod: 'duplicateMiddleware',
+                uri: 'duplicate-middleware',
+                middleware: [TestMiddleware::class],
             );
     }
 }
