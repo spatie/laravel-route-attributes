@@ -82,4 +82,29 @@ class RouteRegistrarTest extends TestCase
             controllerMethod: 'thirdPartyGetMethod',
         );
     }
+
+    /** @test */
+    public function the_registrar_can_register_a_directory_with_filename_pattern()
+    {
+        $this
+            ->routeRegistrar
+            ->registerDirectory($this->getTestPath('TestClasses/Controllers/RouteRegistrar'), ['*FirstController.php']);
+
+        $this->assertRegisteredRoutesCount(1);
+
+        $this->assertRouteRegistered(
+            RegistrarTestFirstController::class,
+            uri: 'first-method',
+        );
+    }
+
+    /** @test */
+    public function the_registrar_can_register_a_directory_with_filename_not_pattern()
+    {
+        $this
+            ->routeRegistrar
+            ->registerDirectory($this->getTestPath('TestClasses/Controllers/RouteRegistrar'), [], ['*FirstController.php']);
+
+        $this->assertRegisteredRoutesCount(2);
+    }
 }

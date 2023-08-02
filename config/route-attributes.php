@@ -18,6 +18,10 @@ return [
         app_path('Http/Controllers/Api') => [
            'prefix' => 'api',
            'middleware' => 'api',
+            // only register routes in files that match the patterns
+           'patterns' => ['*Controller.php'],
+           // do not register routes in files that match the patterns
+           'not_patterns => [],
         ],
         */
     ],
