@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.19.0 - 2023-08-09
+
+### What's Changed
+
+- refactor registerRoutes() & registerResource() in RouteRegistrar.php by @asharifineyestani in https://github.com/spatie/laravel-route-attributes/pull/115
+- Bump dependabot/fetch-metadata from 1.3.6 to 1.4.0 by @dependabot in https://github.com/spatie/laravel-route-attributes/pull/118
+- Bump dependabot/fetch-metadata from 1.4.0 to 1.5.1 by @dependabot in https://github.com/spatie/laravel-route-attributes/pull/121
+- Bump dependabot/fetch-metadata from 1.5.1 to 1.6.0 by @dependabot in https://github.com/spatie/laravel-route-attributes/pull/123
+- Add patterns and not_patterns options to directories by @ejunker in https://github.com/spatie/laravel-route-attributes/pull/125
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.18.2...1.19.0
+
 ## 1.18.2 - 2023-03-09
 
 ### What's Changed
