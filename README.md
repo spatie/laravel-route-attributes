@@ -93,6 +93,23 @@ For controllers outside the applications root namespace directories can also be 
 ],
 ```
 
+If you are using a directory structure where you co-locate multiple types of files in the same directory and want to 
+be more specific about which files are checked for route attributes, you can use the `patterns` and `not_patterns` 
+options. For example, if you are co-locating your tests with your controllers you could use the `patterns` option to only 
+look in controller files, or you could use `not_patterns` to configure it to not look in test files for route 
+attributes.
+
+```php
+'directories' => [
+    base_path('app-modules/Blog') => [
+        // only register routes in files that match the patterns
+        'patterns' => ['*Controller.php'],
+        // do not register routes in files that match the patterns
+        'not_patterns => ['*Test.php'],
+    ],
+],
+```
+
 ## Usage
 
 The package provides several annotations that should be put on controller classes and methods. These annotations will be used to automatically register routes

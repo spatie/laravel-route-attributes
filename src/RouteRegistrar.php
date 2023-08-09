@@ -67,11 +67,12 @@ class RouteRegistrar
         return $this->middleware ?? [];
     }
 
-    public function registerDirectory(string | array $directories): void
+    public function registerDirectory(string | array $directories, array $patterns = [], array $notPatterns = []): void
     {
         $directories = Arr::wrap($directories);
+        $patterns = $patterns ?: ['*.php'];
 
-        $files = (new Finder())->files()->name('*.php')->in($directories)->sortByName();
+        $files = (new Finder())->files()->in($directories)->name($patterns)->notName($notPatterns)->sortByName();
 
         collect($files)->each(fn (SplFileInfo $file) => $this->registerFile($file));
     }

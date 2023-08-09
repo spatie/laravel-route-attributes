@@ -34,12 +34,12 @@ class RouteAttributesServiceProvider extends ServiceProvider
 
         collect($this->getRouteDirectories())->each(function (string|array $directory, string|int $namespace) use ($routeRegistrar) {
             if (is_array($directory)) {
-                $options = Arr::except($directory, ['namespace', 'base_path']);
+                $options = Arr::except($directory, ['namespace', 'base_path', 'patterns', 'not_patterns']);
 
                 $routeRegistrar
                     ->useRootNamespace($directory['namespace'] ?? app()->getNamespace())
                     ->useBasePath($directory['base_path'] ?? (isset($directory['namespace']) ? $namespace : app()->path()))
-                    ->group($options, fn () => $routeRegistrar->registerDirectory($namespace));
+                    ->group($options, fn () => $routeRegistrar->registerDirectory($namespace, $directory['patterns'] ?? [], $directory['not_patterns'] ?? []));
             } else {
                 is_string($namespace)
                     ? $routeRegistrar
