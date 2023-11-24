@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.20.0 - 2023-11-24
+
+### What's Changed
+
+- Allow to register multiple Get route declarations on one method by @rico in https://github.com/spatie/laravel-route-attributes/pull/132
+
+### New Contributors
+
+- @rico made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/132
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.19.0...1.20.0
+
 ## 1.19.0 - 2023-08-09
 
 ### What's Changed
