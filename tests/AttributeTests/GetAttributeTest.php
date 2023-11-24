@@ -3,8 +3,8 @@
 namespace Spatie\RouteAttributes\Tests\AttributeTests;
 
 use Spatie\RouteAttributes\Tests\TestCase;
-use Spatie\RouteAttributes\Tests\TestClasses\Controllers\GetTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\GetMultipleTestController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\GetTestController;
 
 class GetAttributeTest extends TestCase
 {
@@ -26,6 +26,7 @@ class GetAttributeTest extends TestCase
         $this
             ->assertRegisteredRoutesCount(2)
             ->assertRouteRegistered(GetMultipleTestController::class, 'myGetMethod', 'get', 'my-get-method')
-            ->assertRouteRegistered(GetMultipleTestController::class, 'myGetMethod', 'get', 'my-other-get-method');;
+            ->assertRouteRegistered(GetMultipleTestController::class, 'myGetMethod', 'get', 'my-other-get-method');
+        ;
     }
 }
