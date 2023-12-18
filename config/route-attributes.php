@@ -21,7 +21,7 @@ return [
             // only register routes in files that match the patterns
            'patterns' => ['*Controller.php'],
            // do not register routes in files that match the patterns
-           'not_patterns => [],
+           'not_patterns' => [],
         ],
         */
     ],
