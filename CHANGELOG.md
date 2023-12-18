@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.20.1 - 2023-12-18
+
+### What's Changed
+
+* Fix missing quote in route-attributes.php by @nokimaro in https://github.com/spatie/laravel-route-attributes/pull/133
+* Bump actions/checkout from 3 to 4 by @dependabot in https://github.com/spatie/laravel-route-attributes/pull/128
+* Bump stefanzweifel/git-auto-commit-action from 4 to 5 by @dependabot in https://github.com/spatie/laravel-route-attributes/pull/131
+
+### New Contributors
+
+* @nokimaro made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/133
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.20.0...1.20.1
+
 ## 1.20.0 - 2023-11-24
 
 ### What's Changed
