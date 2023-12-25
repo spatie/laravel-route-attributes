@@ -195,7 +195,7 @@ class RouteRegistrar
 
         if ($shouldScopeBindings) {
             $route->scopeBindings();
-        } else {
+        } elseif (method_exists($route, 'withoutScopedBindings')) {
             $route->withoutScopedBindings();
         }
     }
