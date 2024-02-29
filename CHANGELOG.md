@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.21.0 - 2024-02-29
+
+### What's Changed
+
+* Laravel 11.x Compatibility by @laravel-shift in https://github.com/spatie/laravel-route-attributes/pull/136
+
+### New Contributors
+
+* @laravel-shift made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/136
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.20.1...1.21.0
+
 ## 1.20.1 - 2023-12-18
 
 ### What's Changed
