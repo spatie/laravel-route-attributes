@@ -1,30 +1,25 @@
 name: Tests
 
-on: [push, pull_request]
+on:
+  - push
+  - pull_request
 
 jobs:
   test:
     runs-on: ${{ matrix.os }}
+
     strategy:
       fail-fast: true
       matrix:
         os: [ubuntu-latest, windows-latest]
-        php: [8.0, 8.1, 8.2]
-        laravel: [10.*, 9.*, 8.*]
+        php: [8.2, 8.3]
+        laravel: ['10.*', '11.*']
         dependency-version: [prefer-lowest, prefer-stable]
         include:
           - laravel: 10.*
             testbench: 8.*
-            phpunit: 9.6.*
-          - laravel: 9.*
-            testbench: 7.*
-            phpunit: 9.5.*
-          - laravel: 8.*
-            testbench: 6.*
-            phpunit: 9.4.*
-        exclude:
-          - laravel: 10.*
-            php: 8.0
+          - laravel: 11.*
+            testbench: 9.*
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
 
@@ -39,13 +34,9 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
           coverage: none
 
-      - name: Configure for PHP 8.2
-        run: composer config platform.php 8.1.99
-        if: matrix.php == '8.2'
-
       - name: Install dependencies
         run: |
-          composer require "phpunit/phpunit:${{ matrix.phpunit }}" "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
       - name: Execute tests
