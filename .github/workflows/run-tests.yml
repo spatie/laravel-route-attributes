@@ -27,7 +27,7 @@ jobs:
             phpunit: 9.4.*
           - laravel: 11.*
             testbench: 9.*
-            phpunit: '8.2'
+            phpunit: 9.6.*
         exclude:
           - laravel: 10.*
             php: 8.0
