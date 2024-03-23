@@ -193,11 +193,11 @@ class ClassRouteAttributes
         return $attribute->middleware;
     }
 
-    public function scopeBindings(): bool
+    public function scopeBindings(): ?bool
     {
         /** @var ScopeBindings $attribute */
         if (! $attribute = $this->getAttribute(ScopeBindings::class)) {
-            return false;
+            return null;
         }
 
         return $attribute->scopeBindings;

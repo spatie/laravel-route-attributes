@@ -13,6 +13,12 @@ class BindingScoping2TestController
     {
     }
 
+    #[Route('get', 'explicitly-disabled/{scoped}/{binding}')]
+    #[ScopeBindings(false)]
+    public function explicitlyDisabledScopedBinding()
+    {
+    }
+
     #[Route('get', 'implicitly-disabled/{scoped}/{binding}')]
     public function implicitlyDisabledScopedBinding()
     {

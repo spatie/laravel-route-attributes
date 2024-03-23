@@ -14,7 +14,7 @@ class BindingScoping1TestController
     }
 
     #[Route('get', 'explicitly-disabled/{scoped}/{binding}')]
-    #[ScopeBindings(scopeBindings: false)]
+    #[ScopeBindings(false)]
     public function explicitlyDisabledScopedBinding()
     {
     }

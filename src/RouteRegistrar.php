@@ -187,15 +187,15 @@ class RouteRegistrar
      */
     public function setScopeBindingsIfAvailable(?ReflectionAttribute $scopeBindingsAttribute, \Illuminate\Routing\Route $route, ClassRouteAttributes $classRouteAttributes): void
     {
-        if ($scopeBindingsAttribute) {
-            $scopeBindingsAttributeClass = $scopeBindingsAttribute->newInstance();
+        $scopeBindings = $scopeBindingsAttribute
+            ? $scopeBindingsAttribute->newInstance()->scopeBindings
+            : $classRouteAttributes->scopeBindings();
 
-            if ($scopeBindingsAttributeClass->scopeBindings) {
-                $route->scopeBindings();
-            }
-        } elseif ($classRouteAttributes->scopeBindings()) {
-            $route->scopeBindings();
-        }
+        match ($scopeBindings) {
+            true => $route->scopeBindings(),
+            false => $route->withoutScopedBindings(),
+            null => null
+        };
     }
 
     /**
