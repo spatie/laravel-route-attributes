@@ -71,7 +71,7 @@ return [
         app_path('Http/Controllers/Web') => [
             'middleware' => ['web']
         ],
-        
+
         app_path('Http/Controllers/Api') => [
             'prefix' => 'api',
             'middleware' => 'api'
@@ -93,10 +93,10 @@ For controllers outside the applications root namespace directories can also be 
 ],
 ```
 
-If you are using a directory structure where you co-locate multiple types of files in the same directory and want to 
-be more specific about which files are checked for route attributes, you can use the `patterns` and `not_patterns` 
-options. For example, if you are co-locating your tests with your controllers you could use the `patterns` option to only 
-look in controller files, or you could use `not_patterns` to configure it to not look in test files for route 
+If you are using a directory structure where you co-locate multiple types of files in the same directory and want to
+be more specific about which files are checked for route attributes, you can use the `patterns` and `not_patterns`
+options. For example, if you are co-locating your tests with your controllers you could use the `patterns` option to only
+look in controller files, or you could use `not_patterns` to configure it to not look in test files for route
 attributes.
 
 ```php
@@ -168,16 +168,16 @@ use Spatie\RouteAttributes\Attributes\Resource;
 
 #[Prefix('api/v1')]
 #[Resource(
-    resource: 'photos.comments', 
+    resource: 'photos.comments',
     apiResource: true,
-    shallow: true, 
+    shallow: true,
     parameters: ['comments' => 'comment:uuid'],
     names: 'api.v1.photoComments',
     except: ['destroy'],
 )]
 // OR #[ApiResource(resource: 'photos.comments', shallow: true, ...)]
 class PhotoCommentController
-{   
+{
     public function index(Photo $photo)
     {
     }
@@ -382,7 +382,7 @@ class MyController
     }
 }
 ```
-When this is parsed, it will get the value of `domains.main` from the config file and 
+When this is parsed, it will get the value of `domains.main` from the config file and
 register the route as follows;
 
 ```php
@@ -390,7 +390,9 @@ Route::get('my-get-route', [MyController::class, 'myGetMethod'])->domain('exampl
 ```
 
 ### Scoping bindings
-When implicitly binding multiple Eloquent models in a single route definition, you may wish to scope the second Eloquent model such that it must be a child of the previous Eloquent model.  
+
+When implicitly binding multiple Eloquent models in a single route definition, you may wish to scope the second Eloquent model such that it must be a child of the previous Eloquent model.
+
 By adding the `ScopeBindings` annotation, you can enable this behaviour:
 
 ````php
@@ -409,13 +411,24 @@ class MyController
 ````
 
 This is akin to using the `->scopeBindings()` method on the route registrar manually:
+
 ```php
 Route::get('/users/{user}/posts/{post}', function (User $user, Post $post) {
     return $post;
 })->scopeBindings();
 ```
 
-You can also use the annotation on controllers to enable implicitly scoped bindings for all its methods.
+By default, Laravel will enabled scoped bindings on a route when using a custom keyed implicit binding as a nested route parameter, such as `/users/{user}/posts/{post:slug}`.
+
+To disable this behaviour, you can pass `false` to the attribute:
+
+```php
+#[ScopeBindings(false)]
+```
+
+This is the equivalent of calling `->withoutScopedBindings()` on the route registrar manually.
+
+You can also use the annotation on controllers to enable implicitly scoped bindings for all its methods. For any methods where you want to override this, you can pass `false` to the attribute on those methods, just like you would normally.
 
 ### Specifying where
 
@@ -453,7 +466,7 @@ Route::post('my-post-route/{my-where}/{my-alpha-numeric}', [MyController::class,
 
 For convenience, some commonly used regular expression patterns have helper attributes that allow you to quickly add pattern constraints to your routes.
 
-```php 
+```php
 #[WhereAlpha('alpha')]
 #[WhereAlphaNumeric('alpha-numeric')]
 #[WhereIn('in', ['value1', 'value2'])]
