@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.22.0 - 2024-03-24
+
+### What's Changed
+
+* Add support for `withoutScopedBindings` to `ScopeBindings` attribute. by @mikerockett in https://github.com/spatie/laravel-route-attributes/pull/139
+
+### New Contributors
+
+* @mikerockett made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/139
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.21.0...1.22.0
+
 ## 1.21.0 - 2024-02-29
 
 ### What's Changed
