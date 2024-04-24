@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.22.1 - 2024-04-24
+
+### What's Changed
+
+* Added WithTrashed attribute  by @michaelhrivnak in https://github.com/spatie/laravel-route-attributes/pull/141
+
+### New Contributors
+
+* @michaelhrivnak made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/141
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.22.0...1.22.1
+
 ## 1.22.0 - 2024-03-24
 
 ### What's Changed
