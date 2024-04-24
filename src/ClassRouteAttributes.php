@@ -13,6 +13,7 @@ use Spatie\RouteAttributes\Attributes\Resource;
 use Spatie\RouteAttributes\Attributes\RouteAttribute;
 use Spatie\RouteAttributes\Attributes\ScopeBindings;
 use Spatie\RouteAttributes\Attributes\Where;
+use Spatie\RouteAttributes\Attributes\WithTrashed;
 
 class ClassRouteAttributes
 {
@@ -234,6 +235,19 @@ class ClassRouteAttributes
         }
 
         return $defaults;
+    }
+
+    /**
+     * @psalm-suppress NoInterfaceProperties
+     */
+    public function withTrashed() : bool
+    {
+        /** @var ?WithTrashed $attribute */
+        if (! $attribute = $this->getAttribute(WithTrashed::class)) {
+            return false;
+        }
+
+        return $attribute->withTrashed;
     }
 
     protected function getAttribute(string $attributeClass): ?RouteAttribute

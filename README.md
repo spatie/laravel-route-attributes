@@ -556,6 +556,46 @@ Route::get('my-default-route/{param?}/{param2?}/{param3?}', [MyController::class
 Route::get('my-override-route/{param?}', [MyController::class, 'myOverrideMethod'])->setDefaults(['param', 'method-default']);
 ```
 
+### With Trashed
+
+You can use the `WithTrashed` annotation on a class or method to enable WithTrashed bindings to the model.
+You can explicitly override the behaviour using `WithTrashed(false)` if it is applied at the class level
+
+```php
+use Spatie\RouteAttributes\Attributes\Get;
+use Spatie\RouteAttributes\Attributes\Post;
+use Spatie\RouteAttributes\Attributes\WithTrashed;
+
+#[WithTrashed]
+class MyController extends Controller
+{
+    #[Get('my-get-route/{param}')]
+    #[WithTrashed]
+    public function myGetMethod($param)
+    {
+    }
+
+    #[Post('my-post-route/{param}')]
+    #[WithTrashed(false)]    
+    public function myPostMethod($param)
+    {
+    }
+
+    #[Get('my-default-route/{param}')]
+    public function myDefaultMethod($param)
+    {
+    }    
+}
+```
+These annotations will automatically register these routes:
+
+```php
+Route::get('my-get-route/{param}', [MyController::class, 'myGetMethod'])->WithTrashed();
+Route::post('my-post-route/{param}', [MyController::class, 'myPostMethod'])->withTrashed(false);
+Route::get('my-default-route/{param}', [MyController::class, 'myDefaultMethod'])->withTrashed();
+```
+
+
 ## Testing
 
 ``` bash

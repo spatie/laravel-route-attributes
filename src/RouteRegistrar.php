@@ -13,6 +13,7 @@ use Spatie\RouteAttributes\Attributes\Route;
 use Spatie\RouteAttributes\Attributes\RouteAttribute;
 use Spatie\RouteAttributes\Attributes\ScopeBindings;
 use Spatie\RouteAttributes\Attributes\WhereAttribute;
+use Spatie\RouteAttributes\Attributes\WithTrashed;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;
 use Throwable;
@@ -139,7 +140,7 @@ class RouteRegistrar
     protected function registerRoutes(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): void
     {
         foreach ($class->getMethods() as $method) {
-            list($attributes, $wheresAttributes, $defaultAttributes, $fallbackAttributes, $scopeBindingsAttribute) = $this->getAttributesForTheMethod($method);
+            list($attributes, $wheresAttributes, $defaultAttributes, $fallbackAttributes, $scopeBindingsAttribute, $withTrashedAttribute) = $this->getAttributesForTheMethod($method);
 
 
             foreach ($attributes as $attribute) {
@@ -170,6 +171,8 @@ class RouteRegistrar
 
 
                 $this->addMiddlewareToRoute($classRouteAttributes, $attributeClass, $route);
+
+                $this->setWithTrashedIfAvailable($classRouteAttributes, $withTrashedAttribute, $route);
 
 
                 if (count($fallbackAttributes) > 0) {
@@ -209,8 +212,9 @@ class RouteRegistrar
         $defaultAttributes = $method->getAttributes(Defaults::class, ReflectionAttribute::IS_INSTANCEOF);
         $fallbackAttributes = $method->getAttributes(Fallback::class, ReflectionAttribute::IS_INSTANCEOF);
         $scopeBindingsAttribute = $method->getAttributes(ScopeBindings::class, ReflectionAttribute::IS_INSTANCEOF)[0] ?? null;
+        $withTrashedAttribute = $method->getAttributes(WithTrashed::class, ReflectionAttribute::IS_INSTANCEOF)[0] ?? null;
 
-        return [$attributes, $wheresAttributes, $defaultAttributes, $fallbackAttributes, $scopeBindingsAttribute];
+        return [$attributes, $wheresAttributes, $defaultAttributes, $fallbackAttributes, $scopeBindingsAttribute, $withTrashedAttribute];
     }
 
     /**
@@ -274,6 +278,29 @@ class RouteRegistrar
         }
         if (! empty($defaults)) {
             $route->setDefaults($defaults);
+        }
+    }
+
+    /**
+     * @param ClassRouteAttributes $classRouteAttributes
+     * @param ReflectionAttribute|null $withTrashedAttribute
+     * @param \Illuminate\Routing\Route $route
+     * @return void
+     */
+    public function setWithTrashedIfAvailable(ClassRouteAttributes $classRouteAttributes, ?ReflectionAttribute $withTrashedAttribute, \Illuminate\Routing\Route $route): void
+    {
+        $withTrashed = $classRouteAttributes->withTrashed();
+
+
+        if($withTrashedAttribute !== null)
+        {
+            /** @var WithTrashed $instance */
+            $instance = $withTrashedAttribute->newInstance();
+            $route->withTrashed($instance->withTrashed);
+        }
+        else
+        {
+            $route->withTrashed($withTrashed);
         }
     }
 
