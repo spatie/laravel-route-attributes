@@ -20,7 +20,6 @@ class WithTrashedAttributeTest extends TestCase
                 httpMethods: 'get',
                 uri: 'with-trashed-test-method/{param}',
                 withTrashed: true,
-
             )
             ->assertRouteRegistered(
                 WithTrashedTestController::class,

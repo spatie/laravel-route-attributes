@@ -112,7 +112,7 @@ class TestCase extends Orchestra
                     return false;
                 }
 
-                if($route->allowsTrashedBindings() !== $withTrashed){
+                if($route->allowsTrashedBindings() !== $withTrashed) {
                     return false;
                 }
 
