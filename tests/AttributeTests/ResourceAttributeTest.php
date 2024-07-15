@@ -216,6 +216,19 @@ class ResourceAttributeTest extends TestCase
     }
 
     /** @test */
+    public function it_can_register_resource_with_domain_option()
+    {
+        $this->routeRegistrar
+            ->group(
+                ['domain' => 'http://test'],
+                fn() => $this->routeRegistrar->registerClass(ResourceTestFullController::class)
+            );
+
+        $this
+            ->assertRegisteredRoutesCount(7);
+    }
+
+    /** @test */
     public function it_can_register_resource_with_only_few_methods()
     {
         $this->routeRegistrar->registerClass(ResourceTestOnlyController::class);

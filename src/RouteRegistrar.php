@@ -131,10 +131,10 @@ class RouteRegistrar
 
     protected function registerResource(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): void
     {
-        $this->router->group([
+        $this->router->group(array_filter([
             'domain' => $classRouteAttributes->domain(),
             'prefix' => $classRouteAttributes->prefix(),
-        ], $this->getRoutes($class, $classRouteAttributes));
+        ]), $this->getRoutes($class, $classRouteAttributes));
     }
 
     protected function registerRoutes(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): void
