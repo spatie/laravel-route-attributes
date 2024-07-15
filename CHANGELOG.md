@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.22.2 - 2024-07-15
+
+### What's Changed
+
+* Fix resource when has domain by @lloricode in https://github.com/spatie/laravel-route-attributes/pull/144
+
+### New Contributors
+
+* @lloricode made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/144
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.22.1...1.22.2
+
 ## 1.22.1 - 2024-04-24
 
 ### What's Changed
