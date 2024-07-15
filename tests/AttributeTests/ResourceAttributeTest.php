@@ -221,7 +221,7 @@ class ResourceAttributeTest extends TestCase
         $this->routeRegistrar
             ->group(
                 ['domain' => 'http://test'],
-                fn() => $this->routeRegistrar->registerClass(ResourceTestFullController::class)
+                fn () => $this->routeRegistrar->registerClass(ResourceTestFullController::class)
             );
 
         $this
