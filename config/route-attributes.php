@@ -1,12 +1,12 @@
 <?php
 
 return [
-    /*
+    /**
      *  Automatic registration of routes will only happen if this setting is `true`
      */
     'enabled' => true,
 
-    /*
+    /**
      * Controllers in these directories that have routing attributes
      * will automatically be registered.
      *
@@ -14,7 +14,7 @@ return [
      */
     'directories' => [
         app_path('Http/Controllers'),
-        /*
+        /**
         app_path('Http/Controllers/Api') => [
            'prefix' => 'api',
            'middleware' => 'api',
@@ -31,5 +31,16 @@ return [
      */
     'middleware' => [
         \Illuminate\Routing\Middleware\SubstituteBindings::class
-    ]
+    ],
+
+    /**
+     * When enabled, implicitly scoped bindings will be enabled by default.
+     * You can override this behaviour by using the `ScopeBindings` attribute, and passing `false` to it.
+     *
+     * Possible values:
+     *  - null: use the default behaviour
+     *  - true: enable implicitly scoped bindings for all routes
+     *  - false: disable implicitly scoped bindings for all routes
+     */
+    'scope-bindings' => null,
 ];
