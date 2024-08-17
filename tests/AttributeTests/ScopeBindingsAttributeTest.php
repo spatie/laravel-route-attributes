@@ -6,6 +6,7 @@ use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\BindingScoping1TestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\BindingScoping2TestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\BindingScoping3TestController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\BindingScoping4TestController;
 
 class ScopeBindingsAttributeTest extends TestCase
 {
@@ -82,6 +83,33 @@ class ScopeBindingsAttributeTest extends TestCase
                 uri: 'explicitly-enabled-overriding-class/{scoped}/{binding}',
                 enforcesScopedBindings: true,
                 preventsScopedBindings: false
+            );
+    }
+
+
+    /** @test */
+    public function the_registrar_respects_default_scope_bindings_setting_from_config()
+    {
+        config()->set('route-attributes.scope-bindings', true);
+
+        $this->routeRegistrar->registerClass(BindingScoping4TestController::class);
+
+        $this
+            ->assertRegisteredRoutesCount(2)
+            ->assertRouteRegistered(
+                BindingScoping4TestController::class,
+                controllerMethod: 'index',
+                uri: 'default-scoping',
+                enforcesScopedBindings: true,
+                preventsScopedBindings: false
+            )
+            ->assertRouteRegistered(
+                BindingScoping4TestController::class,
+                controllerMethod: 'store',
+                httpMethods: 'post',
+                uri: 'explicitly-disabled-scoping',
+                enforcesScopedBindings: false,
+                preventsScopedBindings: true
             );
     }
 }
