@@ -10,7 +10,6 @@ use Spatie\RouteAttributes\Attributes\ScopeBindings;
 
 final class BindingScoping4TestController
 {
-
     #[Get('default-scoping')]
     public function index()
     {
@@ -23,5 +22,4 @@ final class BindingScoping4TestController
     {
 
     }
-
 }

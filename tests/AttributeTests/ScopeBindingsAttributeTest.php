@@ -86,7 +86,6 @@ class ScopeBindingsAttributeTest extends TestCase
             );
     }
 
-
     /** @test */
     public function the_registrar_respects_default_scope_bindings_setting_from_config()
     {
