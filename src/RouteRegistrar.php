@@ -116,17 +116,19 @@ class RouteRegistrar
         $class = new ReflectionClass($className);
 
         $classRouteAttributes = new ClassRouteAttributes($class);
-
-        if ($classRouteAttributes->resource()) {
-            $this->registerResource($class, $classRouteAttributes);
-        }
-
+        
         $groups = $classRouteAttributes->groups();
-
+        
         foreach ($groups as $group) {
             $router = $this->router;
             $router->group($group, fn () => $this->registerRoutes($class, $classRouteAttributes));
         }
+        
+        if ($classRouteAttributes->resource()) {
+            $this->registerResource($class, $classRouteAttributes);
+        }
+
+       
     }
 
     protected function registerResource(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): void
