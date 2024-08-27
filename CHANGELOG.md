@@ -2,6 +2,21 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.23.0 - 2024-08-27
+
+### What's Changed
+
+* Prevent resource method take precedence over normal method. by @hvsy in https://github.com/spatie/laravel-route-attributes/pull/146
+* Bump dependabot/fetch-metadata from 1.6.0 to 2.1.0 by @dependabot in https://github.com/spatie/laravel-route-attributes/pull/142
+* Default scope bindings setting by @przemyslaw-przylucki in https://github.com/spatie/laravel-route-attributes/pull/145
+
+### New Contributors
+
+* @hvsy made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/146
+* @przemyslaw-przylucki made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/145
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.22.2...1.23.0
+
 ## 1.22.2 - 2024-07-15
 
 ### What's Changed
