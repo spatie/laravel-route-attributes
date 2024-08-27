@@ -26,10 +26,21 @@ return [
         */
     ],
 
-    /**
+    /*
      * This middleware will be applied to all routes.
      */
     'middleware' => [
         \Illuminate\Routing\Middleware\SubstituteBindings::class
-    ]
+    ],
+
+    /*
+     * When enabled, implicitly scoped bindings will be enabled by default.
+     * You can override this behaviour by using the `ScopeBindings` attribute, and passing `false` to it.
+     *
+     * Possible values:
+     *  - null: use the default behaviour
+     *  - true: enable implicitly scoped bindings for all routes
+     *  - false: disable implicitly scoped bindings for all routes
+     */
+    'scope-bindings' => null,
 ];

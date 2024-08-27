@@ -198,7 +198,7 @@ class ClassRouteAttributes
     {
         /** @var ScopeBindings $attribute */
         if (! $attribute = $this->getAttribute(ScopeBindings::class)) {
-            return null;
+            return config('route-attributes.scope-bindings');
         }
 
         return $attribute->scopeBindings;
