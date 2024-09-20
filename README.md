@@ -5,7 +5,7 @@
 [![Type Coverage](https://shepherd.dev/github/spatie/laravel-route-attributes/coverage.svg)](https://shepherd.dev/github/spatie/laravel-route-attributes)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/laravel-route-attributes.svg?style=flat-square)](https://packagist.org/packages/spatie/laravel-route-attributes)
 
-This package provides annotations to automatically register routes. Here's a quick example:
+This package provides attributes to automatically register routes. Here's a quick example:
 
 ```php
 use Spatie\RouteAttributes\Attributes\Get;
