@@ -294,7 +294,7 @@ class RouteRegistrar
         $withTrashed = $classRouteAttributes->withTrashed();
 
 
-        if($withTrashedAttribute !== null) {
+        if ($withTrashedAttribute !== null) {
             /** @var WithTrashed $instance */
             $instance = $withTrashedAttribute->newInstance();
             $route->withTrashed($instance->withTrashed);
