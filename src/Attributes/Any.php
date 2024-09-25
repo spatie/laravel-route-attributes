@@ -5,7 +5,7 @@ namespace Spatie\RouteAttributes\Attributes;
 use Attribute;
 use Illuminate\Routing\Router;
 
-#[Attribute(Attribute::TARGET_METHOD)]
+#[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
 class Any extends Route
 {
     public function __construct(
