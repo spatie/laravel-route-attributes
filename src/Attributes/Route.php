@@ -6,7 +6,7 @@ use Attribute;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
 
-#[Attribute(Attribute::TARGET_METHOD)]
+#[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
 class Route implements RouteAttribute
 {
     public array $methods;
