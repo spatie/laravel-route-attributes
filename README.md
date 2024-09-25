@@ -105,7 +105,7 @@ attributes.
         // only register routes in files that match the patterns
         'patterns' => ['*Controller.php'],
         // do not register routes in files that match the patterns
-        'not_patterns => ['*Test.php'],
+        'not_patterns' => ['*Test.php'],
     ],
 ],
 ```
