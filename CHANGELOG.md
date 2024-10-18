@@ -2,6 +2,22 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.24.0 - 2024-10-18
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.1.0 to 2.2.0 by @dependabot in https://github.com/spatie/laravel-route-attributes/pull/147
+* Update README.md by @parijke in https://github.com/spatie/laravel-route-attributes/pull/148
+* Typo in readme is fixed by closing single quote by @moe-mizrak in https://github.com/spatie/laravel-route-attributes/pull/149
+* Make Route and Any repeatable attributes by @Tofandel in https://github.com/spatie/laravel-route-attributes/pull/150
+
+### New Contributors
+
+* @parijke made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/148
+* @moe-mizrak made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/149
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.23.0...1.24.0
+
 ## 1.23.0 - 2024-08-27
 
 ### What's Changed
