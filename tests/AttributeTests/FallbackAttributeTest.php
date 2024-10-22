@@ -14,6 +14,12 @@ class FallbackAttributeTest extends TestCase
 
         $this
             ->assertRegisteredRoutesCount(1)
-            ->assertRouteRegistered(FallbackTestController::class, 'myFallbackMethod', 'get', 'my-fallback-method', [], null, null, [], true);
+            ->assertRouteRegistered(
+                controller: FallbackTestController::class,
+                controllerMethod: 'myFallbackMethod',
+                httpMethods: 'get',
+                uri: 'my-fallback-method',
+                isFallback: true
+            );
     }
 }

@@ -40,28 +40,34 @@ class TestCase extends Orchestra
     }
 
     public function assertRouteRegistered(
-        string $controller,
-        string $controllerMethod = 'myMethod',
-        string | array $httpMethods = ['get'],
-        string $uri = 'my-method',
-        string | array $middleware = [],
-        ?string $name = null,
-        ?string $domain = null,
-        ?array $wheres = [],
-        ?bool $isFallback = false,
-        ?bool $enforcesScopedBindings = false,
-        ?bool $preventsScopedBindings = false,
-        ?array $defaults = [],
-        ?bool $withTrashed = false,
-    ): self {
-        if (! is_array($middleware)) {
+        string       $controller,
+        string       $controllerMethod = 'myMethod',
+        string|array $httpMethods = ['get'],
+        string       $uri = 'my-method',
+        string|array $middleware = [],
+        string|array $withoutMiddleware = [],
+        ?string      $name = null,
+        ?string      $domain = null,
+        ?array       $wheres = [],
+        ?bool        $isFallback = false,
+        ?bool        $enforcesScopedBindings = false,
+        ?bool        $preventsScopedBindings = false,
+        ?array       $defaults = [],
+        ?bool        $withTrashed = false,
+    ): self
+    {
+        if (!is_array($middleware)) {
             $middleware = Arr::wrap($middleware);
         }
 
+        if (!is_array($withoutMiddleware)) {
+            $withoutMiddleware = Arr::wrap($withoutMiddleware);
+        }
+
         $routeRegistered = collect($this->getRouteCollection()->getRoutes())
-            ->contains(function (Route $route) use ($name, $middleware, $controllerMethod, $controller, $uri, $httpMethods, $domain, $wheres, $isFallback, $enforcesScopedBindings, $preventsScopedBindings, $defaults, $withTrashed) {
+            ->contains(function (Route $route) use ($name, $middleware, $withoutMiddleware, $controllerMethod, $controller, $uri, $httpMethods, $domain, $wheres, $isFallback, $enforcesScopedBindings, $preventsScopedBindings, $defaults, $withTrashed) {
                 foreach (Arr::wrap($httpMethods) as $httpMethod) {
-                    if (! in_array(strtoupper($httpMethod), $route->methods)) {
+                    if (!in_array(strtoupper($httpMethod), $route->methods)) {
                         return false;
                     }
                 }
@@ -81,6 +87,10 @@ class TestCase extends Orchestra
                 }
 
                 if (array_diff(array_merge($middleware, $this->routeRegistrar->middleware()), $route->middleware())) {
+                    return false;
+                }
+
+                if (array_diff($withoutMiddleware, $route->excludedMiddleware())) {
                     return false;
                 }
 

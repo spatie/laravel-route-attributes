@@ -13,11 +13,14 @@ class Route implements RouteAttribute
 
     public array $middleware;
 
+    public array $withoutMiddleware;
+
     public function __construct(
         array | string $methods,
         public string $uri,
         public ?string $name = null,
         array | string $middleware = [],
+        array | string $withoutMiddleware = [],
     ) {
         $this->methods = array_map(
             static fn (string $verb) => in_array(
@@ -29,5 +32,6 @@ class Route implements RouteAttribute
             Arr::wrap($methods)
         );
         $this->middleware = Arr::wrap($middleware);
+        $this->withoutMiddleware = Arr::wrap($withoutMiddleware);
     }
 }
