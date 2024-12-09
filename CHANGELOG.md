@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.25.0 - 2024-12-09
+
+### What's Changed
+
+* Add WithoutMiddleware option to route by @mikield in https://github.com/spatie/laravel-route-attributes/pull/151
+
+### New Contributors
+
+* @mikield made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/151
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.24.0...1.25.0
+
 ## 1.24.0 - 2024-10-18
 
 ### What's Changed
