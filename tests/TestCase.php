@@ -54,20 +54,19 @@ class TestCase extends Orchestra
         ?bool        $preventsScopedBindings = false,
         ?array       $defaults = [],
         ?bool        $withTrashed = false,
-    ): self
-    {
-        if (!is_array($middleware)) {
+    ): self {
+        if (! is_array($middleware)) {
             $middleware = Arr::wrap($middleware);
         }
 
-        if (!is_array($withoutMiddleware)) {
+        if (! is_array($withoutMiddleware)) {
             $withoutMiddleware = Arr::wrap($withoutMiddleware);
         }
 
         $routeRegistered = collect($this->getRouteCollection()->getRoutes())
             ->contains(function (Route $route) use ($name, $middleware, $withoutMiddleware, $controllerMethod, $controller, $uri, $httpMethods, $domain, $wheres, $isFallback, $enforcesScopedBindings, $preventsScopedBindings, $defaults, $withTrashed) {
                 foreach (Arr::wrap($httpMethods) as $httpMethod) {
-                    if (!in_array(strtoupper($httpMethod), $route->methods)) {
+                    if (! in_array(strtoupper($httpMethod), $route->methods)) {
                         return false;
                     }
                 }
