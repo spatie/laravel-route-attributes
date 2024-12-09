@@ -11,12 +11,14 @@ class Delete extends Route
         string $uri,
         ?string $name = null,
         array | string $middleware = [],
+        array | string $withoutMiddleware = [],
     ) {
         parent::__construct(
             methods: ['delete'],
             uri: $uri,
             name: $name,
             middleware: $middleware,
+            withoutMiddleware: $withoutMiddleware
         );
     }
 }

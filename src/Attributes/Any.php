@@ -12,12 +12,14 @@ class Any extends Route
         string $uri,
         ?string $name = null,
         array | string $middleware = [],
+        array | string $withoutMiddleware = [],
     ) {
         parent::__construct(
             methods: Router::$verbs,
             uri: $uri,
             name: $name,
             middleware: $middleware,
+            withoutMiddleware: $withoutMiddleware
         );
     }
 }

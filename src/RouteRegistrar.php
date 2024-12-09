@@ -116,19 +116,19 @@ class RouteRegistrar
         $class = new ReflectionClass($className);
 
         $classRouteAttributes = new ClassRouteAttributes($class);
-        
+
         $groups = $classRouteAttributes->groups();
-        
+
         foreach ($groups as $group) {
             $router = $this->router;
             $router->group($group, fn () => $this->registerRoutes($class, $classRouteAttributes));
         }
-        
+
         if ($classRouteAttributes->resource()) {
             $this->registerResource($class, $classRouteAttributes);
         }
 
-       
+
     }
 
     protected function registerResource(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): void
@@ -173,6 +173,9 @@ class RouteRegistrar
 
 
                 $this->addMiddlewareToRoute($classRouteAttributes, $attributeClass, $route);
+
+                $this->addWithoutMiddlewareToRoute($classRouteAttributes, $attributeClass, $route);
+
 
                 $this->setWithTrashedIfAvailable($classRouteAttributes, $withTrashedAttribute, $route);
 
@@ -262,6 +265,18 @@ class RouteRegistrar
         $classMiddleware = $classRouteAttributes->middleware();
         $methodMiddleware = $attributeClass->middleware;
         $route->middleware([...$this->middleware, ...$classMiddleware, ...$methodMiddleware]);
+    }
+
+    /**
+     * @param ClassRouteAttributes $classRouteAttributes
+     * @param Route $attributeClass
+     * @param \Illuminate\Routing\Route $route
+     * @return void
+     */
+    private function addWithoutMiddlewareToRoute(ClassRouteAttributes $classRouteAttributes, Route $attributeClass, \Illuminate\Routing\Route $route): void
+    {
+        $methodWithoutMiddleware = $attributeClass->withoutMiddleware;
+        $route->withoutMiddleware($methodWithoutMiddleware);
     }
 
     /**
