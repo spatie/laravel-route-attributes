@@ -7,6 +7,7 @@ use Spatie\RouteAttributes\Attributes\Post;
 use Spatie\RouteAttributes\Attributes\Prefix;
 
 #[Prefix('my-prefix')]
+#[Prefix('my-second-prefix')]
 class PrefixTestController
 {
     #[Get('/')]

@@ -25,14 +25,18 @@ class ClassRouteAttributes
     /**
      * @psalm-suppress NoInterfaceProperties
      */
-    public function prefix(): ?string
+    public function prefix(): array
     {
-        /** @var Prefix $attribute */
-        if (! $attribute = $this->getAttribute(Prefix::class)) {
-            return null;
+        $prefixes = [];
+
+        /** @var ReflectionClass[] $attributes */
+        $attributes = $this->class->getAttributes(Prefix::class, \ReflectionAttribute::IS_INSTANCEOF);
+        foreach ($attributes as $attribute) {
+            $attributeClass = $attribute->newInstance();
+            $prefixes[] = $attributeClass->prefix;
         }
 
-        return $attribute->prefix;
+        return $prefixes;
     }
 
     /**
@@ -81,10 +85,13 @@ class ClassRouteAttributes
                 ]);
             }
         } else {
-            $groups[] = array_filter([
-                'domain' => $this->domainFromConfig() ?? $this->domain(),
-                'prefix' => $this->prefix(),
-            ]);
+            $prefixes = $this->prefix();
+            foreach ($prefixes as $prefix) {
+                $groups[] = array_filter([
+                    'domain' => $this->domainFromConfig() ?? $this->domain(),
+                    'prefix' => $prefix,
+                ]);
+            }
         }
 
         return $groups;
