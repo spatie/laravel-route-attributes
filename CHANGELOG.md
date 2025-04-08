@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.25.2 - 2025-04-08
+
+### What's Changed
+
+* Create RouteRegistrar with DI instead of literal instantiation by @gvlasov in https://github.com/spatie/laravel-route-attributes/pull/160
+
+### New Contributors
+
+* @gvlasov made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/160
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.25.1...1.25.2
+
 ## 1.25.1 - 2025-02-21
 
 ### What's Changed
