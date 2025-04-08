@@ -29,7 +29,7 @@ class RouteAttributesServiceProvider extends ServiceProvider
             return;
         }
 
-        $routeRegistrar = (new RouteRegistrar(app()->router))
+        $routeRegistrar = $this->app->make(RouteRegistrar::class, [app()->router])
             ->useMiddleware(config('route-attributes.middleware') ?? []);
 
         collect($this->getRouteDirectories())->each(function (string|array $directory, string|int $namespace) use ($routeRegistrar) {
