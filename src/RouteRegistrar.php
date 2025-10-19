@@ -75,7 +75,12 @@ class RouteRegistrar
 
         $files = (new Finder())->files()->in($directories)->name($patterns)->notName($notPatterns)->sortByName();
 
-        collect($files)->each(fn (SplFileInfo $file) => $this->registerFile($file));
+        // Sort files to prioritize those with domain routes first
+        $sortedFiles = collect($files)->sortByDesc(function (SplFileInfo $file) {
+            return $this->fileHasDomainRoutes($file);
+        });
+
+        $sortedFiles->each(fn (SplFileInfo $file) => $this->registerFile($file));
     }
 
     public function registerFile(string | SplFileInfo $path): void
@@ -118,6 +123,19 @@ class RouteRegistrar
         $classRouteAttributes = new ClassRouteAttributes($class);
 
         $groups = $classRouteAttributes->groups();
+
+        usort($groups, function ($a, $b) {
+            $aDomain = !empty($a['domain'] ?? null);
+            $bDomain = !empty($b['domain'] ?? null);
+            
+            if ($aDomain && !$bDomain) {
+                return -1; // $a has domain, $b doesn't - $a comes first
+            }
+            if (!$aDomain && $bDomain) {
+                return 1; // $b has domain, $a doesn't - $b comes first
+            }
+            return 0; // Both have domain or both don't have domain - maintain order
+        });
 
         foreach ($groups as $group) {
             $router = $this->router;
@@ -348,5 +366,35 @@ class RouteRegistrar
 
             $route->middleware([...$this->middleware, ...$classRouteAttributes->middleware()]);
         };
+    }
+
+    /**
+     * Check if a file contains controllers with domain attributes
+     */
+    protected function fileHasDomainRoutes(SplFileInfo $file): bool
+    {
+        try {
+            $fullyQualifiedClassName = $this->fullQualifiedClassNameFromFile($file);
+            
+            if (!class_exists($fullyQualifiedClassName)) {
+                return false;
+            }
+
+            $class = new ReflectionClass($fullyQualifiedClassName);
+            $classRouteAttributes = new ClassRouteAttributes($class);
+            
+            // Check if any of the route groups have domain configuration
+            $groups = $classRouteAttributes->groups();
+            foreach ($groups as $group) {
+                if (!empty($group['domain'] ?? null)) {
+                    return true;
+                }
+            }
+            
+            return false;
+            
+        } catch (Throwable) {
+            return false;
+        }
     }
 }
