@@ -75,12 +75,39 @@ class RouteRegistrar
 
         $files = (new Finder())->files()->in($directories)->name($patterns)->notName($notPatterns)->sortByName();
 
-        // Sort files to prioritize those with domain routes first
-        $sortedFiles = collect($files)->sortByDesc(function (SplFileInfo $file) {
-            return $this->fileHasDomainRoutes($file);
+        // Collect all groups from all files first
+        $allGroups = collect();
+
+        foreach ($files as $file) {
+            $className = $this->fullQualifiedClassNameFromFile($file);
+
+            if (! class_exists($className)) {
+                continue;
+            }
+
+            $class = new ReflectionClass($className);
+            $classRouteAttributes = new ClassRouteAttributes($class);
+            $groups = $classRouteAttributes->groups();
+
+            foreach ($groups as $group) {
+                $allGroups->push([
+                    'class' => $class,
+                    'classRouteAttributes' => $classRouteAttributes,
+                    'group' => $group,
+                ]);
+            }
+        }
+
+        // Sort all groups globally - domain groups first, then non-domain groups
+        $sortedGroups = $allGroups->sortByDesc(function ($item) {
+            return !empty($item['group']['domain'] ?? null);
         });
 
-        $sortedFiles->each(fn (SplFileInfo $file) => $this->registerFile($file));
+        // Process all groups in the correct order
+        foreach ($sortedGroups as $item) {
+            $router = $this->router;
+            $router->group($item['group'], fn () => $this->registerRoutes($item['class'], $item['classRouteAttributes']));
+        }
     }
 
     public function registerFile(string | SplFileInfo $path): void
@@ -124,10 +151,12 @@ class RouteRegistrar
 
         $groups = $classRouteAttributes->groups();
 
+        // Note: When called from registerDirectory, groups are already globally sorted
+        // This sorting is only for individual registerClass calls
         usort($groups, function ($a, $b) {
             $aDomain = !empty($a['domain'] ?? null);
             $bDomain = !empty($b['domain'] ?? null);
-            
+
             return $bDomain <=> $aDomain; // Domain routes come first
         });
 
@@ -369,14 +398,14 @@ class RouteRegistrar
     {
         try {
             $fullyQualifiedClassName = $this->fullQualifiedClassNameFromFile($file);
-            
+
             if (!class_exists($fullyQualifiedClassName)) {
                 return false;
             }
 
             $class = new ReflectionClass($fullyQualifiedClassName);
             $classRouteAttributes = new ClassRouteAttributes($class);
-            
+
             // Check if any of the route groups have domain configuration
             $groups = $classRouteAttributes->groups();
             foreach ($groups as $group) {
@@ -384,9 +413,9 @@ class RouteRegistrar
                     return true;
                 }
             }
-            
+
             return false;
-            
+
         } catch (Throwable) {
             return false;
         }
