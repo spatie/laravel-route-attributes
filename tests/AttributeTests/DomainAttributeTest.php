@@ -3,6 +3,7 @@
 namespace Spatie\RouteAttributes\Tests\AttributeTests;
 
 use Spatie\RouteAttributes\Tests\TestCase;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\DomainOrderTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\DomainTestController;
 
 class DomainAttributeTest extends TestCase
@@ -67,5 +68,18 @@ class DomainAttributeTest extends TestCase
             $lastDomainIndex,
             'All domain routes should be registered before all non-domain routes',
         );
+    }
+
+    /** @test */
+    public function it_registers_domain_routes_before_other_routes_in_domain_order_test_controller()
+    {
+        $this->routeRegistrar->registerClass(DomainOrderTestController::class);
+
+        $routes = $this->assertRegisteredRoutesCount(4)->getRouteCollection()->getRoutes();
+
+        $this->assertNotNull($routes[0]->domain());
+        $this->assertNotNull($routes[1]->domain());
+        $this->assertNull($routes[2]->domain());
+        $this->assertNull($routes[3]->domain());
     }
 }

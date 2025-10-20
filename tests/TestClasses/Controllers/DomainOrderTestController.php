@@ -6,8 +6,8 @@ use Spatie\RouteAttributes\Attributes\Get;
 use Spatie\RouteAttributes\Attributes\Group;
 use Spatie\RouteAttributes\Attributes\Post;
 
-#[Group(domain: 'domain.localhost', prefix: 'my-prefix')]
 #[Group(prefix: 'my-second-prefix')]
+#[Group(domain: 'domain.localhost', prefix: 'my-prefix')]
 class DomainOrderTestController
 {
     #[Get('my-get-method')]
