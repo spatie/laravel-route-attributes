@@ -28,4 +28,44 @@ class DomainAttributeTest extends TestCase
                 domain: 'my-subdomain.localhost'
             );
     }
+
+    /** @test */
+    public function it_registers_domain_files_before_non_domain_files()
+    {
+        // Use registerDirectory to test file-level domain ordering
+        $this->routeRegistrar->registerDirectory($this->getTestPath('TestClasses/Controllers'));
+        $routes = collect($this->getRouteCollection()->getRoutes());
+
+        // Find all domain routes and non-domain routes
+        $domainRoutes = $routes->filter(fn($route) => $route->getDomain() !== null);
+        $nonDomainRoutes = $routes->filter(fn($route) => $route->getDomain() === null);
+
+        // Get the last index of domain routes and first index of non-domain routes
+        $allRoutes = $routes->values();
+
+        // Find the last domain route index
+        $lastDomainIndex = null;
+        foreach ($domainRoutes as $domainRoute) {
+            $index = $allRoutes->search($domainRoute);
+            if ($lastDomainIndex === null || $index > $lastDomainIndex) {
+                $lastDomainIndex = $index;
+            }
+        }
+
+        // Find the first non-domain route index
+        $firstNonDomainIndex = null;
+        foreach ($nonDomainRoutes as $nonDomainRoute) {
+            $index = $allRoutes->search($nonDomainRoute);
+            if ($firstNonDomainIndex === null || $index < $firstNonDomainIndex) {
+                $firstNonDomainIndex = $index;
+            }
+        }
+
+        // All domain routes should come before all non-domain routes
+        $this->assertLessThan(
+            $firstNonDomainIndex,
+            $lastDomainIndex,
+            'All domain routes should be registered before all non-domain routes',
+        );
+    }
 }
