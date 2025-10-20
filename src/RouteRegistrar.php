@@ -153,11 +153,11 @@ class RouteRegistrar
 
         // Note: When called from registerDirectory, groups are already globally sorted
         // This sorting is only for individual registerClass calls
-        usort($groups, function ($a, $b) {
-            $aDomain = !empty($a['domain'] ?? null);
-            $bDomain = !empty($b['domain'] ?? null);
+        usort($groups, function (array $group1, array $group2) {
+            $domain1 = !empty($group1['domain'] ?? null);
+            $domain2 = !empty($group2['domain'] ?? null);
 
-            return $bDomain <=> $aDomain; // Domain routes come first
+            return $domain2 <=> $domain1; // Domain routes come first
         });
 
         foreach ($groups as $group) {
