@@ -128,13 +128,7 @@ class RouteRegistrar
             $aDomain = !empty($a['domain'] ?? null);
             $bDomain = !empty($b['domain'] ?? null);
             
-            if ($aDomain && !$bDomain) {
-                return -1; // $a has domain, $b doesn't - $a comes first
-            }
-            if (!$aDomain && $bDomain) {
-                return 1; // $b has domain, $a doesn't - $b comes first
-            }
-            return 0; // Both have domain or both don't have domain - maintain order
+            return $bDomain <=> $aDomain; // Domain routes come first
         });
 
         foreach ($groups as $group) {
