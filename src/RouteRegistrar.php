@@ -390,34 +390,4 @@ class RouteRegistrar
             $route->middleware([...$this->middleware, ...$classRouteAttributes->middleware()]);
         };
     }
-
-    /**
-     * Check if a file contains controllers with domain attributes
-     */
-    protected function fileHasDomainRoutes(SplFileInfo $file): bool
-    {
-        try {
-            $fullyQualifiedClassName = $this->fullQualifiedClassNameFromFile($file);
-
-            if (!class_exists($fullyQualifiedClassName)) {
-                return false;
-            }
-
-            $class = new ReflectionClass($fullyQualifiedClassName);
-            $classRouteAttributes = new ClassRouteAttributes($class);
-
-            // Check if any of the route groups have domain configuration
-            $groups = $classRouteAttributes->groups();
-            foreach ($groups as $group) {
-                if (!empty($group['domain'] ?? null)) {
-                    return true;
-                }
-            }
-
-            return false;
-
-        } catch (Throwable) {
-            return false;
-        }
-    }
 }
