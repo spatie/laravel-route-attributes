@@ -4,7 +4,7 @@ namespace Spatie\RouteAttributes;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
+use PhpToken;
 use ReflectionAttribute;
 use ReflectionClass;
 use Spatie\RouteAttributes\Attributes\Defaults;
@@ -96,15 +96,60 @@ class RouteRegistrar
 
     protected function fullQualifiedClassNameFromFile(SplFileInfo $file): string
     {
-        $class = trim(Str::replaceFirst($this->basePath, '', $file->getRealPath()), DIRECTORY_SEPARATOR);
+        $path = $file->getRealPath();
+        if ($path === false) {
+            return '';
+        }
 
-        $class = str_replace(
-            [DIRECTORY_SEPARATOR, 'App\\'],
-            ['\\', app()->getNamespace()],
-            ucfirst(Str::replaceLast('.php', '', $class))
-        );
+        $code = file_get_contents($path);
+        if ($code === false || $code === '') {
+            return '';
+        }
 
-        return $this->rootNamespace . $class;
+        $tokens = PhpToken::tokenize($code);
+        $count = count($tokens);
+
+        $namespace = '';
+        $found = [];
+
+        for ($i = 0; $i < $count; $i++) {
+            $t = $tokens[$i];
+
+            if ($t->is(T_NAMESPACE)) {
+                $namespace = '';
+                for ($j = $i + 1; $j < $count; $j++) {
+                    $tj = $tokens[$j];
+                    if ($tj->is(T_NAME_QUALIFIED) || $tj->is(T_STRING) || $tj->is(T_NS_SEPARATOR)) {
+                        $namespace .= $tj->text;
+
+                        continue;
+                    }
+                    if ($tj->text === ';' || $tj->text === '{') {
+                        break;
+                    }
+                }
+
+                continue;
+            }
+
+            if ($t->is(T_CLASS) || $t->is(T_INTERFACE) || $t->is(T_TRAIT) || (defined('T_ENUM') && $t->is(T_ENUM))) {
+                $j = $i + 1;
+                while ($j < $count && $tokens[$j]->is(T_WHITESPACE)) {
+                    $j++;
+                }
+                if ($j >= $count || ! $tokens[$j]->is(T_STRING)) {
+                    continue;
+                }
+
+                $name = $tokens[$j]->text;
+                $fqn = ltrim(($namespace !== '' ? $namespace.'\\' : '').$name, '\\');
+                $found[] = $fqn;
+
+                return $fqn;
+            }
+        }
+
+        return $found[0] ?? '';
     }
 
     protected function processAttributes(string $className): void
