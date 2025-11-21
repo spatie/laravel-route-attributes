@@ -75,7 +75,39 @@ class RouteRegistrar
 
         $files = (new Finder())->files()->in($directories)->name($patterns)->notName($notPatterns)->sortByName();
 
-        collect($files)->each(fn (SplFileInfo $file) => $this->registerFile($file));
+        // Collect all groups from all files first
+        $allGroups = collect();
+
+        foreach ($files as $file) {
+            $className = $this->fullQualifiedClassNameFromFile($file);
+
+            if (! class_exists($className)) {
+                continue;
+            }
+
+            $class = new ReflectionClass($className);
+            $classRouteAttributes = new ClassRouteAttributes($class);
+            $groups = $classRouteAttributes->groups();
+
+            foreach ($groups as $group) {
+                $allGroups->push([
+                    'class' => $class,
+                    'classRouteAttributes' => $classRouteAttributes,
+                    'group' => $group,
+                ]);
+            }
+        }
+
+        // Sort all groups globally - domain groups first, then non-domain groups
+        $sortedGroups = $allGroups->sortByDesc(function ($item) {
+            return !empty($item['group']['domain'] ?? null);
+        });
+
+        // Process all groups in the correct order
+        foreach ($sortedGroups as $item) {
+            $router = $this->router;
+            $router->group($item['group'], fn () => $this->registerRoutes($item['class'], $item['classRouteAttributes']));
+        }
     }
 
     public function registerFile(string | SplFileInfo $path): void
@@ -118,6 +150,15 @@ class RouteRegistrar
         $classRouteAttributes = new ClassRouteAttributes($class);
 
         $groups = $classRouteAttributes->groups();
+
+        // Note: When called from registerDirectory, groups are already globally sorted
+        // This sorting is only for individual registerClass calls
+        usort($groups, function (array $group1, array $group2) {
+            $domain1 = !empty($group1['domain'] ?? null);
+            $domain2 = !empty($group2['domain'] ?? null);
+
+            return $domain2 <=> $domain1; // Domain routes come first
+        });
 
         foreach ($groups as $group) {
             $router = $this->router;
