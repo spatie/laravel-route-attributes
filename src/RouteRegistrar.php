@@ -4,6 +4,7 @@ namespace Spatie\RouteAttributes;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use ReflectionAttribute;
 use ReflectionClass;
@@ -75,39 +76,41 @@ class RouteRegistrar
 
         $files = (new Finder())->files()->in($directories)->name($patterns)->notName($notPatterns)->sortByName();
 
-        // Collect all groups from all files first
-        $allGroups = collect();
+        $this
+            ->collectGroupsFromFiles($files)
+            ->sortByDesc(fn ($item) => ! empty($item['group']['domain'] ?? null))
+            ->each(fn ($item) => $this->registerGroupedRoutes($item));
+    }
 
-        foreach ($files as $file) {
-            $className = $this->fullQualifiedClassNameFromFile($file);
+    protected function collectGroupsFromFiles(Finder $files): Collection
+    {
+        return collect($files)
+            ->map(fn ($file) => $this->fullQualifiedClassNameFromFile($file))
+            ->filter(fn ($className) => class_exists($className))
+            ->map(fn ($className) => [
+                'class' => new ReflectionClass($className),
+                'classRouteAttributes' => new ClassRouteAttributes(new ReflectionClass($className)),
+            ])
+            ->flatMap(fn ($item) => $this->expandClassIntoGroups($item));
+    }
 
-            if (! class_exists($className)) {
-                continue;
-            }
+    protected function expandClassIntoGroups(array $classData): array
+    {
+        return collect($classData['classRouteAttributes']->groups())
+            ->map(fn ($group) => [
+                'class' => $classData['class'],
+                'classRouteAttributes' => $classData['classRouteAttributes'],
+                'group' => $group,
+            ])
+            ->all();
+    }
 
-            $class = new ReflectionClass($className);
-            $classRouteAttributes = new ClassRouteAttributes($class);
-            $groups = $classRouteAttributes->groups();
-
-            foreach ($groups as $group) {
-                $allGroups->push([
-                    'class' => $class,
-                    'classRouteAttributes' => $classRouteAttributes,
-                    'group' => $group,
-                ]);
-            }
-        }
-
-        // Sort all groups globally - domain groups first, then non-domain groups
-        $sortedGroups = $allGroups->sortByDesc(function ($item) {
-            return ! empty($item['group']['domain'] ?? null);
-        });
-
-        // Process all groups in the correct order
-        foreach ($sortedGroups as $item) {
-            $router = $this->router;
-            $router->group($item['group'], fn () => $this->registerRoutes($item['class'], $item['classRouteAttributes']));
-        }
+    protected function registerGroupedRoutes(array $item): void
+    {
+        $this->router->group(
+            $item['group'],
+            fn () => $this->registerRoutes($item['class'], $item['classRouteAttributes'])
+        );
     }
 
     public function registerFile(string | SplFileInfo $path): void
@@ -183,7 +186,7 @@ class RouteRegistrar
     protected function registerRoutes(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): void
     {
         foreach ($class->getMethods() as $method) {
-            list($attributes, $wheresAttributes, $defaultAttributes, $fallbackAttributes, $scopeBindingsAttribute, $withTrashedAttribute) = $this->getAttributesForTheMethod($method);
+            [$attributes, $wheresAttributes, $defaultAttributes, $fallbackAttributes, $scopeBindingsAttribute, $withTrashedAttribute] = $this->getAttributesForTheMethod($method);
 
 
             foreach ($attributes as $attribute) {
@@ -198,7 +201,7 @@ class RouteRegistrar
                 }
 
 
-                list($httpMethods, $action) = $this->getHTTPMethodsAndAction($attributeClass, $method, $class);
+                [$httpMethods, $action] = $this->getHTTPMethodsAndAction($attributeClass, $method, $class);
 
 
                 $route = $this->router->addRoute($httpMethods, $attributeClass->uri, $action)->name($attributeClass->name);
