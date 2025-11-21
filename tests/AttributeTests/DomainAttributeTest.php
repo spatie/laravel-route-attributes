@@ -38,8 +38,8 @@ class DomainAttributeTest extends TestCase
         $routes = collect($this->getRouteCollection()->getRoutes());
 
         // Find all domain routes and non-domain routes
-        $domainRoutes = $routes->filter(fn($route) => $route->getDomain() !== null);
-        $nonDomainRoutes = $routes->filter(fn($route) => $route->getDomain() === null);
+        $domainRoutes = $routes->filter(fn ($route) => $route->getDomain() !== null);
+        $nonDomainRoutes = $routes->filter(fn ($route) => $route->getDomain() === null);
 
         // Get the last index of domain routes and first index of non-domain routes
         $allRoutes = $routes->values();

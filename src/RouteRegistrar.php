@@ -100,7 +100,7 @@ class RouteRegistrar
 
         // Sort all groups globally - domain groups first, then non-domain groups
         $sortedGroups = $allGroups->sortByDesc(function ($item) {
-            return !empty($item['group']['domain'] ?? null);
+            return ! empty($item['group']['domain'] ?? null);
         });
 
         // Process all groups in the correct order
@@ -154,8 +154,8 @@ class RouteRegistrar
         // Note: When called from registerDirectory, groups are already globally sorted
         // This sorting is only for individual registerClass calls
         usort($groups, function (array $group1, array $group2) {
-            $domain1 = !empty($group1['domain'] ?? null);
-            $domain2 = !empty($group2['domain'] ?? null);
+            $domain1 = ! empty($group1['domain'] ?? null);
+            $domain2 = ! empty($group2['domain'] ?? null);
 
             return $domain2 <=> $domain1; // Domain routes come first
         });
