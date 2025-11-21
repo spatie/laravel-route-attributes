@@ -2,6 +2,23 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.26.0 - 2025-11-21
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.3.0 to 2.4.0 by @dependabot[bot] in https://github.com/spatie/laravel-route-attributes/pull/162
+* Update issue template by @AlexVanderbist in https://github.com/spatie/laravel-route-attributes/pull/167
+* Bump stefanzweifel/git-auto-commit-action from 5 to 7 by @dependabot[bot] in https://github.com/spatie/laravel-route-attributes/pull/169
+* Bump actions/checkout from 4 to 5 by @dependabot[bot] in https://github.com/spatie/laravel-route-attributes/pull/164
+* fix: register routes with domain before routes without domain by @giorgiopogliani in https://github.com/spatie/laravel-route-attributes/pull/170
+
+### New Contributors
+
+* @AlexVanderbist made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/167
+* @giorgiopogliani made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/170
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.25.2...1.26.0
+
 ## 1.25.2 - 2025-04-08
 
 ### What's Changed
