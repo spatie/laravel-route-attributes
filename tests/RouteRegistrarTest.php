@@ -11,9 +11,9 @@ it('can register a single file', function () {
         ->routeRegistrar
         ->registerFile($this->getTestPath('TestClasses/Controllers/RouteRegistrar/RegistrarTestFirstController.php'));
 
-    $this->assertRegisteredRoutesCount(1);
+    $this->expectRegisteredRoutesCount(1);
 
-    $this->assertRouteRegistered(
+    $this->expectRouteRegistered(
         RegistrarTestFirstController::class,
         uri: 'first-method',
     );
@@ -24,9 +24,9 @@ it('can apply config middlewares to all routes', function () {
         ->routeRegistrar
         ->registerFile($this->getTestPath('TestClasses/Controllers/RouteRegistrar/RegistrarTestFirstController.php'));
 
-    $this->assertRegisteredRoutesCount(1);
+    $this->expectRegisteredRoutesCount(1);
 
-    $this->assertRouteRegistered(
+    $this->expectRouteRegistered(
         RegistrarTestFirstController::class,
         uri: 'first-method',
         middleware: [AnotherTestMiddleware::class]
@@ -38,19 +38,19 @@ it('can register a whole directory', function () {
         ->routeRegistrar
         ->registerDirectory($this->getTestPath('TestClasses/Controllers/RouteRegistrar'));
 
-    $this->assertRegisteredRoutesCount(3);
+    $this->expectRegisteredRoutesCount(3);
 
-    $this->assertRouteRegistered(
+    $this->expectRouteRegistered(
         RegistrarTestFirstController::class,
         uri: 'first-method',
     );
 
-    $this->assertRouteRegistered(
+    $this->expectRouteRegistered(
         RegistrarTestSecondController::class,
         uri: 'second-method',
     );
 
-    $this->assertRouteRegistered(
+    $this->expectRouteRegistered(
         RegistrarTestControllerInSubDirectory::class,
         uri: 'in-sub-directory',
     );
@@ -63,8 +63,8 @@ it('can register a directory with defined namespace', function () {
         ->useRootNamespace('ThirdParty\Http\Controllers\\')
         ->registerDirectory($this->getTestPath('ThirdPartyTestClasses' . DIRECTORY_SEPARATOR . 'Controllers'));
 
-    $this->assertRegisteredRoutesCount(1);
-    $this->assertRouteRegistered(
+    $this->expectRegisteredRoutesCount(1);
+    $this->expectRouteRegistered(
         ThirdPartyController::class,
         uri: 'third-party',
         controllerMethod: 'thirdPartyGetMethod',
@@ -76,9 +76,9 @@ it('can register a directory with filename pattern', function () {
         ->routeRegistrar
         ->registerDirectory($this->getTestPath('TestClasses/Controllers/RouteRegistrar'), ['*FirstController.php']);
 
-    $this->assertRegisteredRoutesCount(1);
+    $this->expectRegisteredRoutesCount(1);
 
-    $this->assertRouteRegistered(
+    $this->expectRouteRegistered(
         RegistrarTestFirstController::class,
         uri: 'first-method',
     );
@@ -89,5 +89,5 @@ it('can register a directory with filename not pattern', function () {
         ->routeRegistrar
         ->registerDirectory($this->getTestPath('TestClasses/Controllers/RouteRegistrar'), [], ['*FirstController.php']);
 
-    $this->assertRegisteredRoutesCount(2);
+    $this->expectRegisteredRoutesCount(2);
 });

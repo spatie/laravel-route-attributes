@@ -7,15 +7,15 @@ it('can register a post route', function () {
     $this->routeRegistrar->registerClass(PostTestController::class);
 
     $this
-        ->assertRegisteredRoutesCount(1)
-        ->assertRouteRegistered(PostTestController::class, 'myPostMethod', 'post', 'my-post-method');
+        ->expectRegisteredRoutesCount(1)
+        ->expectRouteRegistered(PostTestController::class, 'myPostMethod', 'post', 'my-post-method');
 });
 
 it('can register multiple post routes', function () {
     $this->routeRegistrar->registerClass(PostMultipleTestController::class);
 
     $this
-        ->assertRegisteredRoutesCount(2)
-        ->assertRouteRegistered(PostMultipleTestController::class, 'myPostMethod', 'post', 'my-post-method')
-        ->assertRouteRegistered(PostMultipleTestController::class, 'myPostMethod', 'post', 'my-other-post-method');
+        ->expectRegisteredRoutesCount(2)
+        ->expectRouteRegistered(PostMultipleTestController::class, 'myPostMethod', 'post', 'my-post-method')
+        ->expectRouteRegistered(PostMultipleTestController::class, 'myPostMethod', 'post', 'my-other-post-method');
 });

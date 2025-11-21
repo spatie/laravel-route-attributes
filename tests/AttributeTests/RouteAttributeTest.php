@@ -12,24 +12,24 @@ it('can register a get route using Route attribute', function () {
         $this->routeRegistrar->registerClass(RouteGetTestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(1)
-            ->assertRouteRegistered(RouteGetTestController::class, 'myGetMethod', 'get', 'my-get-method');
+            ->expectRegisteredRoutesCount(1)
+            ->expectRouteRegistered(RouteGetTestController::class, 'myGetMethod', 'get', 'my-get-method');
 });
 
 it('can register a post route using Route attribute', function () {
         $this->routeRegistrar->registerClass(RoutePostTestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(1)
-            ->assertRouteRegistered(RoutePostTestController::class, 'myPostMethod', 'post', 'my-post-method');
+            ->expectRegisteredRoutesCount(1)
+            ->expectRouteRegistered(RoutePostTestController::class, 'myPostMethod', 'post', 'my-post-method');
 });
 
 it('can register a multi-verb route using Route attribute', function () {
         $this->routeRegistrar->registerClass(RouteMultiVerbTestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(1)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(1)
+            ->expectRouteRegistered(
                 RouteMultiVerbTestController::class,
                 'myMultiVerbMethod',
                 ['get','post', 'delete'],
@@ -40,7 +40,7 @@ it('can register a multi-verb route using Route attribute', function () {
 it('adds middleware to a method', function () {
         $this->routeRegistrar->registerClass(RouteMiddlewareTestController::class);
 
-        $this->assertRouteRegistered(
+        $this->expectRouteRegistered(
             controller: RouteMiddlewareTestController::class,
             middleware: TestMiddleware::class,
         );
@@ -49,7 +49,7 @@ it('adds middleware to a method', function () {
 it('adds a route name to a method', function () {
         $this->routeRegistrar->registerClass(RouteNameTestController::class);
 
-        $this->assertRouteRegistered(
+        $this->expectRouteRegistered(
             controller: RouteNameTestController::class,
             name: 'test-name',
         );
@@ -59,8 +59,8 @@ it('adds a route for an invokable', function () {
         $this->routeRegistrar->registerClass(InvokableRouteGetTestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(1)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(1)
+            ->expectRouteRegistered(
                 controller: InvokableRouteGetTestController::class,
                 controllerMethod: InvokableRouteGetTestController::class,
                 uri: 'my-invokable-route'

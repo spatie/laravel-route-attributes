@@ -7,14 +7,14 @@ it('can apply a domain on the url of every method', function () {
         $this->routeRegistrar->registerClass(DomainFromConfigTestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(2)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(2)
+            ->expectRouteRegistered(
                 DomainFromConfigTestController::class,
                 controllerMethod: 'myGetMethod',
                 uri: 'my-get-method',
                 domain: 'config.localhost'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 DomainFromConfigTestController::class,
                 controllerMethod: 'myPostMethod',
                 httpMethods: 'post',

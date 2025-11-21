@@ -7,14 +7,14 @@ it('can apply a domain on the url of every method', function () {
         $this->routeRegistrar->registerClass(DomainTestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(2)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(2)
+            ->expectRouteRegistered(
                 DomainTestController::class,
                 controllerMethod: 'myGetMethod',
                 uri: 'my-get-method',
                 domain: 'my-subdomain.localhost'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 DomainTestController::class,
                 controllerMethod: 'myPostMethod',
                 httpMethods: 'post',
@@ -64,7 +64,7 @@ it('registers domain files before non domain files', function () {
 it('registers domain routes before other routes in domain order test controller', function () {
         $this->routeRegistrar->registerClass(DomainOrderTestController::class);
 
-        $routes = $this->assertRegisteredRoutesCount(4)->getRouteCollection()->getRoutes();
+        $routes = $this->expectRegisteredRoutesCount(4)->getRouteCollection()->getRoutes();
 
         $this->assertNotNull($routes[0]->domain());
         $this->assertNotNull($routes[1]->domain());

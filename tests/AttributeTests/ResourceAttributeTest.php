@@ -20,14 +20,14 @@ it('can register resource with prefix', function () {
         $this->routeRegistrar->registerClass(ResourceTestPrefixController::class);
 
         $this
-            ->assertRegisteredRoutesCount(2)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(2)
+            ->expectRouteRegistered(
                 ResourceTestPrefixController::class,
                 controllerMethod: 'index',
                 uri: 'api/v1/my-prefix/etc/posts',
                 name: 'posts.index'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestPrefixController::class,
                 controllerMethod: 'show',
                 uri: 'api/v1/my-prefix/etc/posts/{post}',
@@ -39,15 +39,15 @@ it('can register resource with middleware', function () {
         $this->routeRegistrar->registerClass(ResourceTestMiddlewareController::class);
 
         $this
-            ->assertRegisteredRoutesCount(2)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(2)
+            ->expectRouteRegistered(
                 ResourceTestMiddlewareController::class,
                 controllerMethod: 'index',
                 uri: 'posts',
                 middleware: [TestMiddleware::class, OtherTestMiddleware::class],
                 name: 'posts.index',
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestMiddlewareController::class,
                 controllerMethod: 'show',
                 uri: 'posts/{post}',
@@ -60,15 +60,15 @@ it('can register resource with only default middleware', function () {
         $this->routeRegistrar->registerClass(ResourceTestOnlyController::class);
 
         $this
-            ->assertRegisteredRoutesCount(3)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(3)
+            ->expectRouteRegistered(
                 ResourceTestOnlyController::class,
                 controllerMethod: 'index',
                 uri: 'posts',
                 middleware: [AnotherTestMiddleware::class],
                 name: 'posts.index'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestOnlyController::class,
                 controllerMethod: 'store',
                 httpMethods: 'post',
@@ -76,7 +76,7 @@ it('can register resource with only default middleware', function () {
                 middleware: [AnotherTestMiddleware::class],
                 name: 'posts.store'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestOnlyController::class,
                 controllerMethod: 'show',
                 uri: 'posts/{post}',
@@ -89,15 +89,15 @@ it('can register resource with domain', function () {
         $this->routeRegistrar->registerClass(ResourceTestDomainController::class);
 
         $this
-            ->assertRegisteredRoutesCount(2)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(2)
+            ->expectRouteRegistered(
                 ResourceTestDomainController::class,
                 controllerMethod: 'index',
                 uri: 'posts',
                 name: 'posts.index',
                 domain: 'my-subdomain.localhost'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestDomainController::class,
                 controllerMethod: 'show',
                 uri: 'posts/{post}',
@@ -110,14 +110,14 @@ it('can register resource with names as string', function () {
         $this->routeRegistrar->registerClass(ResourceTestNamesStringController::class);
 
         $this
-            ->assertRegisteredRoutesCount(2)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(2)
+            ->expectRouteRegistered(
                 ResourceTestNamesStringController::class,
                 controllerMethod: 'index',
                 uri: 'posts',
                 name: 'api.v1.posts.index',
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestNamesStringController::class,
                 controllerMethod: 'show',
                 uri: 'posts/{post}',
@@ -129,14 +129,14 @@ it('can register resource with names as array', function () {
         $this->routeRegistrar->registerClass(ResourceTestNamesArrayController::class);
 
         $this
-            ->assertRegisteredRoutesCount(2)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(2)
+            ->expectRouteRegistered(
                 ResourceTestNamesArrayController::class,
                 controllerMethod: 'index',
                 uri: 'posts',
                 name: 'posts.list',
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestNamesArrayController::class,
                 controllerMethod: 'show',
                 uri: 'posts/{post}',
@@ -148,46 +148,46 @@ it('can register resource with all methods', function () {
         $this->routeRegistrar->registerClass(ResourceTestFullController::class);
 
         $this
-            ->assertRegisteredRoutesCount(7)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(7)
+            ->expectRouteRegistered(
                 ResourceTestFullController::class,
                 controllerMethod: 'index',
                 uri: 'posts',
                 name: 'posts.index'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestFullController::class,
                 controllerMethod: 'create',
                 uri: 'posts/create',
                 name: 'posts.create'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestFullController::class,
                 controllerMethod: 'store',
                 httpMethods: 'post',
                 uri: 'posts',
                 name: 'posts.store'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestFullController::class,
                 controllerMethod: 'show',
                 uri: 'posts/{post}',
                 name: 'posts.show'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestFullController::class,
                 controllerMethod: 'edit',
                 uri: 'posts/{post}/edit',
                 name: 'posts.edit'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestFullController::class,
                 controllerMethod: 'update',
                 httpMethods: 'put',
                 uri: 'posts/{post}',
                 name: 'posts.update'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestFullController::class,
                 controllerMethod: 'destroy',
                 httpMethods: 'delete',
@@ -204,28 +204,28 @@ it('can register resource with domain option', function () {
             );
 
         $this
-            ->assertRegisteredRoutesCount(7);
+            ->expectRegisteredRoutesCount(7);
 });
 
 it('can register resource with only few methods', function () {
         $this->routeRegistrar->registerClass(ResourceTestOnlyController::class);
 
         $this
-            ->assertRegisteredRoutesCount(3)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(3)
+            ->expectRouteRegistered(
                 ResourceTestOnlyController::class,
                 controllerMethod: 'index',
                 uri: 'posts',
                 name: 'posts.index'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestOnlyController::class,
                 controllerMethod: 'store',
                 httpMethods: 'post',
                 uri: 'posts',
                 name: 'posts.store'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestOnlyController::class,
                 controllerMethod: 'show',
                 uri: 'posts/{post}',
@@ -237,33 +237,33 @@ it('can register resource without few methods', function () {
         $this->routeRegistrar->registerClass(ResourceTestExceptController::class);
 
         $this
-            ->assertRegisteredRoutesCount(5)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(5)
+            ->expectRouteRegistered(
                 ResourceTestExceptController::class,
                 controllerMethod: 'index',
                 uri: 'posts',
                 name: 'posts.index'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestExceptController::class,
                 controllerMethod: 'create',
                 uri: 'posts/create',
                 name: 'posts.create'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestExceptController::class,
                 controllerMethod: 'store',
                 httpMethods: 'post',
                 uri: 'posts',
                 name: 'posts.store'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestExceptController::class,
                 controllerMethod: 'show',
                 uri: 'posts/{post}',
                 name: 'posts.show'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestExceptController::class,
                 controllerMethod: 'edit',
                 uri: 'posts/{post}/edit',
@@ -275,34 +275,34 @@ it('can register API resource', function () {
         $this->routeRegistrar->registerClass(ApiResource1TestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(5)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(5)
+            ->expectRouteRegistered(
                 ApiResource1TestController::class,
                 controllerMethod: 'index',
                 uri: 'posts',
                 name: 'posts.index'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ApiResource1TestController::class,
                 controllerMethod: 'store',
                 httpMethods: 'post',
                 uri: 'posts',
                 name: 'posts.store'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ApiResource1TestController::class,
                 controllerMethod: 'show',
                 uri: 'posts/{post}',
                 name: 'posts.show'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ApiResource1TestController::class,
                 controllerMethod: 'update',
                 httpMethods: 'put',
                 uri: 'posts/{post}',
                 name: 'posts.update'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ApiResource1TestController::class,
                 controllerMethod: 'destroy',
                 httpMethods: 'delete',
@@ -315,34 +315,34 @@ it('can register API resource 2', function () {
         $this->routeRegistrar->registerClass(ApiResource2TestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(5)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(5)
+            ->expectRouteRegistered(
                 ApiResource2TestController::class,
                 controllerMethod: 'index',
                 uri: 'posts',
                 name: 'posts.index'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ApiResource2TestController::class,
                 controllerMethod: 'store',
                 httpMethods: 'post',
                 uri: 'posts',
                 name: 'posts.store'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ApiResource2TestController::class,
                 controllerMethod: 'show',
                 uri: 'posts/{post}',
                 name: 'posts.show'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ApiResource2TestController::class,
                 controllerMethod: 'update',
                 httpMethods: 'put',
                 uri: 'posts/{post}',
                 name: 'posts.update'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ApiResource2TestController::class,
                 controllerMethod: 'destroy',
                 httpMethods: 'delete',
@@ -355,46 +355,46 @@ it('can register shallow resource', function () {
         $this->routeRegistrar->registerClass(ResourceTestShallowController::class);
 
         $this
-            ->assertRegisteredRoutesCount(7)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(7)
+            ->expectRouteRegistered(
                 ResourceTestShallowController::class,
                 controllerMethod: 'index',
                 uri: 'users/{user}/posts',
                 name: 'users.posts.index'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestShallowController::class,
                 controllerMethod: 'create',
                 uri: 'users/{user}/posts/create',
                 name: 'users.posts.create'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestShallowController::class,
                 controllerMethod: 'store',
                 httpMethods: 'post',
                 uri: 'users/{user}/posts',
                 name: 'users.posts.store'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestShallowController::class,
                 controllerMethod: 'show',
                 uri: 'posts/{post}',
                 name: 'posts.show'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestShallowController::class,
                 controllerMethod: 'edit',
                 uri: 'posts/{post}/edit',
                 name: 'posts.edit'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestShallowController::class,
                 controllerMethod: 'update',
                 httpMethods: 'put',
                 uri: 'posts/{post}',
                 name: 'posts.update'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestShallowController::class,
                 controllerMethod: 'destroy',
                 httpMethods: 'delete',
@@ -407,27 +407,27 @@ it('can register resource with modified parameters', function () {
         $this->routeRegistrar->registerClass(ResourceTestParametersController::class);
 
         $this
-            ->assertRegisteredRoutesCount(7)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(7)
+            ->expectRouteRegistered(
                 ResourceTestParametersController::class,
                 controllerMethod: 'show',
                 uri: 'posts/{draft}',
                 name: 'posts.show'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestParametersController::class,
                 controllerMethod: 'edit',
                 uri: 'posts/{draft}/edit',
                 name: 'posts.edit'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestParametersController::class,
                 controllerMethod: 'update',
                 httpMethods: 'put',
                 uri: 'posts/{draft}',
                 name: 'posts.update'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 ResourceTestParametersController::class,
                 controllerMethod: 'destroy',
                 httpMethods: 'delete',

@@ -8,14 +8,14 @@ it('can apply middleware on each method of a controller', function () {
         $this->routeRegistrar->registerClass(MiddlewareTestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(2)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(2)
+            ->expectRouteRegistered(
                 MiddlewareTestController::class,
                 controllerMethod: 'singleMiddleware',
                 uri: 'single-middleware',
                 middleware: [TestMiddleware::class],
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 MiddlewareTestController::class,
                 controllerMethod: 'multipleMiddleware',
                 uri: 'multiple-middleware',

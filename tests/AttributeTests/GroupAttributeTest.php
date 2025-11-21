@@ -6,27 +6,27 @@ it('can apply a domain on the url of every method', function () {
         $this->routeRegistrar->registerClass(GroupTestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(4)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(4)
+            ->expectRouteRegistered(
                 GroupTestController::class,
                 controllerMethod: 'myGetMethod',
                 uri: 'my-prefix/my-get-method',
                 domain: 'my-subdomain.localhost'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 GroupTestController::class,
                 controllerMethod: 'myPostMethod',
                 httpMethods: 'post',
                 uri: 'my-prefix/my-post-method',
                 domain: 'my-subdomain.localhost'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 GroupTestController::class,
                 controllerMethod: 'myGetMethod',
                 uri: 'my-second-prefix/my-get-method',
                 domain: 'my-second-subdomain.localhost'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 GroupTestController::class,
                 controllerMethod: 'myPostMethod',
                 httpMethods: 'post',

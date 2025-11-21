@@ -26,16 +26,16 @@ class TestCase extends Orchestra
         return __DIR__ . ($directory ? DIRECTORY_SEPARATOR . $directory : '');
     }
 
-    public function assertRegisteredRoutesCount(int $expectedNumber): self
+    public function expectRegisteredRoutesCount(int $expectedNumber): self
     {
         $actualNumber = $this->getRouteCollection()->count();
 
-        $this->assertEquals($expectedNumber, $actualNumber);
+        expect($actualNumber)->toBe($expectedNumber);
 
         return $this;
     }
 
-    public function assertRouteRegistered(
+    public function expectRouteRegistered(
         string       $controller,
         string       $controllerMethod = 'myMethod',
         string|array $httpMethods = ['get'],
@@ -124,7 +124,7 @@ class TestCase extends Orchestra
                 return true;
             });
 
-        $this->assertTrue($routeRegistered, 'The expected route was not registered');
+        expect($routeRegistered)->toBeTrue('The expected route was not registered');
 
         return $this;
     }

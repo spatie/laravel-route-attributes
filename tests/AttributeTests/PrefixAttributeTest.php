@@ -6,18 +6,18 @@ it('can apply a prefix on the url of every method', function () {
         $this->routeRegistrar->registerClass(PrefixTestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(3)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(3)
+            ->expectRouteRegistered(
                 PrefixTestController::class,
                 controllerMethod: 'myRootGetMethod',
                 uri: 'my-prefix',
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 PrefixTestController::class,
                 controllerMethod: 'myGetMethod',
                 uri: 'my-prefix/my-get-method',
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 PrefixTestController::class,
                 controllerMethod: 'myPostMethod',
                 httpMethods: 'post',

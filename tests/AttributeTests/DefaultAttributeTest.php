@@ -6,13 +6,13 @@ it('can apply defaults on each method of a controller', function () {
         $this->routeRegistrar->registerClass(DefaultsTestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(4)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(4)
+            ->expectRouteRegistered(
                 DefaultsTestController::class,
                 controllerMethod: 'myGetMethod',
                 uri: 'my-get-method/{param?}',
                 defaults: ['param' => 'controller-default']
-            )->assertRouteRegistered(
+            )->expectRouteRegistered(
                 DefaultsTestController::class,
                 controllerMethod: 'myPostMethod',
                 httpMethods: 'post',
@@ -25,8 +25,8 @@ it('can apply more than one default on a method', function () {
         $this->routeRegistrar->registerClass(DefaultsTestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(4)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(4)
+            ->expectRouteRegistered(
                 DefaultsTestController::class,
                 controllerMethod: 'myDefaultMethod',
                 uri: 'my-default-method/{param?}/{param2?}/{param3?}',
@@ -42,8 +42,8 @@ it('can override controller defaults', function () {
         $this->routeRegistrar->registerClass(DefaultsTestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(4)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(4)
+            ->expectRouteRegistered(
                 DefaultsTestController::class,
                 controllerMethod: 'myOverrideMethod',
                 uri: 'my-override-method/{param?}',

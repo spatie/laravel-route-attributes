@@ -8,8 +8,8 @@ it('can skip middleware added to class', function () {
 
 
         $this
-            ->assertRegisteredRoutesCount(1)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(1)
+            ->expectRouteRegistered(
                 WithoutMiddlewareTestController::class,
                 controllerMethod: 'withoutMiddleware',
                 uri: 'without-middleware',

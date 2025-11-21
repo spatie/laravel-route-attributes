@@ -37,16 +37,16 @@ class ServiceProviderTest extends TestCase
 
     public function test_the_provider_can_register_group_of_directories(): void
     {
-        $this->assertRegisteredRoutesCount(2);
+        $this->expectRegisteredRoutesCount(2);
 
-        $this->assertRouteRegistered(
+        $this->expectRouteRegistered(
             GroupTestController::class,
             controllerMethod: 'myGetMethod',
             uri: 'grouped/my-get-method',
             middleware: ['SomeMiddleware', 'api', 'test']
         );
 
-        $this->assertRouteRegistered(
+        $this->expectRouteRegistered(
             GroupTestController::class,
             controllerMethod: 'myPostMethod',
             httpMethods: 'post',

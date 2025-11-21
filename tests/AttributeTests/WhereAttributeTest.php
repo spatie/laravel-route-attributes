@@ -6,14 +6,14 @@ it('can apply where on each method of a controller', function () {
         $this->routeRegistrar->registerClass(WhereTestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(4)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(4)
+            ->expectRouteRegistered(
                 WhereTestController::class,
                 controllerMethod: 'myGetMethod',
                 uri: 'my-get-method/{param}',
                 wheres: ['param' => '[0-9]+']
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 WhereTestController::class,
                 controllerMethod: 'myPostMethod',
                 httpMethods: 'post',
@@ -26,8 +26,8 @@ it('can apply where on a method', function () {
         $this->routeRegistrar->registerClass(WhereTestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(4)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(4)
+            ->expectRouteRegistered(
                 WhereTestController::class,
                 controllerMethod: 'myWhereMethod',
                 uri: 'my-where-method/{param}/{param2}/{param3}',
@@ -39,8 +39,8 @@ it('can apply shorthand where', function () {
         $this->routeRegistrar->registerClass(WhereTestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(4)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(4)
+            ->expectRouteRegistered(
                 WhereTestController::class,
                 controllerMethod: 'myShorthands',
                 uri: 'my-shorthands',

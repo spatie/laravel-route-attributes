@@ -6,8 +6,8 @@ it('can register a route as fallback', function () {
         $this->routeRegistrar->registerClass(FallbackTestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(1)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(1)
+            ->expectRouteRegistered(
                 controller: FallbackTestController::class,
                 controllerMethod: 'myFallbackMethod',
                 httpMethods: 'get',

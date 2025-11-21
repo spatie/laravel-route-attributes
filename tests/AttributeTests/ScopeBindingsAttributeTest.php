@@ -9,22 +9,22 @@ it('can enable binding scoping on each method of a controller', function () {
         $this->routeRegistrar->registerClass(BindingScoping2TestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(3)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(3)
+            ->expectRouteRegistered(
                 BindingScoping2TestController::class,
                 controllerMethod: 'explicitlyEnabledScopedBinding',
                 uri: 'explicitly-enabled/{scoped}/{binding}',
                 enforcesScopedBindings: true,
                 preventsScopedBindings: false
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 BindingScoping2TestController::class,
                 controllerMethod: 'explicitlyDisabledScopedBinding',
                 uri: 'explicitly-disabled/{scoped}/{binding}',
                 enforcesScopedBindings: false,
                 preventsScopedBindings: true
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 BindingScoping2TestController::class,
                 controllerMethod: 'implicitlyDisabledScopedBinding',
                 uri: 'implicitly-disabled/{scoped}/{binding}',
@@ -37,15 +37,15 @@ it('can disable binding scoping on individual methods of a controller', function
         $this->routeRegistrar->registerClass(BindingScoping1TestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(2)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(2)
+            ->expectRouteRegistered(
                 BindingScoping1TestController::class,
                 controllerMethod: 'implicitlyEnabledScopedBinding',
                 uri: 'implicit/{scoped}/{binding}',
                 enforcesScopedBindings: true,
                 preventsScopedBindings: false
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 BindingScoping1TestController::class,
                 controllerMethod: 'explicitlyDisabledScopedBinding',
                 uri: 'explicitly-disabled/{scoped}/{binding}',
@@ -58,15 +58,15 @@ it('can enable binding scoping on individual methods of a controller', function 
         $this->routeRegistrar->registerClass(BindingScoping3TestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(2)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(2)
+            ->expectRouteRegistered(
                 BindingScoping3TestController::class,
                 controllerMethod: 'explicitlyDisabledByClassScopedBinding',
                 uri: 'explicitly-disabled-by-class/{scoped}/{binding}',
                 enforcesScopedBindings: false,
                 preventsScopedBindings: true
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 BindingScoping3TestController::class,
                 controllerMethod: 'explicitlyEnabledOverridingClassScopedBinding',
                 uri: 'explicitly-enabled-overriding-class/{scoped}/{binding}',
@@ -81,15 +81,15 @@ it('respects default scope bindings setting from config', function () {
         $this->routeRegistrar->registerClass(BindingScoping4TestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(2)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(2)
+            ->expectRouteRegistered(
                 BindingScoping4TestController::class,
                 controllerMethod: 'index',
                 uri: 'default-scoping',
                 enforcesScopedBindings: true,
                 preventsScopedBindings: false
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 BindingScoping4TestController::class,
                 controllerMethod: 'store',
                 httpMethods: 'post',

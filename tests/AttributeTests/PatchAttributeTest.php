@@ -7,15 +7,15 @@ it('can register a patch route', function () {
         $this->routeRegistrar->registerClass(PatchTestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(1)
-            ->assertRouteRegistered(PatchTestController::class, 'myPatchMethod', 'patch', 'my-patch-method');
+            ->expectRegisteredRoutesCount(1)
+            ->expectRouteRegistered(PatchTestController::class, 'myPatchMethod', 'patch', 'my-patch-method');
 });
 
 it('can register multiple patch routes', function () {
         $this->routeRegistrar->registerClass(PatchMultipleTestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(2)
-            ->assertRouteRegistered(PatchMultipleTestController::class, 'myPatchMethod', 'patch', 'my-patch-method')
-            ->assertRouteRegistered(PatchMultipleTestController::class, 'myPatchMethod', 'patch', 'my-other-patch-method');
+            ->expectRegisteredRoutesCount(2)
+            ->expectRouteRegistered(PatchMultipleTestController::class, 'myPatchMethod', 'patch', 'my-patch-method')
+            ->expectRouteRegistered(PatchMultipleTestController::class, 'myPatchMethod', 'patch', 'my-other-patch-method');
 });

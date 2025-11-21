@@ -6,15 +6,15 @@ it('can apply withTrashed on a controller', function () {
     $this->routeRegistrar->registerClass(WithTrashedTestController::class);
 
     $this
-        ->assertRegisteredRoutesCount(3)
-        ->assertRouteRegistered(
+        ->expectRegisteredRoutesCount(3)
+        ->expectRouteRegistered(
             WithTrashedTestController::class,
             controllerMethod: 'withTrashedRoute',
             httpMethods: 'get',
             uri: 'with-trashed-test-method/{param}',
             withTrashed: true,
         )
-        ->assertRouteRegistered(
+        ->expectRouteRegistered(
             WithTrashedTestController::class,
             controllerMethod: 'withoutTrashedRoute',
             httpMethods: 'get',
@@ -22,7 +22,7 @@ it('can apply withTrashed on a controller', function () {
             withTrashed: false,
         )
         // registered through
-        ->assertRouteRegistered(
+        ->expectRouteRegistered(
             WithTrashedTestController::class,
             controllerMethod: 'noWithTrashedAttributeRoute',
             httpMethods: 'get',

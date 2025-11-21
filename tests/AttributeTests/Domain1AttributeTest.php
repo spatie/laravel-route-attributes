@@ -12,14 +12,14 @@ it('registers the same URL on different domains', function () {
         $this->routeRegistrar->registerClass(Domain2TestController::class);
 
         $this
-            ->assertRegisteredRoutesCount(2)
-            ->assertRouteRegistered(
+            ->expectRegisteredRoutesCount(2)
+            ->expectRouteRegistered(
                 Domain1TestController::class,
                 controllerMethod: 'myGetMethod',
                 uri: 'my-get-method',
                 domain: 'config.localhost'
             )
-            ->assertRouteRegistered(
+            ->expectRouteRegistered(
                 Domain2TestController::class,
                 controllerMethod: 'myGetMethod',
                 uri: 'my-get-method',
