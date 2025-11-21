@@ -2,17 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Spatie\RouteAttributes\Tests\AttributeTests;
-
-use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Domain1TestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Domain2TestController;
 
-class Domain1AttributeTest extends TestCase
-{
-    /** @test */
-    public function it_registers_the_same_url_on_different_domains()
-    {
+it('registers the same URL on different domains', function () {
         config()->set('domains.test', 'config.localhost');
         config()->set('domains.test2', 'config2.localhost');
         $this->routeRegistrar->registerClass(Domain1TestController::class);
@@ -32,5 +25,4 @@ class Domain1AttributeTest extends TestCase
                 uri: 'my-get-method',
                 domain: 'config2.localhost'
             );
-    }
-}
+});

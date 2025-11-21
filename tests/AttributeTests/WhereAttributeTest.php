@@ -1,15 +1,8 @@
 <?php
 
-namespace Spatie\RouteAttributes\Tests\AttributeTests;
-
-use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\WhereTestController;
 
-class WhereAttributeTest extends TestCase
-{
-    /** @test */
-    public function it_can_apply_where_on_each_method_of_a_controller()
-    {
+it('can apply where on each method of a controller', function () {
         $this->routeRegistrar->registerClass(WhereTestController::class);
 
         $this
@@ -27,11 +20,9 @@ class WhereAttributeTest extends TestCase
                 uri: 'my-post-method/{param}/{param2}',
                 wheres: ['param' => '[0-9]+', 'param2' => '[a-zA-Z]+']
             );
-    }
+});
 
-    /** @test */
-    public function it_can_apply_where_on_a_method()
-    {
+it('can apply where on a method', function () {
         $this->routeRegistrar->registerClass(WhereTestController::class);
 
         $this
@@ -42,11 +33,9 @@ class WhereAttributeTest extends TestCase
                 uri: 'my-where-method/{param}/{param2}/{param3}',
                 wheres: ['param' => '[0-9]+', 'param2' => '[a-zA-Z]+', 'param3' => 'test']
             );
-    }
+});
 
-    /** @test */
-    public function it_can_apply_shorthand_where()
-    {
+it('can apply shorthand where', function () {
         $this->routeRegistrar->registerClass(WhereTestController::class);
 
         $this
@@ -65,5 +54,4 @@ class WhereAttributeTest extends TestCase
                     'uuid' => '[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}',
                 ]
             );
-    }
-}
+});

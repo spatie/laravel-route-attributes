@@ -1,18 +1,11 @@
 <?php
 
-namespace Spatie\RouteAttributes\Tests\AttributeTests;
-
-use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\BindingScoping1TestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\BindingScoping2TestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\BindingScoping3TestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\BindingScoping4TestController;
 
-class ScopeBindingsAttributeTest extends TestCase
-{
-    /** @test */
-    public function it_can_enable_binding_scoping_on_each_method_of_a_controller()
-    {
+it('can enable binding scoping on each method of a controller', function () {
         $this->routeRegistrar->registerClass(BindingScoping2TestController::class);
 
         $this
@@ -38,11 +31,9 @@ class ScopeBindingsAttributeTest extends TestCase
                 enforcesScopedBindings: false,
                 preventsScopedBindings: false
             );
-    }
+});
 
-    /** @test */
-    public function it_can_disable_binding_scoping_on_individual_methods_of_a_controller()
-    {
+it('can disable binding scoping on individual methods of a controller', function () {
         $this->routeRegistrar->registerClass(BindingScoping1TestController::class);
 
         $this
@@ -61,11 +52,9 @@ class ScopeBindingsAttributeTest extends TestCase
                 enforcesScopedBindings: false,
                 preventsScopedBindings: true
             );
-    }
+});
 
-    /** @test */
-    public function it_can_enable_binding_scoping_on_individual_methods_of_a_controller()
-    {
+it('can enable binding scoping on individual methods of a controller', function () {
         $this->routeRegistrar->registerClass(BindingScoping3TestController::class);
 
         $this
@@ -84,11 +73,9 @@ class ScopeBindingsAttributeTest extends TestCase
                 enforcesScopedBindings: true,
                 preventsScopedBindings: false
             );
-    }
+});
 
-    /** @test */
-    public function the_registrar_respects_default_scope_bindings_setting_from_config()
-    {
+it('respects default scope bindings setting from config', function () {
         config()->set('route-attributes.scope-bindings', true);
 
         $this->routeRegistrar->registerClass(BindingScoping4TestController::class);
@@ -110,5 +97,4 @@ class ScopeBindingsAttributeTest extends TestCase
                 enforcesScopedBindings: false,
                 preventsScopedBindings: true
             );
-    }
-}
+});

@@ -1,8 +1,5 @@
 <?php
 
-namespace Spatie\RouteAttributes\Tests\AttributeTests;
-
-use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ApiResource1TestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ApiResource2TestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Resource\ResourceTestDomainController;
@@ -19,11 +16,7 @@ use Spatie\RouteAttributes\Tests\TestClasses\Middleware\AnotherTestMiddleware;
 use Spatie\RouteAttributes\Tests\TestClasses\Middleware\OtherTestMiddleware;
 use Spatie\RouteAttributes\Tests\TestClasses\Middleware\TestMiddleware;
 
-class ResourceAttributeTest extends TestCase
-{
-    /** @test */
-    public function it_can_register_resource_with_prefix()
-    {
+it('can register resource with prefix', function () {
         $this->routeRegistrar->registerClass(ResourceTestPrefixController::class);
 
         $this
@@ -40,11 +33,9 @@ class ResourceAttributeTest extends TestCase
                 uri: 'api/v1/my-prefix/etc/posts/{post}',
                 name: 'posts.show'
             );
-    }
+});
 
-    /** @test */
-    public function it_can_register_resource_with_middleware()
-    {
+it('can register resource with middleware', function () {
         $this->routeRegistrar->registerClass(ResourceTestMiddlewareController::class);
 
         $this
@@ -63,11 +54,9 @@ class ResourceAttributeTest extends TestCase
                 middleware: [TestMiddleware::class, OtherTestMiddleware::class],
                 name: 'posts.show',
             );
-    }
+});
 
-    /** @test */
-    public function it_can_register_resource_with_only_default_middleware()
-    {
+it('can register resource with only default middleware', function () {
         $this->routeRegistrar->registerClass(ResourceTestOnlyController::class);
 
         $this
@@ -94,11 +83,9 @@ class ResourceAttributeTest extends TestCase
                 middleware: [AnotherTestMiddleware::class],
                 name: 'posts.show'
             );
-    }
+});
 
-    /** @test */
-    public function it_can_register_resource_with_domain()
-    {
+it('can register resource with domain', function () {
         $this->routeRegistrar->registerClass(ResourceTestDomainController::class);
 
         $this
@@ -117,11 +104,9 @@ class ResourceAttributeTest extends TestCase
                 name: 'posts.show',
                 domain: 'my-subdomain.localhost'
             );
-    }
+});
 
-    /** @test */
-    public function it_can_register_resource_with_names_as_string()
-    {
+it('can register resource with names as string', function () {
         $this->routeRegistrar->registerClass(ResourceTestNamesStringController::class);
 
         $this
@@ -138,11 +123,9 @@ class ResourceAttributeTest extends TestCase
                 uri: 'posts/{post}',
                 name: 'api.v1.posts.show',
             );
-    }
+});
 
-    /** @test */
-    public function it_can_register_resource_with_names_as_array()
-    {
+it('can register resource with names as array', function () {
         $this->routeRegistrar->registerClass(ResourceTestNamesArrayController::class);
 
         $this
@@ -159,11 +142,9 @@ class ResourceAttributeTest extends TestCase
                 uri: 'posts/{post}',
                 name: 'posts.view',
             );
-    }
+});
 
-    /** @test */
-    public function it_can_register_resource_with_all_methods()
-    {
+it('can register resource with all methods', function () {
         $this->routeRegistrar->registerClass(ResourceTestFullController::class);
 
         $this
@@ -213,11 +194,9 @@ class ResourceAttributeTest extends TestCase
                 uri: 'posts/{post}',
                 name: 'posts.destroy'
             );
-    }
+});
 
-    /** @test */
-    public function it_can_register_resource_with_domain_option()
-    {
+it('can register resource with domain option', function () {
         $this->routeRegistrar
             ->group(
                 ['domain' => 'http://test'],
@@ -226,11 +205,9 @@ class ResourceAttributeTest extends TestCase
 
         $this
             ->assertRegisteredRoutesCount(7);
-    }
+});
 
-    /** @test */
-    public function it_can_register_resource_with_only_few_methods()
-    {
+it('can register resource with only few methods', function () {
         $this->routeRegistrar->registerClass(ResourceTestOnlyController::class);
 
         $this
@@ -254,11 +231,9 @@ class ResourceAttributeTest extends TestCase
                 uri: 'posts/{post}',
                 name: 'posts.show'
             );
-    }
+});
 
-    /** @test */
-    public function it_can_register_resource_without_few_methods()
-    {
+it('can register resource without few methods', function () {
         $this->routeRegistrar->registerClass(ResourceTestExceptController::class);
 
         $this
@@ -294,11 +269,9 @@ class ResourceAttributeTest extends TestCase
                 uri: 'posts/{post}/edit',
                 name: 'posts.edit'
             );
-    }
+});
 
-    /** @test */
-    public function it_can_register_api_resource()
-    {
+it('can register API resource', function () {
         $this->routeRegistrar->registerClass(ApiResource1TestController::class);
 
         $this
@@ -336,11 +309,9 @@ class ResourceAttributeTest extends TestCase
                 uri: 'posts/{post}',
                 name: 'posts.destroy'
             );
-    }
+});
 
-    /** @test */
-    public function it_can_register_api_resource_2()
-    {
+it('can register API resource 2', function () {
         $this->routeRegistrar->registerClass(ApiResource2TestController::class);
 
         $this
@@ -378,11 +349,9 @@ class ResourceAttributeTest extends TestCase
                 uri: 'posts/{post}',
                 name: 'posts.destroy'
             );
-    }
+});
 
-    /** @test */
-    public function it_can_register_shallow_resource()
-    {
+it('can register shallow resource', function () {
         $this->routeRegistrar->registerClass(ResourceTestShallowController::class);
 
         $this
@@ -432,11 +401,9 @@ class ResourceAttributeTest extends TestCase
                 uri: 'posts/{post}',
                 name: 'posts.destroy'
             );
-    }
+});
 
-    /** @test */
-    public function it_can_register_resource_with_modified_parameters()
-    {
+it('can register resource with modified parameters', function () {
         $this->routeRegistrar->registerClass(ResourceTestParametersController::class);
 
         $this
@@ -467,5 +434,4 @@ class ResourceAttributeTest extends TestCase
                 uri: 'posts/{draft}',
                 name: 'posts.destroy'
             );
-    }
-}
+});

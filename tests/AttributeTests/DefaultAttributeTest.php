@@ -1,15 +1,8 @@
 <?php
 
-namespace Spatie\RouteAttributes\Tests\AttributeTests;
-
-use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\DefaultsTestController;
 
-class DefaultAttributeTest extends TestCase
-{
-    /** @test */
-    public function it_can_apply_defaults_on_each_method_of_a_controller()
-    {
+it('can apply defaults on each method of a controller', function () {
         $this->routeRegistrar->registerClass(DefaultsTestController::class);
 
         $this
@@ -26,11 +19,9 @@ class DefaultAttributeTest extends TestCase
                 uri: 'my-post-method/{param?}/{param2?}',
                 defaults: ['param' => 'controller-default', 'param2' => 'method-default']
             );
-    }
+});
 
-    /** @test */
-    public function it_can_apply_more_than_one_defaults_on_a_method()
-    {
+it('can apply more than one default on a method', function () {
         $this->routeRegistrar->registerClass(DefaultsTestController::class);
 
         $this
@@ -45,11 +36,9 @@ class DefaultAttributeTest extends TestCase
                     'param3' => 'method-default-second',
                 ]
             );
-    }
+});
 
-    /** @test */
-    public function it_can_override_controller_defaults()
-    {
+it('can override controller defaults', function () {
         $this->routeRegistrar->registerClass(DefaultsTestController::class);
 
         $this
@@ -60,5 +49,4 @@ class DefaultAttributeTest extends TestCase
                 uri: 'my-override-method/{param?}',
                 defaults: ['param' => 'method-default']
             );
-    }
-}
+});

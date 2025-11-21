@@ -8,7 +8,7 @@ use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Grouped\GroupTestContro
 
 class ServiceProviderTest extends TestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->routeRegistrar = app(RouteRegistrar::class);
@@ -21,13 +21,6 @@ class ServiceProviderTest extends TestCase
         ];
     }
 
-    /**
-     * Resolve application core configuration implementation.
-     *
-     * @param  \Illuminate\Foundation\Application  $app
-     *
-     * @return void
-     */
     protected function resolveApplicationConfiguration($app)
     {
         parent::resolveApplicationConfiguration($app);
@@ -42,8 +35,7 @@ class ServiceProviderTest extends TestCase
         ]);
     }
 
-    /** @test */
-    public function the_provider_can_register_group_of_directories()
+    public function test_the_provider_can_register_group_of_directories(): void
     {
         $this->assertRegisteredRoutesCount(2);
 

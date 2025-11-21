@@ -13,18 +13,6 @@ class TestCase extends Orchestra
 {
     protected RouteRegistrar $routeRegistrar;
 
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $router = app()->router;
-
-        $this->routeRegistrar = (new RouteRegistrar($router))
-            ->useBasePath($this->getTestPath())
-            ->useMiddleware([AnotherTestMiddleware::class])
-            ->useRootNamespace('Spatie\RouteAttributes\Tests\\');
-    }
-
     protected function defineEnvironment($app)
     {
         // Disable automatic filesystem serving routes that TestBench adds in Laravel 12

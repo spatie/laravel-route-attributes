@@ -1,16 +1,9 @@
 <?php
 
-namespace Spatie\RouteAttributes\Tests\AttributeTests;
-
-use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\DomainOrderTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\DomainTestController;
 
-class DomainAttributeTest extends TestCase
-{
-    /** @test */
-    public function it_can_apply_a_domain_on_the_url_of_every_method()
-    {
+it('can apply a domain on the url of every method', function () {
         $this->routeRegistrar->registerClass(DomainTestController::class);
 
         $this
@@ -28,11 +21,9 @@ class DomainAttributeTest extends TestCase
                 uri: 'my-post-method',
                 domain: 'my-subdomain.localhost'
             );
-    }
+});
 
-    /** @test */
-    public function it_registers_domain_files_before_non_domain_files()
-    {
+it('registers domain files before non domain files', function () {
         // Use registerDirectory to test file-level domain ordering
         $this->routeRegistrar->registerDirectory($this->getTestPath('TestClasses/Controllers'));
         $routes = collect($this->getRouteCollection()->getRoutes());
@@ -68,11 +59,9 @@ class DomainAttributeTest extends TestCase
             $lastDomainIndex,
             'All domain routes should be registered before all non-domain routes',
         );
-    }
+});
 
-    /** @test */
-    public function it_registers_domain_routes_before_other_routes_in_domain_order_test_controller()
-    {
+it('registers domain routes before other routes in domain order test controller', function () {
         $this->routeRegistrar->registerClass(DomainOrderTestController::class);
 
         $routes = $this->assertRegisteredRoutesCount(4)->getRouteCollection()->getRoutes();
@@ -81,5 +70,4 @@ class DomainAttributeTest extends TestCase
         $this->assertNotNull($routes[1]->domain());
         $this->assertNull($routes[2]->domain());
         $this->assertNull($routes[3]->domain());
-    }
-}
+});

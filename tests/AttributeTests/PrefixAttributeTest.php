@@ -1,15 +1,8 @@
 <?php
 
-namespace Spatie\RouteAttributes\Tests\AttributeTests;
-
-use Spatie\RouteAttributes\Tests\TestCase;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\PrefixTestController;
 
-class PrefixAttributeTest extends TestCase
-{
-    /** @test */
-    public function it_can_apply_a_prefix_on_the_url_of_every_method()
-    {
+it('can apply a prefix on the url of every method', function () {
         $this->routeRegistrar->registerClass(PrefixTestController::class);
 
         $this
@@ -30,5 +23,4 @@ class PrefixAttributeTest extends TestCase
                 httpMethods: 'post',
                 uri: 'my-prefix/my-post-method',
             );
-    }
-}
+});
