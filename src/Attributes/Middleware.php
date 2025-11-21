@@ -10,7 +10,7 @@ class Middleware implements RouteAttribute
 {
     public array $middleware = [];
 
-    public function __construct(string | array $middleware = [])
+    public function __construct(string|array $middleware = [])
     {
         $this->middleware = Arr::wrap($middleware);
     }

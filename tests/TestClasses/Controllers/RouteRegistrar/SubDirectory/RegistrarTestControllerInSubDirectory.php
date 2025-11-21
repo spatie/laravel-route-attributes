@@ -7,7 +7,5 @@ use Spatie\RouteAttributes\Attributes\Get;
 class RegistrarTestControllerInSubDirectory
 {
     #[Get('in-sub-directory')]
-    public function myMethod()
-    {
-    }
+    public function myMethod() {}
 }

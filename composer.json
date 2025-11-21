@@ -21,6 +21,7 @@
         "nesbot/carbon": "^2.63|^3.0"
     },
     "require-dev": {
+        "laravel/pint": "^1.25",
         "orchestra/testbench": "^9.0|^10.0",
         "pestphp/pest": "^3.0|^4.0",
         "pestphp/pest-plugin-laravel": "^3.0|^4.0"
@@ -39,7 +40,8 @@
     "scripts": {
         "psalm": "vendor/bin/psalm",
         "test": "vendor/bin/pest --colors=always",
-        "test-coverage": "vendor/bin/pest --coverage-html coverage"
+        "test-coverage": "vendor/bin/pest --coverage-html coverage",
+        "format": "vendor/bin/pint"
     },
     "config": {
         "sort-packages": true

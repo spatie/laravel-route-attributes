@@ -11,11 +11,7 @@ use Spatie\RouteAttributes\Tests\TestClasses\Middleware\TestMiddleware;
 #[Resource('posts', only: ['index', 'show'])]
 class ResourceTestMiddlewareController
 {
-    public function index()
-    {
-    }
+    public function index() {}
 
-    public function show($id)
-    {
-    }
+    public function show($id) {}
 }

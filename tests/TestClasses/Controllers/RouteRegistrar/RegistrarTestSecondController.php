@@ -7,7 +7,5 @@ use Spatie\RouteAttributes\Attributes\Get;
 class RegistrarTestSecondController
 {
     #[Get('second-method')]
-    public function myMethod()
-    {
-    }
+    public function myMethod() {}
 }

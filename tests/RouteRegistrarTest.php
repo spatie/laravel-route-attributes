@@ -57,11 +57,11 @@ it('can register a whole directory', function () {
 });
 
 it('can register a directory with defined namespace', function () {
-    require_once(__DIR__ . '/ThirdPartyTestClasses/Controllers/ThirdPartyController.php');
+    require_once __DIR__.'/ThirdPartyTestClasses/Controllers/ThirdPartyController.php';
     $this->routeRegistrar
-        ->useBasePath($this->getTestPath('ThirdPartyTestClasses' . DIRECTORY_SEPARATOR . 'Controllers'))
+        ->useBasePath($this->getTestPath('ThirdPartyTestClasses'.DIRECTORY_SEPARATOR.'Controllers'))
         ->useRootNamespace('ThirdParty\Http\Controllers\\')
-        ->registerDirectory($this->getTestPath('ThirdPartyTestClasses' . DIRECTORY_SEPARATOR . 'Controllers'));
+        ->registerDirectory($this->getTestPath('ThirdPartyTestClasses'.DIRECTORY_SEPARATOR.'Controllers'));
 
     $this->expectRegisteredRoutesCount(1);
     $this->expectRouteRegistered(

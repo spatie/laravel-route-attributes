@@ -9,13 +9,9 @@ use Spatie\RouteAttributes\Attributes\ScopeBindings;
 class BindingScoping1TestController
 {
     #[Route('get', 'implicit/{scoped}/{binding}')]
-    public function implicitlyEnabledScopedBinding()
-    {
-    }
+    public function implicitlyEnabledScopedBinding() {}
 
     #[Route('get', 'explicitly-disabled/{scoped}/{binding}')]
     #[ScopeBindings(false)]
-    public function explicitlyDisabledScopedBinding()
-    {
-    }
+    public function explicitlyDisabledScopedBinding() {}
 }

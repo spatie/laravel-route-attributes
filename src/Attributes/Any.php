@@ -11,8 +11,8 @@ class Any extends Route
     public function __construct(
         string $uri,
         ?string $name = null,
-        array | string $middleware = [],
-        array | string $withoutMiddleware = [],
+        array|string $middleware = [],
+        array|string $withoutMiddleware = [],
     ) {
         parent::__construct(
             methods: Router::$verbs,

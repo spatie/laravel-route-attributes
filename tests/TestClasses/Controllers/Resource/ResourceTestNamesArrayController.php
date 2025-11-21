@@ -7,11 +7,7 @@ use Spatie\RouteAttributes\Attributes\Resource;
 #[Resource('posts', only: ['index', 'show'], names: ['index' => 'posts.list', 'show' => 'posts.view'])]
 class ResourceTestNamesArrayController
 {
-    public function index()
-    {
-    }
+    public function index() {}
 
-    public function show($id)
-    {
-    }
+    public function show($id) {}
 }

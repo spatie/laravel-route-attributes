@@ -7,7 +7,5 @@ use Spatie\RouteAttributes\Attributes\Post;
 class PostTestController
 {
     #[Post('my-post-method')]
-    public function myPostMethod()
-    {
-    }
+    public function myPostMethod() {}
 }

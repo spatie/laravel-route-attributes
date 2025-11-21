@@ -16,11 +16,11 @@ class Route implements RouteAttribute
     public array $withoutMiddleware;
 
     public function __construct(
-        array | string $methods,
+        array|string $methods,
         public string $uri,
         public ?string $name = null,
-        array | string $middleware = [],
-        array | string $withoutMiddleware = [],
+        array|string $middleware = [],
+        array|string $withoutMiddleware = [],
     ) {
         $this->methods = array_map(
             static fn (string $verb) => in_array(

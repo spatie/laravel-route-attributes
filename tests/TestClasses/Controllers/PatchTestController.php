@@ -7,7 +7,5 @@ use Spatie\RouteAttributes\Attributes\Patch;
 class PatchTestController
 {
     #[Patch('my-patch-method')]
-    public function myPatchMethod()
-    {
-    }
+    public function myPatchMethod() {}
 }

@@ -7,7 +7,5 @@ use Attribute;
 #[Attribute(Attribute::TARGET_METHOD)]
 class Fallback
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 }

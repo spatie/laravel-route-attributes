@@ -7,7 +7,5 @@ use Spatie\RouteAttributes\Attributes\Route;
 class InvokableRouteGetTestController
 {
     #[Route('get', 'my-invokable-route')]
-    public function __invoke()
-    {
-    }
+    public function __invoke() {}
 }

@@ -9,6 +9,5 @@ class DomainFromConfig implements RouteAttribute
 {
     public function __construct(
         public string $domain
-    ) {
-    }
+    ) {}
 }

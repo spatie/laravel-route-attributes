@@ -27,7 +27,7 @@ class ServiceProviderTest extends TestCase
 
         $app['config']->set('route-attributes.middleware', ['SomeMiddleware']);
         $app['config']->set('route-attributes.directories', [
-            __DIR__ . '/TestClasses/Controllers/Grouped' => [
+            __DIR__.'/TestClasses/Controllers/Grouped' => [
                 'prefix' => 'grouped',
                 'middleware' => 'api',
                 'namespace' => 'Spatie\RouteAttributes\Tests\TestClasses\Controllers\Grouped',

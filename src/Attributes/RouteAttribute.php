@@ -2,6 +2,4 @@
 
 namespace Spatie\RouteAttributes\Attributes;
 
-interface RouteAttribute
-{
-}
+interface RouteAttribute {}

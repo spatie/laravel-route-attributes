@@ -7,7 +7,5 @@ use Spatie\RouteAttributes\Attributes\Delete;
 class DeleteTestController
 {
     #[Delete('my-delete-method')]
-    public function myDeleteMethod()
-    {
-    }
+    public function myDeleteMethod() {}
 }

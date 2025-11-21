@@ -8,7 +8,5 @@ class OptionsMultipleTestController
 {
     #[Options('my-options-method')]
     #[Options('my-other-options-method')]
-    public function myOptionsMethod()
-    {
-    }
+    public function myOptionsMethod() {}
 }

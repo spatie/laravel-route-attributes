@@ -8,15 +8,9 @@ use Spatie\RouteAttributes\Attributes\Resource;
 #[Resource('posts', only: ['index', 'store', 'show'])]
 class ResourceTestOnlyController
 {
-    public function index()
-    {
-    }
+    public function index() {}
 
-    public function store(Request $request)
-    {
-    }
+    public function store(Request $request) {}
 
-    public function show($id)
-    {
-    }
+    public function show($id) {}
 }

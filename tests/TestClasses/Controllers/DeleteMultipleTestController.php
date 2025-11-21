@@ -8,7 +8,5 @@ class DeleteMultipleTestController
 {
     #[Delete('my-delete-method')]
     #[Delete('my-other-delete-method')]
-    public function myDeleteMethod()
-    {
-    }
+    public function myDeleteMethod() {}
 }

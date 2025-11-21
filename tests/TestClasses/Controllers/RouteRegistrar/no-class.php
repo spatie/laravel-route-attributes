@@ -1,5 +1,3 @@
 <?php
 
-function testFunctionThatShouldNotBeRegistered()
-{
-}
+function testFunctionThatShouldNotBeRegistered() {}

@@ -22,7 +22,7 @@ class TestCase extends Orchestra
 
     public function getTestPath(?string $directory = null): string
     {
-        return __DIR__ . ($directory ? DIRECTORY_SEPARATOR . $directory : '');
+        return __DIR__.($directory ? DIRECTORY_SEPARATOR.$directory : '');
     }
 
     public function expectRegisteredRoutesCount(int $expectedNumber): self
@@ -35,20 +35,20 @@ class TestCase extends Orchestra
     }
 
     public function expectRouteRegistered(
-        string       $controller,
-        string       $controllerMethod = 'myMethod',
+        string $controller,
+        string $controllerMethod = 'myMethod',
         string|array $httpMethods = ['get'],
-        string       $uri = 'my-method',
+        string $uri = 'my-method',
         string|array $middleware = [],
         string|array $withoutMiddleware = [],
-        ?string      $name = null,
-        ?string      $domain = null,
-        ?array       $wheres = [],
-        ?bool        $isFallback = false,
-        ?bool        $enforcesScopedBindings = false,
-        ?bool        $preventsScopedBindings = false,
-        ?array       $defaults = [],
-        ?bool        $withTrashed = false,
+        ?string $name = null,
+        ?string $domain = null,
+        ?array $wheres = [],
+        ?bool $isFallback = false,
+        ?bool $enforcesScopedBindings = false,
+        ?bool $preventsScopedBindings = false,
+        ?array $defaults = [],
+        ?bool $withTrashed = false,
     ): self {
         if (! is_array($middleware)) {
             $middleware = Arr::wrap($middleware);

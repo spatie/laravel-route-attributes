@@ -7,7 +7,5 @@ use Spatie\RouteAttributes\Attributes\Put;
 class PutTestController
 {
     #[Put('my-put-method')]
-    public function myPutMethod()
-    {
-    }
+    public function myPutMethod() {}
 }

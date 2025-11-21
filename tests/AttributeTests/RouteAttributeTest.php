@@ -32,7 +32,7 @@ it('can register a multi-verb route using Route attribute', function () {
         ->expectRouteRegistered(
             RouteMultiVerbTestController::class,
             'myMultiVerbMethod',
-            ['get','post', 'delete'],
+            ['get', 'post', 'delete'],
             'my-multi-verb-method'
         );
 });

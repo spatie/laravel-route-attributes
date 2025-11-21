@@ -11,7 +11,5 @@ use Spatie\RouteAttributes\Attributes\Get;
 class Domain1TestController
 {
     #[Get('my-get-method')]
-    public function myGetMethod()
-    {
-    }
+    public function myGetMethod() {}
 }

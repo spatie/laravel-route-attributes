@@ -9,7 +9,5 @@ class FallbackTestController
 {
     #[Get('my-fallback-method')]
     #[Fallback]
-    public function myFallbackMethod()
-    {
-    }
+    public function myFallbackMethod() {}
 }

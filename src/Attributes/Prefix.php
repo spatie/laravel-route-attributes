@@ -9,6 +9,5 @@ class Prefix implements RouteAttribute
 {
     public function __construct(
         public string $prefix
-    ) {
-    }
+    ) {}
 }

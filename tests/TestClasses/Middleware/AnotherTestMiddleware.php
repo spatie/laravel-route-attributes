@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Spatie\RouteAttributes\Tests\TestClasses\Middleware;
 
 use Closure;

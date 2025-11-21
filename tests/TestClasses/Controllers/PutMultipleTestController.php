@@ -8,7 +8,5 @@ class PutMultipleTestController
 {
     #[Put('my-put-method')]
     #[Put('my-other-put-method')]
-    public function myPutMethod()
-    {
-    }
+    public function myPutMethod() {}
 }

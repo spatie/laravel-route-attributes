@@ -16,22 +16,16 @@ use Spatie\RouteAttributes\Attributes\WhereUuid;
 class WhereTestController
 {
     #[Get('my-get-method/{param}')]
-    public function myGetMethod()
-    {
-    }
+    public function myGetMethod() {}
 
     #[Post('my-post-method/{param}/{param2}')]
     #[Where('param2', '[a-zA-Z]+')]
-    public function myPostMethod()
-    {
-    }
+    public function myPostMethod() {}
 
     #[Get('my-where-method/{param}/{param2}/{param3}')]
     #[Where('param2', '[a-zA-Z]+')]
     #[Where('param3', 'test')]
-    public function myWhereMethod()
-    {
-    }
+    public function myWhereMethod() {}
 
     #[Get('my-shorthands')]
     #[WhereAlpha('alpha')]
@@ -40,7 +34,5 @@ class WhereTestController
     #[WhereNumber('number')]
     #[WhereUlid('ulid')]
     #[WhereUuid('uuid')]
-    public function myShorthands()
-    {
-    }
+    public function myShorthands() {}
 }

@@ -6,7 +6,6 @@ use Spatie\RouteAttributes\Tests\TestClasses\Middleware\SkippedMiddleware;
 it('can skip middleware added to class', function () {
     $this->routeRegistrar->registerClass(WithoutMiddlewareTestController::class);
 
-
     $this
         ->expectRegisteredRoutesCount(1)
         ->expectRouteRegistered(

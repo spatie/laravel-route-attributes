@@ -7,7 +7,5 @@ use Spatie\RouteAttributes\Attributes\Get;
 class GetTestController
 {
     #[Get('my-get-method')]
-    public function myGetMethod()
-    {
-    }
+    public function myGetMethod() {}
 }

@@ -8,12 +8,8 @@ use Spatie\RouteAttributes\Attributes\Post;
 class GroupTestController
 {
     #[Get('my-get-method', middleware: ['test'])]
-    public function myGetMethod()
-    {
-    }
+    public function myGetMethod() {}
 
     #[Post('my-post-method')]
-    public function myPostMethod()
-    {
-    }
+    public function myPostMethod() {}
 }

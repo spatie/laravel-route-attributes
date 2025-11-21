@@ -11,12 +11,8 @@ use Spatie\RouteAttributes\Tests\TestClasses\Middleware\TestMiddleware;
 class MiddlewareTestController
 {
     #[Route('get', 'single-middleware')]
-    public function singleMiddleware()
-    {
-    }
+    public function singleMiddleware() {}
 
     #[Route('get', 'multiple-middleware', middleware: OtherTestMiddleware::class)]
-    public function multipleMiddleware()
-    {
-    }
+    public function multipleMiddleware() {}
 }

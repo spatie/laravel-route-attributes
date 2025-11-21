@@ -7,7 +7,5 @@ use Spatie\RouteAttributes\Attributes\Options;
 class OptionsTestController
 {
     #[Options('my-options-method')]
-    public function myOptionsMethod()
-    {
-    }
+    public function myOptionsMethod() {}
 }

@@ -12,6 +12,5 @@ class Group implements RouteAttribute
         public ?string $domain = null,
         public ?string $as = null,
         public ?array $where = [],
-    ) {
-    }
+    ) {}
 }

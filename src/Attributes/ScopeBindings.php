@@ -9,6 +9,5 @@ class ScopeBindings implements RouteAttribute
 {
     public function __construct(
         public bool $scopeBindings = true
-    ) {
-    }
+    ) {}
 }

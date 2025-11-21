@@ -8,7 +8,5 @@ use Spatie\RouteAttributes\Tests\TestClasses\Middleware\SkippedMiddleware;
 class WithoutMiddlewareTestController
 {
     #[Route('get', 'without-middleware', withoutMiddleware: SkippedMiddleware::class)]
-    public function withoutMiddleware()
-    {
-    }
+    public function withoutMiddleware() {}
 }

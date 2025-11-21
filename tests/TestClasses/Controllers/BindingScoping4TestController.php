@@ -11,15 +11,9 @@ use Spatie\RouteAttributes\Attributes\ScopeBindings;
 final class BindingScoping4TestController
 {
     #[Get('default-scoping')]
-    public function index()
-    {
-
-    }
+    public function index() {}
 
     #[ScopeBindings(false)]
     #[Post('explicitly-disabled-scoping')]
-    public function store()
-    {
-
-    }
+    public function store() {}
 }

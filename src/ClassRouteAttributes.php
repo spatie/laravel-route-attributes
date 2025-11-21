@@ -19,8 +19,7 @@ class ClassRouteAttributes
 {
     public function __construct(
         private ReflectionClass $class
-    ) {
-    }
+    ) {}
 
     /**
      * @psalm-suppress NoInterfaceProperties
@@ -95,7 +94,7 @@ class ClassRouteAttributes
      */
     public function resource(): ?string
     {
-        /** @var Resource $attribute */
+        /** @var resource $attribute */
         if (! $attribute = $this->getAttribute(Resource::class)) {
             return null;
         }
@@ -106,9 +105,9 @@ class ClassRouteAttributes
     /**
      * @psalm-suppress NoInterfaceProperties
      */
-    public function parameters(): array | string | null
+    public function parameters(): array|string|null
     {
-        /** @var Resource $attribute */
+        /** @var resource $attribute */
         if (! $attribute = $this->getAttribute(Resource::class)) {
             return null;
         }
@@ -119,9 +118,9 @@ class ClassRouteAttributes
     /**
      * @psalm-suppress NoInterfaceProperties
      */
-    public function shallow(): bool | null
+    public function shallow(): ?bool
     {
-        /** @var Resource $attribute */
+        /** @var resource $attribute */
         if (! $attribute = $this->getAttribute(Resource::class)) {
             return null;
         }
@@ -134,7 +133,7 @@ class ClassRouteAttributes
      */
     public function apiResource(): ?string
     {
-        /** @var Resource $attribute */
+        /** @var resource $attribute */
         if (! $attribute = $this->getAttribute(Resource::class)) {
             return null;
         }
@@ -145,9 +144,9 @@ class ClassRouteAttributes
     /**
      * @psalm-suppress NoInterfaceProperties
      */
-    public function except(): string | array | null
+    public function except(): string|array|null
     {
-        /** @var Resource $attribute */
+        /** @var resource $attribute */
         if (! $attribute = $this->getAttribute(Resource::class)) {
             return null;
         }
@@ -158,9 +157,9 @@ class ClassRouteAttributes
     /**
      * @psalm-suppress NoInterfaceProperties
      */
-    public function only(): string | array | null
+    public function only(): string|array|null
     {
-        /** @var Resource $attribute */
+        /** @var resource $attribute */
         if (! $attribute = $this->getAttribute(Resource::class)) {
             return null;
         }
@@ -171,9 +170,9 @@ class ClassRouteAttributes
     /**
      * @psalm-suppress NoInterfaceProperties
      */
-    public function names(): string | array | null
+    public function names(): string|array|null
     {
-        /** @var Resource $attribute */
+        /** @var resource $attribute */
         if (! $attribute = $this->getAttribute(Resource::class)) {
             return null;
         }
@@ -240,7 +239,7 @@ class ClassRouteAttributes
     /**
      * @psalm-suppress NoInterfaceProperties
      */
-    public function withTrashed() : bool
+    public function withTrashed(): bool
     {
         /** @var ?WithTrashed $attribute */
         if (! $attribute = $this->getAttribute(WithTrashed::class)) {

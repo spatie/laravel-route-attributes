@@ -11,7 +11,7 @@ class RouteAttributesServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/route-attributes.php' => config_path('route-attributes.php'),
+                __DIR__.'/../config/route-attributes.php' => config_path('route-attributes.php'),
             ], 'config');
         }
 
@@ -20,7 +20,7 @@ class RouteAttributesServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/route-attributes.php', 'route-attributes');
+        $this->mergeConfigFrom(__DIR__.'/../config/route-attributes.php', 'route-attributes');
     }
 
     protected function registerRoutes(): void

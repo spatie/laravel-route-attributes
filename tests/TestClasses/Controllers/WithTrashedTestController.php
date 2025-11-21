@@ -10,18 +10,12 @@ class WithTrashedTestController
 {
     #[Get('with-trashed-test-method/{param}')]
     #[WithTrashed]
-    public function withTrashedRoute()
-    {
-    }
+    public function withTrashedRoute() {}
 
     #[Get('with-trashed-test-method-2/{param}')]
     #[WithTrashed(false)]
-    public function withoutTrashedRoute()
-    {
-    }
+    public function withoutTrashedRoute() {}
 
     #[Get('with-trashed-test-method-3/{param}')]
-    public function noWithTrashedAttributeRoute()
-    {
-    }
+    public function noWithTrashedAttributeRoute() {}
 }

@@ -8,7 +8,5 @@ class GetMultipleTestController
 {
     #[Get('my-get-method')]
     #[Get('my-other-get-method')]
-    public function myGetMethod()
-    {
-    }
+    public function myGetMethod() {}
 }

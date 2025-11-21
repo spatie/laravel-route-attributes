@@ -9,11 +9,7 @@ use Spatie\RouteAttributes\Attributes\Resource;
 #[Resource('posts', only: ['index', 'show'])]
 class ResourceTestDomainController
 {
-    public function index()
-    {
-    }
+    public function index() {}
 
-    public function show($id)
-    {
-    }
+    public function show($id) {}
 }

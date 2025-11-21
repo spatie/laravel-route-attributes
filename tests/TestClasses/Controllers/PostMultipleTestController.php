@@ -8,7 +8,5 @@ class PostMultipleTestController
 {
     #[Post('my-post-method')]
     #[Post('my-other-post-method')]
-    public function myPostMethod()
-    {
-    }
+    public function myPostMethod() {}
 }

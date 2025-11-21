@@ -11,12 +11,8 @@ use Spatie\RouteAttributes\Attributes\Post;
 class DomainOrderTestController
 {
     #[Get('my-get-method')]
-    public function myGetMethod()
-    {
-    }
+    public function myGetMethod() {}
 
     #[Post('my-post-method')]
-    public function myPostMethod()
-    {
-    }
+    public function myPostMethod() {}
 }

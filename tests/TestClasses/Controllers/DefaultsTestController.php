@@ -10,26 +10,18 @@ use Spatie\RouteAttributes\Attributes\Post;
 class DefaultsTestController
 {
     #[Get('my-get-method/{param?}')]
-    public function myGetMethod()
-    {
-    }
+    public function myGetMethod() {}
 
     #[Post('my-post-method/{param?}/{param2?}')]
     #[Defaults('param2', 'method-default')]
-    public function myPostMethod()
-    {
-    }
+    public function myPostMethod() {}
 
     #[Get('my-default-method/{param?}/{param2?}/{param3?}')]
     #[Defaults('param2', 'method-default-first')]
     #[Defaults('param3', 'method-default-second')]
-    public function myDefaultMethod()
-    {
-    }
+    public function myDefaultMethod() {}
 
     #[Get('my-override-method/{param?}')]
     #[Defaults('param', 'method-default')]
-    public function myOverrideMethod()
-    {
-    }
+    public function myOverrideMethod() {}
 }
