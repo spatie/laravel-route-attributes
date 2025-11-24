@@ -109,7 +109,12 @@ class RouteRegistrar
     {
         $this->router->group(
             $item['group'],
-            fn () => $this->registerRoutes($item['class'], $item['classRouteAttributes'])
+            function () use ($item) {
+                $this->registerRoutes($item['class'], $item['classRouteAttributes']);
+                if ($item['classRouteAttributes']->resource()) {
+                    $this->registerResource($item['class'], $item['classRouteAttributes']);
+                }
+            }
         );
     }
 
