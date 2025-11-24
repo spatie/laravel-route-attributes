@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.26.1 - 2025-11-24
+
+### What's Changed
+
+* Fix: Missing resource controller defined by groups by @nivseb in https://github.com/spatie/laravel-route-attributes/pull/173
+
+### New Contributors
+
+* @nivseb made their first contribution in https://github.com/spatie/laravel-route-attributes/pull/173
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.26.0...1.26.1
+
 ## 1.26.0 - 2025-11-21
 
 ### What's Changed
