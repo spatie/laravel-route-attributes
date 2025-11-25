@@ -2,7 +2,6 @@
 
 namespace Spatie\RouteAttributes\Tests;
 
-use Spatie\RouteAttributes\Attributes\Route;
 use Spatie\RouteAttributes\RouteAttributesServiceProvider;
 use Spatie\RouteAttributes\RouteRegistrar;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Grouped\GroupPrefixTestController;
