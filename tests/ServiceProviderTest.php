@@ -4,7 +4,9 @@ namespace Spatie\RouteAttributes\Tests;
 
 use Spatie\RouteAttributes\RouteAttributesServiceProvider;
 use Spatie\RouteAttributes\RouteRegistrar;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Grouped\GroupPrefixTestController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Grouped\GroupResourceTestController;
+use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Grouped\GroupResourceTestPrefixController;
 use Spatie\RouteAttributes\Tests\TestClasses\Controllers\Grouped\GroupTestController;
 
 class ServiceProviderTest extends TestCase
@@ -38,7 +40,7 @@ class ServiceProviderTest extends TestCase
 
     public function test_the_provider_can_register_group_of_directories(): void
     {
-        $this->expectRegisteredRoutesCount(7);
+        $this->expectRegisteredRoutesCount(11);
 
         $this->expectRouteRegistered(
             GroupTestController::class,
@@ -60,7 +62,7 @@ class ServiceProviderTest extends TestCase
             controllerMethod: 'index',
             httpMethods: 'get',
             uri: 'grouped/posts',
-            middleware: ['api'],
+            middleware: ['SomeMiddleware', 'api'],
             name: 'posts.index'
         );
 
@@ -69,7 +71,7 @@ class ServiceProviderTest extends TestCase
             controllerMethod: 'store',
             httpMethods: 'post',
             uri: 'grouped/posts',
-            middleware: ['api'],
+            middleware: ['SomeMiddleware', 'api'],
             name: 'posts.store'
         );
 
@@ -78,7 +80,7 @@ class ServiceProviderTest extends TestCase
             controllerMethod: 'show',
             httpMethods: 'get',
             uri: 'grouped/posts/{post}',
-            middleware: ['api'],
+            middleware: ['SomeMiddleware', 'api'],
             name: 'posts.show'
         );
 
@@ -87,7 +89,7 @@ class ServiceProviderTest extends TestCase
             controllerMethod: 'update',
             httpMethods: 'put',
             uri: 'grouped/posts/{post}',
-            middleware: ['api'],
+            middleware: ['SomeMiddleware', 'api'],
             name: 'posts.update'
         );
 
@@ -96,8 +98,42 @@ class ServiceProviderTest extends TestCase
             controllerMethod: 'destroy',
             httpMethods: 'delete',
             uri: 'grouped/posts/{post}',
-            middleware: ['api'],
+            middleware: ['SomeMiddleware', 'api'],
             name: 'posts.destroy'
+        );
+
+        $this->expectRouteRegistered(
+            GroupResourceTestPrefixController::class,
+            controllerMethod: 'index',
+            httpMethods: 'get',
+            uri: 'grouped/api/v1/my-prefix/etc/posts',
+            middleware: ['SomeMiddleware', 'api'],
+            name: 'prefixed_posts.index'
+        );
+
+        $this->expectRouteRegistered(
+            GroupResourceTestPrefixController::class,
+            controllerMethod: 'show',
+            httpMethods: 'get',
+            uri: 'grouped/api/v1/my-prefix/etc/posts/{post}',
+            middleware: ['SomeMiddleware', 'api'],
+            name: 'prefixed_posts.show'
+        );
+
+        $this->expectRouteRegistered(
+            GroupPrefixTestController::class,
+            controllerMethod: 'myGetMethod',
+            httpMethods: 'get',
+            uri: 'grouped/my-prefix/my-prefix-get-method',
+            middleware: ['SomeMiddleware', 'api'],
+        );
+
+        $this->expectRouteRegistered(
+            GroupPrefixTestController::class,
+            controllerMethod: 'myPostMethod',
+            httpMethods: 'post',
+            uri: 'grouped/my-prefix/my-prefix-post-method',
+            middleware: ['SomeMiddleware', 'api'],
         );
     }
 }
