@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.26.2 - 2025-11-25
+
+### What's Changed
+
+* Prevent duplicated prefix on grouped resource routes by @nivseb in https://github.com/spatie/laravel-route-attributes/pull/175
+* Bump actions/checkout from 5 to 6 by @dependabot[bot] in https://github.com/spatie/laravel-route-attributes/pull/174
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.26.1...1.26.2
+
 ## 1.26.1 - 2025-11-24
 
 ### What's Changed
