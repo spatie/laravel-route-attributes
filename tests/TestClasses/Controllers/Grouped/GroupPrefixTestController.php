@@ -10,12 +10,8 @@ use Spatie\RouteAttributes\Attributes\Prefix;
 class GroupPrefixTestController
 {
     #[Get('my-prefix-get-method')]
-    public function myGetMethod()
-    {
-    }
+    public function myGetMethod() {}
 
     #[Post('my-prefix-post-method')]
-    public function myPostMethod()
-    {
-    }
+    public function myPostMethod() {}
 }

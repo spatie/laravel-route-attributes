@@ -62,7 +62,7 @@ class ServiceProviderTest extends TestCase
             controllerMethod: 'index',
             httpMethods: 'get',
             uri: 'grouped/posts',
-            middleware: ['SomeMiddleware','api'],
+            middleware: ['SomeMiddleware', 'api'],
             name: 'posts.index'
         );
 
@@ -71,7 +71,7 @@ class ServiceProviderTest extends TestCase
             controllerMethod: 'store',
             httpMethods: 'post',
             uri: 'grouped/posts',
-            middleware: ['SomeMiddleware','api'],
+            middleware: ['SomeMiddleware', 'api'],
             name: 'posts.store'
         );
 
@@ -80,7 +80,7 @@ class ServiceProviderTest extends TestCase
             controllerMethod: 'show',
             httpMethods: 'get',
             uri: 'grouped/posts/{post}',
-            middleware: ['SomeMiddleware','api'],
+            middleware: ['SomeMiddleware', 'api'],
             name: 'posts.show'
         );
 
@@ -89,7 +89,7 @@ class ServiceProviderTest extends TestCase
             controllerMethod: 'update',
             httpMethods: 'put',
             uri: 'grouped/posts/{post}',
-            middleware: ['SomeMiddleware','api'],
+            middleware: ['SomeMiddleware', 'api'],
             name: 'posts.update'
         );
 
@@ -98,7 +98,7 @@ class ServiceProviderTest extends TestCase
             controllerMethod: 'destroy',
             httpMethods: 'delete',
             uri: 'grouped/posts/{post}',
-            middleware: ['SomeMiddleware','api'],
+            middleware: ['SomeMiddleware', 'api'],
             name: 'posts.destroy'
         );
 
@@ -107,7 +107,7 @@ class ServiceProviderTest extends TestCase
             controllerMethod: 'index',
             httpMethods: 'get',
             uri: 'grouped/api/v1/my-prefix/etc/posts',
-            middleware: ['SomeMiddleware','api'],
+            middleware: ['SomeMiddleware', 'api'],
             name: 'prefixed_posts.index'
         );
 
@@ -116,7 +116,7 @@ class ServiceProviderTest extends TestCase
             controllerMethod: 'show',
             httpMethods: 'get',
             uri: 'grouped/api/v1/my-prefix/etc/posts/{post}',
-            middleware: ['SomeMiddleware','api'],
+            middleware: ['SomeMiddleware', 'api'],
             name: 'prefixed_posts.show'
         );
 
@@ -125,7 +125,7 @@ class ServiceProviderTest extends TestCase
             controllerMethod: 'myGetMethod',
             httpMethods: 'get',
             uri: 'grouped/my-prefix/my-prefix-get-method',
-            middleware: ['SomeMiddleware','api'],
+            middleware: ['SomeMiddleware', 'api'],
         );
 
         $this->expectRouteRegistered(
@@ -133,7 +133,7 @@ class ServiceProviderTest extends TestCase
             controllerMethod: 'myPostMethod',
             httpMethods: 'post',
             uri: 'grouped/my-prefix/my-prefix-post-method',
-            middleware: ['SomeMiddleware','api'],
+            middleware: ['SomeMiddleware', 'api'],
         );
     }
 }
