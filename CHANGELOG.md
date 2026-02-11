@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.26.3 - 2026-02-11
+
+### What's Changed
+
+* Filter empty config values before passing to route group by @freekmurze in https://github.com/spatie/laravel-route-attributes/pull/179
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.26.2...1.26.3
+
 ## 1.26.2 - 2025-11-25
 
 ### What's Changed
