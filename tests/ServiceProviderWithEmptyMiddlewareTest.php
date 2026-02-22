@@ -36,7 +36,7 @@ class ServiceProviderWithEmptyMiddlewareTest extends TestCase
 
     public function test_empty_middleware_string_does_not_cause_binding_resolution_exception(): void
     {
-        $this->expectRegisteredRoutesCount(2);
+        $this->expectRegisteredRoutesCount(11);
 
         $this->expectRouteRegistered(
             GroupTestController::class,
