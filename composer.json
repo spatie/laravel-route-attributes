@@ -18,7 +18,8 @@
     "require": {
         "php": "^8.2",
         "illuminate/contracts": "^11.0|^12.0",
-        "nesbot/carbon": "^2.63|^3.0"
+        "nesbot/carbon": "^2.63|^3.0",
+        "spatie/php-attribute-reader": "^1.0"
     },
     "require-dev": {
         "laravel/pint": "^1.25",

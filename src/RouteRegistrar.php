@@ -6,8 +6,8 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use ReflectionAttribute;
 use ReflectionClass;
+use Spatie\Attributes\Attributes;
 use Spatie\RouteAttributes\Attributes\Defaults;
 use Spatie\RouteAttributes\Attributes\Fallback;
 use Spatie\RouteAttributes\Attributes\Route;
@@ -17,7 +17,6 @@ use Spatie\RouteAttributes\Attributes\WhereAttribute;
 use Spatie\RouteAttributes\Attributes\WithTrashed;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;
-use Throwable;
 
 class RouteRegistrar
 {
@@ -188,16 +187,13 @@ class RouteRegistrar
 
     protected function registerRoutes(ReflectionClass $class, ClassRouteAttributes $classRouteAttributes): void
     {
+        $className = $class->getName();
+
         foreach ($class->getMethods() as $method) {
-            [$attributes, $wheresAttributes, $defaultAttributes, $fallbackAttributes, $scopeBindingsAttribute, $withTrashedAttribute] = $this->getAttributesForTheMethod($method);
+            $methodName = $method->getName();
+            [$routeAttributes, $wheresAttributes, $defaultAttributes, $fallbackAttributes, $scopeBindingsAttribute, $withTrashedAttribute] = $this->getAttributesForTheMethod($className, $methodName);
 
-            foreach ($attributes as $attribute) {
-                try {
-                    $attributeClass = $attribute->newInstance();
-                } catch (Throwable) {
-                    continue;
-                }
-
+            foreach ($routeAttributes as $attributeClass) {
                 if (! $attributeClass instanceof Route) {
                     continue;
                 }
@@ -225,10 +221,10 @@ class RouteRegistrar
         }
     }
 
-    public function setScopeBindingsIfAvailable(?ReflectionAttribute $scopeBindingsAttribute, \Illuminate\Routing\Route $route, ClassRouteAttributes $classRouteAttributes): void
+    public function setScopeBindingsIfAvailable(?ScopeBindings $scopeBindingsAttribute, \Illuminate\Routing\Route $route, ClassRouteAttributes $classRouteAttributes): void
     {
         $scopeBindings = $scopeBindingsAttribute
-            ? $scopeBindingsAttribute->newInstance()->scopeBindings
+            ? $scopeBindingsAttribute->scopeBindings
             : $classRouteAttributes->scopeBindings();
 
         match ($scopeBindings) {
@@ -238,24 +234,23 @@ class RouteRegistrar
         };
     }
 
-    public function getAttributesForTheMethod(\ReflectionMethod $method): array
+    public function getAttributesForTheMethod(string $className, string $methodName): array
     {
-        $attributes = $method->getAttributes(RouteAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
-        $wheresAttributes = $method->getAttributes(WhereAttribute::class, ReflectionAttribute::IS_INSTANCEOF);
-        $defaultAttributes = $method->getAttributes(Defaults::class, ReflectionAttribute::IS_INSTANCEOF);
-        $fallbackAttributes = $method->getAttributes(Fallback::class, ReflectionAttribute::IS_INSTANCEOF);
-        $scopeBindingsAttribute = $method->getAttributes(ScopeBindings::class, ReflectionAttribute::IS_INSTANCEOF)[0] ?? null;
-        $withTrashedAttribute = $method->getAttributes(WithTrashed::class, ReflectionAttribute::IS_INSTANCEOF)[0] ?? null;
+        $routeAttributes = Attributes::getAllOnMethod($className, $methodName, RouteAttribute::class);
+        $wheresAttributes = Attributes::getAllOnMethod($className, $methodName, WhereAttribute::class);
+        $defaultAttributes = Attributes::getAllOnMethod($className, $methodName, Defaults::class);
+        $fallbackAttributes = Attributes::getAllOnMethod($className, $methodName, Fallback::class);
+        $scopeBindingsAttribute = Attributes::onMethod($className, $methodName, ScopeBindings::class);
+        $withTrashedAttribute = Attributes::onMethod($className, $methodName, WithTrashed::class);
 
-        return [$attributes, $wheresAttributes, $defaultAttributes, $fallbackAttributes, $scopeBindingsAttribute, $withTrashedAttribute];
+        return [$routeAttributes, $wheresAttributes, $defaultAttributes, $fallbackAttributes, $scopeBindingsAttribute, $withTrashedAttribute];
     }
 
-    public function setWheresIfAvailable(ClassRouteAttributes $classRouteAttributes, mixed $wheresAttributes, \Illuminate\Routing\Route $route): void
+    public function setWheresIfAvailable(ClassRouteAttributes $classRouteAttributes, array $wheresAttributes, \Illuminate\Routing\Route $route): void
     {
         $wheres = $classRouteAttributes->wheres();
         foreach ($wheresAttributes as $wheresAttribute) {
-            $wheresAttributeClass = $wheresAttribute->newInstance();
-            $wheres[$wheresAttributeClass->param] = $wheresAttributeClass->constraint;
+            $wheres[$wheresAttribute->param] = $wheresAttribute->constraint;
         }
         if (! empty($wheres)) {
             $route->setWheres($wheres);
@@ -283,27 +278,23 @@ class RouteRegistrar
         $route->withoutMiddleware($methodWithoutMiddleware);
     }
 
-    public function setDefaultsIfAvailable(ClassRouteAttributes $classRouteAttributes, mixed $defaultAttributes, \Illuminate\Routing\Route $route): void
+    public function setDefaultsIfAvailable(ClassRouteAttributes $classRouteAttributes, array $defaultAttributes, \Illuminate\Routing\Route $route): void
     {
         $defaults = $classRouteAttributes->defaults();
         foreach ($defaultAttributes as $defaultAttribute) {
-            $defaultAttributeClass = $defaultAttribute->newInstance();
-
-            $defaults[$defaultAttributeClass->key] = $defaultAttributeClass->value;
+            $defaults[$defaultAttribute->key] = $defaultAttribute->value;
         }
         if (! empty($defaults)) {
             $route->setDefaults($defaults);
         }
     }
 
-    public function setWithTrashedIfAvailable(ClassRouteAttributes $classRouteAttributes, ?ReflectionAttribute $withTrashedAttribute, \Illuminate\Routing\Route $route): void
+    public function setWithTrashedIfAvailable(ClassRouteAttributes $classRouteAttributes, ?WithTrashed $withTrashedAttribute, \Illuminate\Routing\Route $route): void
     {
         $withTrashed = $classRouteAttributes->withTrashed();
 
         if ($withTrashedAttribute !== null) {
-            /** @var WithTrashed $instance */
-            $instance = $withTrashedAttribute->newInstance();
-            $route->withTrashed($instance->withTrashed);
+            $route->withTrashed($withTrashedAttribute->withTrashed);
         } else {
             $route->withTrashed($withTrashed);
         }

@@ -3,6 +3,7 @@
 namespace Spatie\RouteAttributes;
 
 use ReflectionClass;
+use Spatie\Attributes\Attributes;
 use Spatie\RouteAttributes\Attributes\Defaults;
 use Spatie\RouteAttributes\Attributes\Domain;
 use Spatie\RouteAttributes\Attributes\DomainFromConfig;
@@ -17,9 +18,13 @@ use Spatie\RouteAttributes\Attributes\WithTrashed;
 
 class ClassRouteAttributes
 {
+    private string $className;
+
     public function __construct(
         private ReflectionClass $class
-    ) {}
+    ) {
+        $this->className = $class->getName();
+    }
 
     /**
      * @psalm-suppress NoInterfaceProperties
@@ -67,11 +72,9 @@ class ClassRouteAttributes
     {
         $groups = [];
 
-        /** @var ReflectionClass[] $attributes */
-        $attributes = $this->class->getAttributes(Group::class, \ReflectionAttribute::IS_INSTANCEOF);
-        if (count($attributes) > 0) {
-            foreach ($attributes as $attribute) {
-                $attributeClass = $attribute->newInstance();
+        $groupAttributes = Attributes::getAll($this->className, Group::class);
+        if (count($groupAttributes) > 0) {
+            foreach ($groupAttributes as $attributeClass) {
                 $groups[] = array_filter([
                     'domain' => $attributeClass->domain,
                     'prefix' => $attributeClass->prefix,
@@ -209,10 +212,7 @@ class ClassRouteAttributes
     public function wheres(): array
     {
         $wheres = [];
-        /** @var ReflectionClass[] $attributes */
-        $attributes = $this->class->getAttributes(Where::class, \ReflectionAttribute::IS_INSTANCEOF);
-        foreach ($attributes as $attribute) {
-            $attributeClass = $attribute->newInstance();
+        foreach (Attributes::getAll($this->className, Where::class) as $attributeClass) {
             $wheres[$attributeClass->param] = $attributeClass->constraint;
         }
 
@@ -225,11 +225,7 @@ class ClassRouteAttributes
     public function defaults(): array
     {
         $defaults = [];
-        /** @var ReflectionClass[] $attributes */
-        $attributes = $this->class->getAttributes(Defaults::class, \ReflectionAttribute::IS_INSTANCEOF);
-
-        foreach ($attributes as $attribute) {
-            $attributeClass = $attribute->newInstance();
+        foreach (Attributes::getAll($this->className, Defaults::class) as $attributeClass) {
             $defaults[$attributeClass->key] = $attributeClass->value;
         }
 
@@ -251,12 +247,6 @@ class ClassRouteAttributes
 
     protected function getAttribute(string $attributeClass): ?RouteAttribute
     {
-        $attributes = $this->class->getAttributes($attributeClass, \ReflectionAttribute::IS_INSTANCEOF);
-
-        if (! count($attributes)) {
-            return null;
-        }
-
-        return $attributes[0]->newInstance();
+        return Attributes::get($this->className, $attributeClass);
     }
 }
