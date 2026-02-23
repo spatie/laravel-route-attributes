@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.27.1 - 2026-02-23
+
+### What's Changed
+
+* Fix Middleware cannot target method error by @freekmurze in https://github.com/spatie/laravel-route-attributes/pull/182
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.27.0...1.27.1
+
 ## 1.27.0 - 2026-02-23
 
 ### What's Changed
