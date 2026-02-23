@@ -11,7 +11,6 @@ use Spatie\Attributes\Attributes;
 use Spatie\RouteAttributes\Attributes\Defaults;
 use Spatie\RouteAttributes\Attributes\Fallback;
 use Spatie\RouteAttributes\Attributes\Route;
-use Spatie\RouteAttributes\Attributes\RouteAttribute;
 use Spatie\RouteAttributes\Attributes\ScopeBindings;
 use Spatie\RouteAttributes\Attributes\WhereAttribute;
 use Spatie\RouteAttributes\Attributes\WithTrashed;
@@ -194,10 +193,6 @@ class RouteRegistrar
             [$routeAttributes, $wheresAttributes, $defaultAttributes, $fallbackAttributes, $scopeBindingsAttribute, $withTrashedAttribute] = $this->getAttributesForTheMethod($className, $methodName);
 
             foreach ($routeAttributes as $attributeClass) {
-                if (! $attributeClass instanceof Route) {
-                    continue;
-                }
-
                 [$httpMethods, $action] = $this->getHTTPMethodsAndAction($attributeClass, $method, $class);
 
                 $route = $this->router->addRoute($httpMethods, $attributeClass->uri, $action)->name($attributeClass->name);
@@ -236,7 +231,7 @@ class RouteRegistrar
 
     public function getAttributesForTheMethod(string $className, string $methodName): array
     {
-        $routeAttributes = Attributes::getAllOnMethod($className, $methodName, RouteAttribute::class);
+        $routeAttributes = Attributes::getAllOnMethod($className, $methodName, Route::class);
         $wheresAttributes = Attributes::getAllOnMethod($className, $methodName, WhereAttribute::class);
         $defaultAttributes = Attributes::getAllOnMethod($className, $methodName, Defaults::class);
         $fallbackAttributes = Attributes::getAllOnMethod($className, $methodName, Fallback::class);
