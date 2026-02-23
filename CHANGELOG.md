@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.27.0 - 2026-02-23
+
+### What's Changed
+
+* Use spatie/php-attribute-reader for attribute resolution in #180
+
+**Full Changelog**: https://github.com/spatie/laravel-route-attributes/compare/1.26.3...1.27.0
+
 ## 1.26.3 - 2026-02-11
 
 ### What's Changed
