@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-route-attributes` will be documented in this file
 
+## 1.28.0 - 2026-03-06
+
+### What's Changed
+
+- Laravel 13.x Compatibility
+
 ## 1.27.1 - 2026-02-23
 
 ### What's Changed
